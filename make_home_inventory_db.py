@@ -10,7 +10,7 @@ USER = "root"
 PASSWORD = "flPyog?nL4Ww"
 HOST = "127.0.0.1"
 PORT = "3306"
-DATABASE = "home_inventory"
+DATABASE = "home_inventory_db"
 
 
 
