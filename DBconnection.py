@@ -35,14 +35,32 @@ db = sqlalchemy.create_engine(
         query={"unix_socket": "/cloudsql/{}".format(cloud_sql_connection_name)},
     ),
     # ... Specify additional properties here.
+      pool_size=5,
+    # Temporarily exceeds the set pool_size if no connections are available.
+    max_overflow=2,
+    # The total number of concurrent connections for your application will be
+    # a total of pool_size and max_overflow.
+    # [END cloud_sql_mysql_sqlalchemy_limit]
+    # [START cloud_sql_mysql_sqlalchemy_backoff]
+    # SQLAlchemy automatically uses delays between failed connection attempts,
+    # but provides no arguments for configuration.
+    # [END cloud_sql_mysql_sqlalchemy_backoff]
+    # [START cloud_sql_mysql_sqlalchemy_timeout]
+    # 'pool_timeout' is the maximum number of seconds to wait when retrieving a
+    # new connection from the pool. After the specified amount of time, an
+    # exception will be thrown.
+    pool_timeout=30,  # 30 seconds
+    # [END cloud_sql_mysql_sqlalchemy_timeout]
+    # [START cloud_sql_mysql_sqlalchemy_lifetime]
+    # 'pool_recycle' is the maximum number of seconds a connection can persist.
+    # Connections that live longer than the specified amount of time will be
+    # reestablished
+    pool_recycle=1800,  # 30 minutes
+    # [END cloud_sql_mysql_sqlalchemy_lifetime]
+    # [END_EXCLUDE]
+
     # ...
 )
-
-
-
-
-
-  
 
 
 Base = declarative_base()
@@ -98,9 +116,9 @@ class Aisles(Base, DictMixIn):
     aisle = Column(VARCHAR(30))
 
 
-session=Session(engine)
+# session=Session(engine)
 
-user_data=session.query(aisles).all()
+# user_data=session.query(aisles).all()
 # user_data=session.query(Orders.order_id, Orders.order_number, Orders.order_hour_of_day, 
 #                         Orders.days_since_prior_order, Products.product_id, 
 #                         Products.product_name, Departments.department)\
@@ -109,7 +127,61 @@ user_data=session.query(aisles).all()
 #                             .filter(Order_products_prior.product_id==Products.product_id)\
 #                             .filter(Products.department_id==Departments.department_id)
 
-for row in user_data:
-     print(row)
+# for row in user_data:
+#      print(row)
 
 
+@app.route("/", methods=["GET"])
+def index():
+    votes = []
+    with db.connect() as conn:
+        # Execute the query and fetch all results
+        session=Session(conn)
+        
+        test_query=session.query(aisles).all()
+
+    return render_template(
+        "index.html", testquery=testquery
+    )
+
+
+# @app.route("/", methods=["POST"])
+# # def save_vote():
+# #     # Get the team and time the vote was cast.
+# #     team = request.form["team"]
+# #     time_cast = datetime.datetime.utcnow()
+# #     # Verify that the team is one of the allowed options
+# #     if team != "TABS" and team != "SPACES":
+# #         logger.warning(team)
+# #         return Response(response="Invalid team specified.", status=400)
+
+# #     # [START cloud_sql_mysql_sqlalchemy_connection]
+# #     # Preparing a statement before hand can help protect against injections.
+# #     stmt = sqlalchemy.text(
+# #         "INSERT INTO votes (time_cast, candidate)" " VALUES (:time_cast, :candidate)"
+# #     )
+# #     try:
+# #         # Using a with statement ensures that the connection is always released
+# #         # back into the pool at the end of statement (even if an error occurs)
+# #         with db.connect() as conn:
+# #             conn.execute(stmt, time_cast=time_cast, candidate=team)
+# #     except Exception as e:
+# #         # If something goes wrong, handle the error in this section. This might
+# #         # involve retrying or adjusting parameters depending on the situation.
+# #         # [START_EXCLUDE]
+# #         logger.exception(e)
+# #         return Response(
+# #             status=500,
+            
+# #         )
+# #         # [END_EXCLUDE]
+# #     # [END cloud_sql_mysql_sqlalchemy_connection]
+
+#     return Response(
+#         status=200,
+        
+#     )
+
+
+if __name__ == "__main__":
+    app.run(host="35.224.15.57", port=8080, debug=True)
