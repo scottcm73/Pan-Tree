@@ -1,45 +1,31 @@
-from flask import Flask, request, render_template, redirect, session, flash
+from flask import Flask, request, render_template, redirect
+from flask_bootstrap import flask_bootstrap
+from flask_wtf import Flaskform
+from wtf
 import datetime
 
 app = Flask(__name__)
 
 #place in a different file
 app.secret_key = 'myprecious'
+class LoginForm(Flaskform):
+    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+    remember = BooleanField('remember me')
 
-class DictMixIn:
-    def to_dict(self):
-        return {
-            column.name: getattr(self, column.name)
-            if not isinstance(getattr(self, column.name), datetime.datetime)
-            else getattr(self, column.name).isoformat()
-            for column in self.__table__.columns
-        }
-
+class RegisterForm(Flaskform):
+    email = StringField('email', validator=[InputRequired90, Email(message="Invalid Email"), Length=(max=50)])
+    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
 @app.route('/')
-def landing():
-    return render_template('index.html')
 
+@app.route('/index.html')
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    error = None
+@app.route('/home.html')
 
-    if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            error = 'we have an error'
-            
-        else:
-            session['logged_in'] = True 
-            flash('You were just logged in!')
-            return redirect('/')
-    return render_template('home.html', error = error)
+@app.route('/signup.html')
 
-@app.route('/logout')
-def logout():
-    flash('You were just logged out!')
-    session.pop('logged_in', None)
-    return redirect('/login')
-
+@app.route('/dashboard.html')
 
 app.run(debug=True)

@@ -4,12 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = "*"
 
 [packages]
 pymysql = "*"
 sqlalchemy = "*"
 pandas = "*"
 pprint = "*"
+flask = "*"
+flask-login = "*"
+black = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
