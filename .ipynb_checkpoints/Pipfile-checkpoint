@@ -14,7 +14,6 @@ flask = "*"
 ipykernel = "*"
 requests = "*"
 selenium = "*"
-bs4 = "*"
 
 [requires]
 python_version = "3.7"
