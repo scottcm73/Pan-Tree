@@ -2,20 +2,20 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 
-{% block title %} Login {% endblock %}
+{% block title %} Sign Up {% endblock %}
 
 {% block content %}
 
 <div class='container text-center'>
  
-  <form class='form-signin' method='POST' action='/login'>
+  <form class='form-signin' method='POST' action='/signup'>
     
     <h2 class='form-signin-heading'>Please Sign In</h2>
-      {{ form.hidden_tag() }}
+        {{ form.hidden_tag() }}
   
-      {{ wtf.form_field(form.username) }}
-      {{ wtf.form_field(form.password) }}
-      {{ wtf.form_field(form.remember) }} Remember Me
+        {{ wtf.form_field(form.username) }}
+        {{ wtf.form_field(form.email) }}
+        {{ wtf.form_field(form.password) }} 
     <button class='btn btn-lg btn-primary' type='submit'>Sign In</button>
   
   </form>

@@ -13,7 +13,8 @@ pandas = "*"
 pprint = "*"
 flask = "*"
 flask-login = "*"
-black = "*"
+flask-sqlalchemy = "*"
+flask-bootstrap = "*"
 
 [requires]
 python_version = "3.7"

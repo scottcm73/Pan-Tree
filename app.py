@@ -1,19 +1,21 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, render_template_string
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
-from app_config import username, password, server, database
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-#from wtf
 import datetime
+from app_config import username, password, server, database
+
 
 app = Flask(__name__)
 Bootstrap(app)
 
-db_uri = f"mysql://{username}:{password}@{server}/{database}"
+db_uri = f"mysql+mysqlconnector://{username}:{password}@{server}/{database}"
 app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+
+
 
 db = SQLAlchemy(app)
 
@@ -26,6 +28,10 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(80))
 
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
@@ -37,20 +43,36 @@ class RegisterForm(FlaskForm):
     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
 @app.route('/')
-def land():
-    return render_template('login.html')
+def home_page():
+    # String-based templates
+    return render_template('base.html')
+#@app.route('/index.html')
 
-@app.route('/index.html')
-
-@app.route('/login.html')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
 
-    return render_template('login.html', )
+    if form.validate_on_submit():
 
-@app.route('/signup.html')
+        user = User.query.filter_by(username=form.username.data).first()
+
+        if user:
+            if user.password == form.password.data:
+                return redirect('/dashboard')
+        
+
+    return render_template('login.html', form=form)
+
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = RegisterForm()
+
+    if form.validate_on_submit():
+        new_user = User(username=form.username.data, email=form.email.data, password=form.password.data)
+        db.session.add(new_user)
+        db.session.commit()
+        return '<h1>New user has been created</h1>'
+
 
     return render_template('signup.html', form=form)
 
