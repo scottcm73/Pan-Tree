@@ -14,7 +14,7 @@ db_uri = f"{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABAS
 
 app = Flask(__name__)
 
-app.secret_key = secret_key
+app.secret_key = secret
 app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 Bootstrap(app)
 db = SQLAlchemy(app)
