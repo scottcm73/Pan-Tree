@@ -6,14 +6,15 @@ from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-#from app_config import username, password, server, database
+from app_config import secret_key
 from testconfig import DIALECT, DRIVER, USERNAME, PASSWORD, DATABASE, HOSTNAME, PORT
 db_uri = f"{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}"
 
 
 
 app = Flask(__name__)
-app.secret_key = 'myprecious'
+
+secret = secret_key
 app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 Bootstrap(app)
 db = SQLAlchemy(app)
