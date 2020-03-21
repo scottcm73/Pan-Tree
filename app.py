@@ -13,10 +13,10 @@ from flask_login import (
     current_user,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
-from app_config import secret
-from testconfig import DIALECT, DRIVER, USERNAME, PASSWORD, DATABASE, HOSTNAME, PORT
+from app_config import secret, DIALECT, DRIVER, username, host, database, password
+#from testconfig import DIALECT, DRIVER, USERNAME, PASSWORD, DATABASE, HOSTNAME, PORT
 
-db_uri = f"{DIALECT}+{DRIVER}://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}"
+db_uri = f"{DIALECT}+{DRIVER}://{username}:{password}@{host}/{database}"
 
 
 app = Flask(__name__)
@@ -30,9 +30,6 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
 
 
 class User(UserMixin, db.Model):
@@ -63,6 +60,11 @@ class RegisterForm(FlaskForm):
     password = PasswordField(
         "password", validators=[InputRequired(), Length(min=8, max=80)]
     )
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route("/")
@@ -97,6 +99,7 @@ def signup():
             email=form.email.data,
             passw=hashed_password,
         )
+        db.create_all()
         db.session.add(new_user)
         db.session.commit()
         return "<h2>New user has been created, please <a href='/login'>log in</a>.</h2>"
