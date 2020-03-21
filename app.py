@@ -80,6 +80,13 @@ def signup():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', name=current_user.username)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return(redirect('/login'))
 
 app.run(debug=True)
