@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = "*"
 
 [packages]
 pymysql = "*"
@@ -16,5 +17,14 @@ requests = "*"
 selenium = "*"
 bs4 = "*"
 
+flask-login = "*"
+flask-sqlalchemy = "*"
+flask-bootstrap = "*"
+cryptography = "*"
+
+
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
