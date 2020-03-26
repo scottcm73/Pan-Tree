@@ -16,12 +16,11 @@ ipykernel = "*"
 requests = "*"
 selenium = "*"
 bs4 = "*"
-
 flask-login = "*"
 flask-sqlalchemy = "*"
 flask-bootstrap = "*"
 cryptography = "*"
-
+flask-wtf = "*"
 
 [requires]
 python_version = "3.7"
