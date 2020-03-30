@@ -109,7 +109,10 @@ def signup():
 
 
 @app.route("/dashboard")
+
 #@login_required
+# Temporarily taken out because I want to get to page without having to login.
+# I still have to type in /dashboard to ensure I get to the page.
 def dashboard():
     engine = create_engine(f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}") 
 
@@ -140,5 +143,6 @@ def logout():
     logout_user()
     return redirect("/login")
 
+if __name__ == "__main__":
+    app.run(debug=True, port=5001)
 
-app.run(debug=True)
