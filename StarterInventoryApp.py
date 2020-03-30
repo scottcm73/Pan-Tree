@@ -19,7 +19,7 @@ from app_config import USER, PASSWORD, HOST, PORT, DATABASE
 #I will send a username and password for each of you.
 from sqlalchemy.ext.declarative import as_declarative
 from collections import defaultdict
-
+import json
 
 
 
@@ -32,20 +32,32 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, primary_key=True)
     username = Column(String(20), unique=True)
     email = Column(String(30), unique=True)
     passw = Column(String(80))
 
-    
+class Departments(Base):
+    __tablename__ = "departments"
+    department_id = Column(BigInteger, primary_key=True)
+    department = Column(VARCHAR(30))
+
+
+class Aisles(Base):
+    __tablename__ = "aisles"
+    aisle_index = Column(BigInteger, primary_key=True)
+    aisle_id = Column(BigInteger)
+    aisle = Column(VARCHAR(30))   
 
 class Products(Base):
     __tablename__ = "products"
     product_id = Column(BigInteger, primary_key=True)
     product_name = Column(VARCHAR (120))
     aisle_id = Column(Integer)
-    department_id = Column(Integer)
+    department_id = Column(Integer, ForeignKey('departments.department_id'))
+
     price = Column(Float)
+
 
 class Orders(Base):
     __tablename__ = "orders"
@@ -58,45 +70,47 @@ class Orders(Base):
 class Order_products_prior(Base):
     __tablename__ = "order_products_prior"
     
-    order_id = Column(BigInteger)
-    product_id = Column(BigInteger)
+    order_id = Column(BigInteger, ForeignKey('orders.order_id'))
+    product_id = Column(BigInteger, ForeignKey('products.product_id'))
     num_of_product = Column(SmallInteger)
     opp_id = Column(BigInteger, primary_key=True)
-
-class Departments(Base):
-    __tablename__ = "departments"
-    dept_index = Column(BigInteger, primary_key=True)
-    department_id = Column(BigInteger)
-    department = Column(VARCHAR(30))
+    
 
 
-class Aisles(Base):
-    __tablename__ = "aisles"
-    aisle_index = Column(BigInteger, primary_key=True)
-    aisle_id = Column(BigInteger)
-    aisle = Column(VARCHAR(30))
 
 with engine.begin() as connection:
     session=Session(connection)
 
 
 # Never got this query to work...
-    user_data=session.query(Orders.order_id, 
-                        Orders.days_since_prior_order, Orders.order_date, Products.product_id, Products.price,
-                        Products.product_name, Departments.department)\
-                            .filter(Orders.user_id==5)\
-                            .filter(Orders.order_id==Order_products_prior.order_id)\
-                            .filter(Order_products_prior.product_id==Products.product_id)\
-                            .filter(Products.department_id==Departments.department_id).all()
- 
-   
-    t=""
-    for row in user_data:
-        t=t+str(row._asdict())
-
+    user_data=session.query(Orders, Order_products_prior, Products, Departments)\
+        .filter(Orders.order_id==Order_products_prior.order_id)\
+        .filter(Order_products_prior.product_id==Products.product_id)\
+        .filter(Products.department_id==Departments.department_id)\
+        .filter(Orders.user_id==5)
     
+    print(user_data)
 
-pprint(t)
+
+ 
+    x=0
+    data="{\"product_order\":["
+    for row in user_data:
+        data=data+str(row._asdict())+","
+        x=x+1
+    data=data.replace("'", "\"")
+    data = data[:-1] # Erases final comma
+    data = data + "]}"
+    print(x)
+    print(data)
+connection.close()
+
+
+with open('data.txt', 'w+') as file:
+    file.write(data)
+   
+
+
  
  
 
