@@ -34,7 +34,7 @@ login_manager.login_view = "login"
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(15), unique=True)
     email = db.Column(db.String(50), unique=True)
     passw = db.Column(db.String(80))
@@ -64,7 +64,7 @@ class RegisterForm(FlaskForm):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return int(User.query.get(user_id))
 
 
 @app.route("/")
