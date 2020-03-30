@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, func
 from sqlalchemy import inspect, desc
-from sqlalchemy import Column, Integer, String, BigInteger, VARCHAR, SmallInteger, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, BigInteger, VARCHAR, SmallInteger, ForeignKey, Float, text
 from sqlalchemy.ext.declarative import declarative_base
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
@@ -27,7 +27,12 @@ import json
 engine = create_engine(f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}") 
 Base = declarative_base()
 
+def row2dict(row):
+    d = {}
+    for column in row.__table__.columns:
+        d[column.name] = str(getattr(row, column.name))
 
+    return d
 
 
 class User(Base):
@@ -79,24 +84,23 @@ class Order_products_prior(Base):
 
 
 with engine.begin() as connection:
-    session=Session(connection)
+    rs = connection.execute ('Select * from order_products_prior opp\
+  LEFT JOIN orders o ON opp.order_id = o.order_id\
+  LEFT JOIN products p ON p.product_id = opp.product_id\
+  LEFT JOIN departments d ON d.department_id = p.department_id')
 
 
-# Never got this query to work...
-    user_data=session.query(Orders, Order_products_prior, Products, Departments)\
-        .filter(Orders.order_id==Order_products_prior.order_id)\
-        .filter(Order_products_prior.product_id==Products.product_id)\
-        .filter(Products.department_id==Departments.department_id)\
-        .filter(Orders.user_id==5)
-    
-    print(user_data)
+
 
 
  
     x=0
     data="{\"product_order\":["
-    for row in user_data:
-        data=data+str(row._asdict())+","
+
+    
+    for row in rs:
+
+        data=data+str(dict(row))+","
         x=x+1
     data=data.replace("'", "\"")
     data = data[:-1] # Erases final comma
@@ -105,7 +109,7 @@ with engine.begin() as connection:
     print(data)
 connection.close()
 
-
+#We don't actually use this file, I only made it so you have something to work with when you 
 with open('data.txt', 'w+') as file:
     file.write(data)
    
