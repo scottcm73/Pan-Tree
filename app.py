@@ -12,11 +12,12 @@ from flask_login import (
     logout_user,
     current_user,
 )
+from sqlalchemy import create_engine, func
 from werkzeug.security import generate_password_hash, check_password_hash
-from app_config import secret, DIALECT, DRIVER, username, host, database, password
+from app_config import USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER, secret
 #from testconfig import DIALECT, DRIVER, USERNAME, PASSWORD, DATABASE, HOSTNAME, PORT
 
-db_uri = f"{DIALECT}+{DRIVER}://{username}:{password}@{host}/{database}"
+db_uri = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}/{DATABASE}"
 
 
 app = Flask(__name__)
@@ -108,10 +109,33 @@ def signup():
 
 
 @app.route("/dashboard")
-@login_required
-def dashboard():
-    return render_template("dashboard.html", name=current_user.username)
 
+#@login_required
+# Temporarily taken out because I want to get to page without having to login.
+# I still have to type in /dashboard to ensure I get to the page.
+def dashboard():
+    engine = create_engine(f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}") 
+
+
+    with engine.begin() as connection:
+        rs = connection.execute ('Select * from order_products_prior opp\
+        LEFT JOIN orders o ON opp.order_id = o.order_id\
+        LEFT JOIN products p ON p.product_id = opp.product_id\
+        LEFT JOIN departments d ON d.department_id = p.department_id')
+        
+        x=0
+        #Ensures that it is a valid json with single root.
+        data="{\"product_order\":["
+        for row in rs:
+            data=data+str(dict(row))+","
+            x=x+1 # counts the rows returned
+        data=data.replace("'", "\"")
+        data = data[:-1] # Erases final comma
+        data = data + "]}"
+        print(data)
+    connection.close()
+    return render_template("dashboard.html", data=data)
+# need to pass name=current_user.username
 
 @app.route("/logout")
 @login_required
@@ -119,5 +143,6 @@ def logout():
     logout_user()
     return redirect("/login")
 
+if __name__ == "__main__":
+    app.run(debug=True, port=5001)
 
-app.run(debug=True)
