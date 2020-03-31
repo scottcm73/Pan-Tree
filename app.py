@@ -119,9 +119,10 @@ def dashboard():
 
     with engine.begin() as connection:
         rs = connection.execute ('Select * from order_products_prior opp\
-        LEFT JOIN orders o ON opp.order_id = o.order_id\
-        LEFT JOIN products p ON p.product_id = opp.product_id\
-        LEFT JOIN departments d ON d.department_id = p.department_id')
+            LEFT JOIN orders o ON opp.order_id = o.order_id\
+            LEFT JOIN products p ON p.product_id = opp.product_id\
+            LEFT JOIN departments d ON d.department_id = p.department_id\
+            WHERE o.user_id=5;')
         
         x=0
         #Ensures that it is a valid json with single root.
@@ -132,7 +133,7 @@ def dashboard():
         data=data.replace("'", "\"")
         data = data[:-1] # Erases final comma
         data = data + "]}"
-        print(data)
+
     connection.close()
     return render_template("dashboard.html", data=data)
 # need to pass name=current_user.username
