@@ -1,9 +1,5 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, jsonify, _app_ctx_stack
 from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
-from wtforms.validators import InputRequired, Email, Length
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
     LoginManager,
     UserMixin,
@@ -12,60 +8,50 @@ from flask_login import (
     logout_user,
     current_user,
 )
+from flask_cors import CORS
+from sqlalchemy import Column, Integer, String
 from sqlalchemy import create_engine, func
+from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
-from app_config import USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER, secret
-#from testconfig import DIALECT, DRIVER, USERNAME, PASSWORD, DATABASE, HOSTNAME, PORT
+from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
+from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
+from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products_prior
+import datetime
+from flask_sqlalchemy import SQLAlchemy
 
-db_uri = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}/{DATABASE}"
 
+db = SQLAlchemy()
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    db.init_app(app)
+    return app
+
+app = create_app()
+
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config["SQLALCHEMY_DATABASE_URI"] = SQALCHEMY_DATABASE_URL
 
 app.secret_key = secret
-app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 Bootstrap(app)
-db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+##addtitions to use simple SQLAlchemy
+CORS(app)
+app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
-
-
-
-class User(UserMixin, db.Model):
-    __tablename__ = "users"
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(15), unique=True)
-    email = db.Column(db.String(50), unique=True)
-    passw = db.Column(db.String(80))
-
-
-class LoginForm(FlaskForm):
-    username = StringField(
-        "username", validators=[InputRequired(), Length(min=4, max=15)]
-    )
-    password = PasswordField(
-        "password", validators=[InputRequired(), Length(min=8, max=80)]
-    )
-    remember = BooleanField("remember me")
-
-
-class RegisterForm(FlaskForm):
-    email = StringField(
-        "email", validators=[InputRequired(), Email(message="Invalid Email")]
-    )
-    username = StringField(
-        "username", validators=[InputRequired(), Length(min=4, max=15)]
-    )
-    password = PasswordField(
-        "password", validators=[InputRequired(), Length(min=8, max=80)]
-    )
-
-
+class User(Base, UserMixin, DictMixIn, db.Model,):
+    extend_existing=True
+    __tablename__ = "users" 
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(15), unique=True)
+    email = Column(String(50), unique=True)
+    passw = Column(String(80))
+    
 @login_manager.user_loader
-def load_user(user_id):
-    return int(User.query.get(user_id))
+def load_user(id):
+    return User.query.get(id)
 
 
 @app.route("/")
@@ -119,10 +105,9 @@ def dashboard():
 
     with engine.begin() as connection:
         rs = connection.execute ('Select * from order_products_prior opp\
-            LEFT JOIN orders o ON opp.order_id = o.order_id\
-            LEFT JOIN products p ON p.product_id = opp.product_id\
-            LEFT JOIN departments d ON d.department_id = p.department_id\
-            WHERE o.user_id=5;')
+        LEFT JOIN orders o ON opp.order_id = o.order_id\
+        LEFT JOIN products p ON p.product_id = opp.product_id\
+        LEFT JOIN departments d ON d.department_id = p.department_id')
         
         x=0
         #Ensures that it is a valid json with single root.
@@ -133,16 +118,36 @@ def dashboard():
         data=data.replace("'", "\"")
         data = data[:-1] # Erases final comma
         data = data + "]}"
-
+        #print(data)
     connection.close()
     return render_template("dashboard.html", data=data)
 # need to pass name=current_user.username
+
+@app.route('/order_data')
+def order_data():
+    query = app.session.query(Orders).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+@app.route('/order_data/<user>')
+def order_user_data(user):
+    query = app.session.query(Orders).filter(Orders.user_id == user).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect("/login")
+
+@app.teardown_appcontext
+def remove_session(*args, **kwargs):
+    app.session.remove()
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

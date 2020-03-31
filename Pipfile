@@ -3,9 +3,6 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-
-
-
 [packages]
 pymysql = "*"
 sqlalchemy = "*"
@@ -17,14 +14,13 @@ requests = "*"
 selenium = "*"
 bs4 = "*"
 flask-login = "*"
-flask-sqlalchemy = "*"
 flask-bootstrap = "*"
 cryptography = "*"
 flask-wtf = "*"
-
+flask-cors = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"
 
 [pipenv]
-
