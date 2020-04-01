@@ -42,23 +42,23 @@ class Orders(Base, DictMixIn):
 
 class Order_products_prior(Base, DictMixIn):
     __tablename__ = "order_products_prior"
-    index= Column(BigInteger, primary_key=True)
+    #index= Column(BigInteger)
+    opp_id = Column(BigInteger, primary_key=True )
     order_id = Column(BigInteger)
     product_id = Column(BigInteger)
-    add_to_cart_order = Column(Integer)
-    reordered = Column(SmallInteger)
+    num_of_product = Column(Integer)
+    # add_to_cart_order = Column(Integer)
+    # reordered = Column(SmallInteger)
 
 class Departments(Base, DictMixIn):
     __tablename__ = "departments"
-    index = Column(BigInteger, primary_key=True)
-    department_id = Column(BigInteger)
+    department_id = Column(BigInteger, primary_key=True)
     department = Column(VARCHAR(30))
 
 
 class Aisles(Base, DictMixIn):
     __tablename__ = "aisles"
-    index = Column(BigInteger, primary_key=True)
-    aisle_id = Column(BigInteger)
+    aisle_id = Column(BigInteger, primary_key=True)
     aisle = Column(VARCHAR(30))
 
 
