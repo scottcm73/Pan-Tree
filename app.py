@@ -37,6 +37,7 @@ Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+
 ##addtitions to use simple SQLAlchemy
 CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
@@ -123,6 +124,15 @@ def dashboard():
     return render_template("dashboard.html", data=data)
 # need to pass name=current_user.username
 
+
+@app.route('/product_data')
+def product_data():
+    query = app.session.query(Products).all()
+    
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+    
 @app.route('/order_data')
 def order_data():
     query = app.session.query(Orders).all()
@@ -130,14 +140,33 @@ def order_data():
     qqq = [q.to_dict() for q in query]
 
     return jsonify(qqq)
-
+  
 @app.route('/order_data/<user>')
 def order_user_data(user):
     query = app.session.query(Orders).filter(Orders.user_id == user).all()
 
+
     qqq = [q.to_dict() for q in query]
 
     return jsonify(qqq)
+
+@app.route("/department_data")
+def product_data():
+     query = app.session.query(Departments).all()
+
+     qqq = [q.to_dict() for q in query]
+
+     return jsonify(qqq)
+
+
+@app.route("/aisles_data")
+def product_data():
+    query = app.session.query(Aisles).all()
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+
 
 @app.route("/logout")
 @login_required
