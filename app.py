@@ -151,7 +151,7 @@ def order_user_data(user):
     return jsonify(qqq)
 
 @app.route("/department_data")
-def product_data():
+def department_data():
      query = app.session.query(Departments).all()
 
      qqq = [q.to_dict() for q in query]
@@ -160,7 +160,7 @@ def product_data():
 
 
 @app.route("/aisles_data")
-def product_data():
+def aisles_data():
     query = app.session.query(Aisles).all()
     qqq = [q.to_dict() for q in query]
 
