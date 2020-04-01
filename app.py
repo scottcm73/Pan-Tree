@@ -137,6 +137,31 @@ def dashboard():
     return render_template("dashboard.html", data=data)
 # need to pass name=current_user.username
 
+@app.route('/product_data')
+def product_data():
+    query = app.session.query(Products).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+@app.route("/department_data")
+def product_data():
+     query = app.session.query(Departments).all()
+
+     qqq = [q.to_dict() for q in query]
+
+     return jsonify(qqq)
+
+
+@app.route("/aisles_data")
+def product_data():
+    query = app.session.query(Aisles).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
 @app.route("/logout")
 @login_required
 def logout():
