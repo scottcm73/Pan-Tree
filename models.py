@@ -21,11 +21,12 @@ class DictMixIn:
 
 class Products(Base, DictMixIn):
     __tablename__ = "products"
-    index = Column(BigInteger, primary_key=True)
-    product_id = Column(BigInteger)
+    #index = Column(BigInteger, primary_key=True)
+    product_id = Column(BigInteger, primary_key=True)
     product_name = Column(VARCHAR (120))
     aisle_id = Column(Integer)
     department_id = Column(Integer)
+    price = Column(Integer)
 
 
 class Orders(Base, DictMixIn):
