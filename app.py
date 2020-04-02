@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, jsonify, _app_ctx_stack
+from flask import Flask, request, render_template,render_template_string, redirect, url_for, jsonify, _app_ctx_stack
 from flask_bootstrap import Bootstrap
 from flask_login import (
     LoginManager,
@@ -123,6 +123,45 @@ def dashboard():
     connection.close()
     return render_template("dashboard.html", data=data)
 # need to pass name=current_user.username
+
+
+# select 
+# 	o.user_id, 
+#     op.order_id,
+#     o.order_date, 
+#     op.num_of_product, 
+#     p.product_name, 
+#     p.price, d.department
+# from orders o
+# inner join order_products_prior as op
+# 	on o.order_id = op.order_id
+# inner join products as p
+# 	on op.product_id = p.product_id
+# inner join departments as d
+# 	on p.department_id = d.department_id;
+@app.route('/data')
+def data():
+    query = app.session.query(
+        Orders.user_id,
+        Order_products_prior.order_id,
+        Orders.order_date,
+        Order_products_prior.num_of_product,
+        Products.product_name,
+        Products.price,
+        Departments.department
+        ).join(
+            Order_products_prior, Orders.order_id == Order_products_prior.order_id
+        ).join(
+            Products, Order_products_prior.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).all()
+
+    qqq = [q._asdict() for q in query]
+
+    return jsonify(qqq)
+
+
 
 
 @app.route('/product_data')

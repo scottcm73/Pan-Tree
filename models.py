@@ -39,6 +39,7 @@ class Orders(Base, DictMixIn):
     order_dow = Column(BigInteger)
     #order_hour_of_day = Column(Integer)
     days_since_prior_order = Column(Integer)
+    order_date = Column(VARCHAR(12))
 
 class Order_products_prior(Base, DictMixIn):
     __tablename__ = "order_products_prior"
