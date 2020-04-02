@@ -150,6 +150,25 @@ def order_user_data(user):
 
     return jsonify(qqq)
 
+@app.route('/order_products_prior')
+def order_products_prior():
+    query = app.session.query(Order_products_prior).all()
+
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+@app.route('/order_products_prior/<order>')
+def order_products_prior_number(order):
+    query = app.session.query(Order_products_prior).filter(Order_products_prior.order_id == order).all()
+
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+
 @app.route("/department_data")
 def department_data():
      query = app.session.query(Departments).all()
