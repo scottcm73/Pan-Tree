@@ -125,20 +125,8 @@ def dashboard():
 # need to pass name=current_user.username
 
 
-# select 
-# 	o.user_id, 
-#     op.order_id,
-#     o.order_date, 
-#     op.num_of_product, 
-#     p.product_name, 
-#     p.price, d.department
-# from orders o
-# inner join order_products_prior as op
-# 	on o.order_id = op.order_id
-# inner join products as p
-# 	on op.product_id = p.product_id
-# inner join departments as d
-# 	on p.department_id = d.department_id;
+###routes the data properly joined 
+##displays correct data
 @app.route('/data')
 def data():
     query = app.session.query(
@@ -148,19 +136,50 @@ def data():
         Order_products_prior.num_of_product,
         Products.product_name,
         Products.price,
-        Departments.department
+        Departments.department,
+        Aisles.aisle
         ).join(
             Order_products_prior, Orders.order_id == Order_products_prior.order_id
         ).join(
             Products, Order_products_prior.product_id == Products.product_id
         ).join(
             Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
         ).all()
 
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
 
+
+
+@app.route('/data/<order_id>')
+def data_for_order(order_id):
+    query = app.session.query(
+        Orders.user_id,
+        Order_products_prior.order_id,
+        Orders.order_date,
+        Order_products_prior.num_of_product,
+        Products.product_name,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            Order_products_prior, Orders.order_id == Order_products_prior.order_id
+        ).join(
+            Products, Order_products_prior.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).filter(
+                Order_products_prior.order_id == order_id
+        ).all()
+
+    qqq = [q._asdict() for q in query]
+
+    return jsonify(qqq)
 
 
 
