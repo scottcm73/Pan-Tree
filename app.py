@@ -15,7 +15,7 @@ from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
-from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products_prior
+from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -42,13 +42,13 @@ login_manager.login_view = "login"
 CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
-class User(Base, UserMixin, DictMixIn, db.Model,):
-    extend_existing=True
-    __tablename__ = "users" 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    username = Column(String(15), unique=True)
-    email = Column(String(50), unique=True)
-    passw = Column(String(80))
+# class User(Base, UserMixin, DictMixIn, db.Model,):
+#     extend_existing=True
+#     __tablename__ = "users" 
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     username = Column(String(15), unique=True)
+#     email = Column(String(50), unique=True)
+#     passw = Column(String(80))
     
 @login_manager.user_loader
 def load_user(id):
@@ -97,31 +97,9 @@ def signup():
 
 @app.route("/dashboard")
 
-#@login_required
-# Temporarily taken out because I want to get to page without having to login.
-# I still have to type in /dashboard to ensure I get to the page.
+@login_required
 def dashboard():
-    engine = create_engine(f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}") 
-
-
-    with engine.begin() as connection:
-        rs = connection.execute ('Select * from order_products_prior opp\
-        LEFT JOIN orders o ON opp.order_id = o.order_id\
-        LEFT JOIN products p ON p.product_id = opp.product_id\
-        LEFT JOIN departments d ON d.department_id = p.department_id')
-        
-        x=0
-        #Ensures that it is a valid json with single root.
-        data="{\"product_order\":["
-        for row in rs:
-            data=data+str(dict(row))+","
-            x=x+1 # counts the rows returned
-        data=data.replace("'", "\"")
-        data = data[:-1] # Erases final comma
-        data = data + "]}"
-        #print(data)
-    connection.close()
-    return render_template("dashboard.html", data=data)
+    return render_template("dashboard.html")
 # need to pass name=current_user.username
 
 
@@ -131,17 +109,15 @@ def dashboard():
 def data():
     query = app.session.query(
         Orders.user_id,
-        Order_products_prior.order_id,
-        Orders.order_date,
-        Order_products_prior.num_of_product,
+        Order_products.order_id,
         Products.product_name,
         Products.price,
         Departments.department,
         Aisles.aisle
         ).join(
-            Order_products_prior, Orders.order_id == Order_products_prior.order_id
+            Order_products, Orders.order_id == Order_products.order_id
         ).join(
-            Products, Order_products_prior.product_id == Products.product_id
+            Products, Order_products.product_id == Products.product_id
         ).join(
             Departments, Products.department_id == Departments.department_id
         ).join(
@@ -158,23 +134,47 @@ def data():
 def data_for_order(order_id):
     query = app.session.query(
         Orders.user_id,
-        Order_products_prior.order_id,
-        Orders.order_date,
-        Order_products_prior.num_of_product,
+        Order_products.order_id,
         Products.product_name,
         Products.price,
         Departments.department,
         Aisles.aisle
         ).join(
-            Order_products_prior, Orders.order_id == Order_products_prior.order_id
+            Order_products, Orders.order_id == Order_products.order_id
         ).join(
-            Products, Order_products_prior.product_id == Products.product_id
+            Products, Order_products.product_id == Products.product_id
         ).join(
             Departments, Products.department_id == Departments.department_id
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
         ).filter(
-                Order_products_prior.order_id == order_id
+                Order_products.order_id == order_id
+        ).all()
+
+    qqq = [q._asdict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route('/data_user/<user_id>')
+def data_for_user(user_id):
+    query = app.session.query(
+        Orders.user_id,
+        Order_products.order_id,
+        Products.product_name,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            Order_products, Orders.order_id == Order_products.order_id
+        ).join(
+            Products, Order_products.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).filter(
+                Orders.user_id == user_id
         ).all()
 
     qqq = [q._asdict() for q in query]
