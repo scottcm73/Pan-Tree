@@ -16,7 +16,7 @@ cryptography = "*"
 flask-wtf = "*"
 flask-cors = "*"
 flask-sqlalchemy = "*"
-mysqlclient = "*"
+
 mysql-connector-python = "*"
 
 [requires]
