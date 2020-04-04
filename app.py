@@ -24,7 +24,7 @@ from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
-from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products
+from models import DictMixIn, Order_products_prior, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 
