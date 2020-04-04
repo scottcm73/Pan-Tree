@@ -22,10 +22,9 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy import create_engine, func
 from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
-from app_config import secret, HOST, PORT, DATABASE, DIALECT, DRIVER
-from memet_config import USER, PASSWORD
+from app_config import secret, HOST, PORT, DATABASE, DIALECT, DRIVER, USER, PASSWORD
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
-from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products
+from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products, Order_products_prior
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 
