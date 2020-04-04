@@ -1,9 +1,14 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import (
+    Flask,
+    request,
+    render_template,
+    render_template_string,
+    redirect,
+    url_for,
+    jsonify,
+    _app_ctx_stack,
+)
 from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
-from wtforms.validators import InputRequired, Email, Length
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
     LoginManager,
     UserMixin,
@@ -12,59 +17,53 @@ from flask_login import (
     logout_user,
     current_user,
 )
+from flask_cors import CORS
+from sqlalchemy import Column, Integer, String
+from sqlalchemy import create_engine, func
+from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
-from app_config import secret, DIALECT, DRIVER, username, host, database, password
-#from testconfig import DIALECT, DRIVER, USERNAME, PASSWORD, DATABASE, HOSTNAME, PORT
+from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
+from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
+from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products
+import datetime
+from flask_sqlalchemy import SQLAlchemy
 
-db_uri = f"{DIALECT}+{DRIVER}://{username}:{password}@{host}/{database}"
+
+db = SQLAlchemy()
 
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    db.init_app(app)
+    return app
+
+
+app = create_app()
+
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config["SQLALCHEMY_DATABASE_URI"] = SQALCHEMY_DATABASE_URL
 
 app.secret_key = secret
-app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 Bootstrap(app)
-db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
+##addtitions to use simple SQLAlchemy
+CORS(app)
+app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
-
-
-class User(UserMixin, db.Model):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(15), unique=True)
-    email = db.Column(db.String(50), unique=True)
-    passw = db.Column(db.String(80))
-
-
-class LoginForm(FlaskForm):
-    username = StringField(
-        "username", validators=[InputRequired(), Length(min=4, max=15)]
-    )
-    password = PasswordField(
-        "password", validators=[InputRequired(), Length(min=8, max=80)]
-    )
-    remember = BooleanField("remember me")
-
-
-class RegisterForm(FlaskForm):
-    email = StringField(
-        "email", validators=[InputRequired(), Email(message="Invalid Email")]
-    )
-    username = StringField(
-        "username", validators=[InputRequired(), Length(min=4, max=15)]
-    )
-    password = PasswordField(
-        "password", validators=[InputRequired(), Length(min=8, max=80)]
-    )
-
-
+# class User(Base, UserMixin, DictMixIn, db.Model,):
+#     extend_existing=True
+#     __tablename__ = "users" 
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     username = Column(String(15), unique=True)
+#     email = Column(String(50), unique=True)
+#     passw = Column(String(80))
+    
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+def load_user(id):
+    return User.query.get(id)
 
 
 @app.route("/")
@@ -95,9 +94,7 @@ def signup():
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method="sha256")
         new_user = User(
-            username=form.username.data,
-            email=form.email.data,
-            passw=hashed_password,
+            username=form.username.data, email=form.email.data, passw=hashed_password,
         )
         db.create_all()
         db.session.add(new_user)
@@ -108,9 +105,155 @@ def signup():
 
 
 @app.route("/dashboard")
+
 @login_required
 def dashboard():
-    return render_template("dashboard.html", name=current_user.username)
+    return render_template("dashboard.html")
+# need to pass name=current_user.username
+
+
+###routes the data properly joined
+##displays correct data
+@app.route("/data")
+def data():
+    query = app.session.query(
+        Orders.user_id,
+        Order_products.order_id,
+        Products.product_name,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            Order_products, Orders.order_id == Order_products.order_id
+        ).join(
+            Products, Order_products.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).all()
+
+    qqq = [q._asdict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route("/data/<order_id>")
+def data_for_order(order_id):
+    query = app.session.query(
+        Orders.user_id,
+        Order_products.order_id,
+        Products.product_name,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            Order_products, Orders.order_id == Order_products.order_id
+        ).join(
+            Products, Order_products.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).filter(
+                Order_products.order_id == order_id
+        ).all()
+
+    qqq = [q._asdict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route('/data_user/<user_id>')
+def data_for_user(user_id):
+    query = app.session.query(
+        Orders.user_id,
+        Order_products.order_id,
+        Products.product_name,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            Order_products, Orders.order_id == Order_products.order_id
+        ).join(
+            Products, Order_products.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).filter(
+                Orders.user_id == user_id
+        ).all()
+
+    qqq = [q._asdict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route("/product_data")
+def product_data():
+    query = app.session.query(Products).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route("/order_data")
+def order_data():
+    query = app.session.query(Orders).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route("/order_data/<user>")
+def order_user_data(user):
+    query = app.session.query(Orders).filter(Orders.user_id == user).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route("/order_products_prior")
+def order_products_prior():
+    query = app.session.query(Order_products_prior).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route("/order_products_prior/<order>")
+def order_products_prior_number(order):
+    query = (
+        app.session.query(Order_products_prior)
+        .filter(Order_products_prior.order_id == order)
+        .all()
+    )
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route("/department_data")
+def department_data():
+    query = app.session.query(Departments).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route("/aisles_data")
+def aisles_data():
+    query = app.session.query(Aisles).all()
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
 
 
 @app.route("/logout")
@@ -120,4 +263,10 @@ def logout():
     return redirect("/login")
 
 
-app.run(debug=True)
+@app.teardown_appcontext
+def remove_session(*args, **kwargs):
+    app.session.remove()
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5001)
