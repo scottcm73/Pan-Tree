@@ -3,8 +3,8 @@
 
 DIALECT = "mysql"
 DRIVER = "mysqlconnector"
-USER = 'datascm2_scott'
-PASSWORD =  'P2YVQfBy2NTbRDS5yzNUJ9AMpjnEy5JMqjHBS8GBtAwECEJWwRA774akHYmNVpKy'
+USER = 'datascm2_web'
+PASSWORD =  'kTTNMG82ujfQoWJ5M7mb614L0lSMvKmXf7Mim0s3hSoyJxyqLYdzBr6TZ025hzEp'
 HOST = '162.241.193.35'
 PORT='3306'
 DATABASE = 'datascm2_home_inventory_db'
