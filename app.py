@@ -22,9 +22,18 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy import create_engine, func
 from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
-from app_config import secret, HOST, PORT, DATABASE, DIALECT, DRIVER, USER, PASSWORD
+from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
-from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products, Order_products_prior
+from models import (
+    DictMixIn,
+    RegisterForm,
+    LoginForm,
+    Orders,
+    Products,
+    Departments,
+    Aisles,
+    Order_products_prior,
+)
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -53,14 +62,18 @@ login_manager.login_view = "login"
 CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
-# class User(Base, UserMixin, DictMixIn, db.Model,):
-#     extend_existing=True
-#     __tablename__ = "users" 
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     username = Column(String(15), unique=True)
-#     email = Column(String(50), unique=True)
-#     passw = Column(String(80))
-    
+
+class User(
+    Base, UserMixin, DictMixIn, db.Model,
+):
+    extend_existing = True
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(15), unique=True)
+    email = Column(String(50), unique=True)
+    passw = Column(String(80))
+
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
@@ -106,32 +119,63 @@ def signup():
 
 @app.route("/dashboard")
 
-@login_required
+# @login_required
+# Temporarily taken out because I want to get to page without having to login.
+# I still have to type in /dashboard to ensure I get to the page.
 def dashboard():
+
     return render_template("dashboard.html")
+
+
 # need to pass name=current_user.username
 
+
+# @login_required
+# Temporarily taken out because I want to get to page without having to login.
+# I still have to type in /dashboard to ensure I get to the page.
+@app.route("/dashboard-data")
+
+# @login_required
+# Temporarily taken out because I want to get to page without having to login.
+# I still have to type in /dashboard to ensure I get to the page.
+def dashboard_data():
+    engine = create_engine(
+        f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
+    )
+
+    with engine.begin() as connection:
+        rs = connection.execute(
+            "Select * from order_products op\
+            INNER JOIN aisles ON aisles.aisle_id = op.aisle_id and op.user_id = 5\
+            INNER JOIN departments d ON d.department_id = op.department_id;"
+        )
+
+    # don't need this with the With statement but I still use it.
+
+    connection.close()
+    return jsonify([dict(r) for r in rs])
 
 ###routes the data properly joined
 ##displays correct data
 @app.route("/data")
 def data():
-    query = app.session.query(
-        Orders.user_id,
-        Order_products.order_id,
-        Products.product_name,
-        Products.price,
-        Departments.department,
-        Aisles.aisle
-        ).join(
-            Order_products, Orders.order_id == Order_products.order_id
-        ).join(
-            Products, Order_products.product_id == Products.product_id
-        ).join(
-            Departments, Products.department_id == Departments.department_id
-        ).join(
-            Aisles, Products.aisle_id == Aisles.aisle_id
-        ).all()
+    query = (
+        app.session.query(
+            Orders.user_id,
+            Order_products_prior.order_id,
+            Orders.order_date,
+            Order_products_prior.num_of_product,
+            Products.product_name,
+            Products.price,
+            Departments.department,
+            Aisles.aisle,
+        )
+        .join(Order_products_prior, Orders.order_id == Order_products_prior.order_id)
+        .join(Products, Order_products_prior.product_id == Products.product_id)
+        .join(Departments, Products.department_id == Departments.department_id)
+        .join(Aisles, Products.aisle_id == Aisles.aisle_id)
+        .all()
+    )
 
     qqq = [q._asdict() for q in query]
 
@@ -140,50 +184,24 @@ def data():
 
 @app.route("/data/<order_id>")
 def data_for_order(order_id):
-    query = app.session.query(
-        Orders.user_id,
-        Order_products.order_id,
-        Products.product_name,
-        Products.price,
-        Departments.department,
-        Aisles.aisle
-        ).join(
-            Order_products, Orders.order_id == Order_products.order_id
-        ).join(
-            Products, Order_products.product_id == Products.product_id
-        ).join(
-            Departments, Products.department_id == Departments.department_id
-        ).join(
-            Aisles, Products.aisle_id == Aisles.aisle_id
-        ).filter(
-                Order_products.order_id == order_id
-        ).all()
-
-    qqq = [q._asdict() for q in query]
-
-    return jsonify(qqq)
-
-
-@app.route('/data_user/<user_id>')
-def data_for_user(user_id):
-    query = app.session.query(
-        Orders.user_id,
-        Order_products.order_id,
-        Products.product_name,
-        Products.price,
-        Departments.department,
-        Aisles.aisle
-        ).join(
-            Order_products, Orders.order_id == Order_products.order_id
-        ).join(
-            Products, Order_products.product_id == Products.product_id
-        ).join(
-            Departments, Products.department_id == Departments.department_id
-        ).join(
-            Aisles, Products.aisle_id == Aisles.aisle_id
-        ).filter(
-                Orders.user_id == user_id
-        ).all()
+    query = (
+        app.session.query(
+            Orders.user_id,
+            Order_products_prior.order_id,
+            Orders.order_date,
+            Order_products_prior.num_of_product,
+            Products.product_name,
+            Products.price,
+            Departments.department,
+            Aisles.aisle,
+        )
+        .join(Order_products_prior, Orders.order_id == Order_products_prior.order_id)
+        .join(Products, Order_products_prior.product_id == Products.product_id)
+        .join(Departments, Products.department_id == Departments.department_id)
+        .join(Aisles, Products.aisle_id == Aisles.aisle_id)
+        .filter(Order_products_prior.order_id == order_id)
+        .all()
+    )
 
     qqq = [q._asdict() for q in query]
 
