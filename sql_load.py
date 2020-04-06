@@ -91,7 +91,7 @@ USER = 'root'
 PASWORD = 
 HOST = 
 
-SQALCHEMY_DATABASE_URL = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}/local_database"
+SQALCHEMY_DATABASE_URL = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}/local_inventory"
 
 engine = create_engine(
     SQALCHEMY_DATABASE_URL, 

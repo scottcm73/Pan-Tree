@@ -22,8 +22,18 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy import create_engine, func
 from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
-from app_config import secret, HOST, PORT, DATABASE, DIALECT, DRIVER, USER, PASSWORD
+from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
+from models import (
+    DictMixIn,
+    RegisterForm,
+    LoginForm,
+    Orders,
+    Products,
+    Departments,
+    Aisles,
+    Order_products,
+)
 from models import DictMixIn, RegisterForm, LoginForm, Orders, T_Orders, Products, Departments, Aisles, Order_products
 import datetime
 from flask_sqlalchemy import SQLAlchemy
@@ -52,6 +62,7 @@ login_manager.login_view = "login"
 ##addtitions to use simple SQLAlchemy
 CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
+
 
 class User(Base, UserMixin, DictMixIn, db.Model,):
     extend_existing=True
@@ -105,14 +116,48 @@ def signup():
 
     return render_template("signup.html", form=form)
 
+@app.route('/inventory_table')
+def table():
+    return render_template('inventory_table.html')
 
+    
 @app.route("/dashboard")
 
-@login_required
+# @login_required
+# Temporarily taken out because I want to get to page without having to login.
+# I still have to type in /dashboard to ensure I get to the page.
 def dashboard():
+
     return render_template("dashboard.html")
+
+
 # need to pass name=current_user.username
 
+
+# @login_required
+# Temporarily taken out because I want to get to page without having to login.
+# I still have to type in /dashboard to ensure I get to the page.
+@app.route("/dashboard-data")
+
+# @login_required
+# Temporarily taken out because I want to get to page without having to login.
+# I still have to type in /dashboard to ensure I get to the page.
+def dashboard_data():
+    engine = create_engine(
+        f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
+    )
+
+    with engine.begin() as connection:
+        rs = connection.execute(
+            "Select * from order_products op\
+            INNER JOIN aisles ON aisles.aisle_id = op.aisle_id and op.user_id = 5\
+            INNER JOIN departments d ON d.department_id = op.department_id;"
+        )
+
+    # don't need this with the With statement but I still use it.
+
+    connection.close()
+    return jsonify([dict(r) for r in rs])
 
 ###routes the data properly joined
 ##displays correct data
@@ -136,7 +181,7 @@ def data():
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
         ).limit(100).all()
-    
+   
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
@@ -217,6 +262,14 @@ def order_data():
 @app.route("/order_data/<user>")
 def order_user_data(user):
     query = app.session.query(Orders).filter(Orders.user_id == user).all()
+
+    qqq = [q.to_dict() for q in query]
+
+    return jsonify(qqq)
+
+@app.route("/order_products")
+def order_products():
+    query = app.session.query(Order_products).all()
 
     qqq = [q.to_dict() for q in query]
 
