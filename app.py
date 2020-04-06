@@ -24,21 +24,7 @@ from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
-<<<<<<< HEAD
-from models import DictMixIn, Order_products_prior, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products
-from models import (
-    DictMixIn,
-    RegisterForm,
-    LoginForm,
-    Orders,
-    Products,
-    Departments,
-    Aisles,
-    Order_products_prior,
-)
-=======
 from models import DictMixIn, RegisterForm, LoginForm, Orders, T_Orders, Products, Departments, Aisles, Order_products
->>>>>>> 699cbd76d3c6e7f1c635464d5bb415f6b10dc7cb
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -67,27 +53,15 @@ login_manager.login_view = "login"
 CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
-<<<<<<< HEAD
-
-class User(
-    Base, UserMixin, DictMixIn, db.Model,
-):
-    extend_existing = True
-    __tablename__ = "users"
-=======
 class User(Base, UserMixin, DictMixIn, db.Model,):
     extend_existing=True
     __tablename__ = "users" 
->>>>>>> 699cbd76d3c6e7f1c635464d5bb415f6b10dc7cb
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(15), unique=True)
     email = Column(String(50), unique=True)
     passw = Column(String(80))
 
-<<<<<<< HEAD
-=======
 Base.metadata.create_all(engine)
->>>>>>> 699cbd76d3c6e7f1c635464d5bb415f6b10dc7cb
 
 @login_manager.user_loader
 def load_user(id):
@@ -174,26 +148,6 @@ def dashboard_data():
 ##displays correct data
 @app.route("/data")
 def data():
-<<<<<<< HEAD
-    query = (
-        app.session.query(
-            Orders.user_id,
-            Order_products_prior.order_id,
-            Orders.order_date,
-            Order_products_prior.num_of_product,
-            Products.product_name,
-            Products.price,
-            Departments.department,
-            Aisles.aisle,
-        )
-        .join(Order_products_prior, Orders.order_id == Order_products_prior.order_id)
-        .join(Products, Order_products_prior.product_id == Products.product_id)
-        .join(Departments, Products.department_id == Departments.department_id)
-        .join(Aisles, Products.aisle_id == Aisles.aisle_id)
-        .all()
-    )
-
-=======
     query = app.session.query(
         Orders.user_id,
         Orders.order_date,
@@ -213,7 +167,6 @@ def data():
             Aisles, Products.aisle_id == Aisles.aisle_id
         ).limit(100).all()
     
->>>>>>> 699cbd76d3c6e7f1c635464d5bb415f6b10dc7cb
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
@@ -221,26 +174,6 @@ def data():
 
 @app.route("/data/<order_id>")
 def data_for_order(order_id):
-<<<<<<< HEAD
-    query = (
-        app.session.query(
-            Orders.user_id,
-            Order_products_prior.order_id,
-            Orders.order_date,
-            Order_products_prior.num_of_product,
-            Products.product_name,
-            Products.price,
-            Departments.department,
-            Aisles.aisle,
-        )
-        .join(Order_products_prior, Orders.order_id == Order_products_prior.order_id)
-        .join(Products, Order_products_prior.product_id == Products.product_id)
-        .join(Departments, Products.department_id == Departments.department_id)
-        .join(Aisles, Products.aisle_id == Aisles.aisle_id)
-        .filter(Order_products_prior.order_id == order_id)
-        .all()
-    )
-=======
     query = app.session.query(
         Orders.user_id,
         Orders.order_date,
@@ -287,7 +220,6 @@ def data_for_user(user_id):
         ).filter(
             Orders.user_id == user_id
         ).limit(1000).all()
->>>>>>> 699cbd76d3c6e7f1c635464d5bb415f6b10dc7cb
 
     qqq = [q._asdict() for q in query]
 
