@@ -24,7 +24,7 @@ from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from app_config import secret, HOST, PORT, DATABASE, DIALECT, DRIVER, USER, PASSWORD
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
-from models import DictMixIn, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products, Order_products_prior
+from models import DictMixIn, RegisterForm, LoginForm, Orders, T_Orders, Products, Departments, Aisles, Order_products
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -120,8 +120,10 @@ def dashboard():
 def data():
     query = app.session.query(
         Orders.user_id,
+        Orders.order_date,
         Order_products.order_id,
         Products.product_name,
+        Order_products.quantity,
         Products.price,
         Departments.department,
         Aisles.aisle
@@ -133,7 +135,7 @@ def data():
             Departments, Products.department_id == Departments.department_id
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
-        ).all()
+        ).limit(100).all()
     
     qqq = [q._asdict() for q in query]
 
@@ -144,6 +146,7 @@ def data():
 def data_for_order(order_id):
     query = app.session.query(
         Orders.user_id,
+        Orders.order_date,
         Order_products.order_id,
         Products.product_name,
         Products.price,
@@ -170,7 +173,7 @@ def data_for_order(order_id):
 def data_for_user(user_id):
     query = app.session.query(
         Orders.user_id,
-        Orders.order_dow,
+        Orders.order_date,
         Order_products.order_id,
         Products.product_name,
         Products.price,
@@ -186,7 +189,7 @@ def data_for_user(user_id):
             Aisles, Products.aisle_id == Aisles.aisle_id
         ).filter(
             Orders.user_id == user_id
-        ).all()
+        ).limit(1000).all()
 
     qqq = [q._asdict() for q in query]
 
@@ -218,29 +221,6 @@ def order_user_data(user):
     qqq = [q.to_dict() for q in query]
 
     return jsonify(qqq)
-
-
-@app.route("/order_products_prior")
-def order_products_prior():
-    query = app.session.query(Order_products_prior).all()
-
-    qqq = [q.to_dict() for q in query]
-
-    return jsonify(qqq)
-
-
-@app.route("/order_products_prior/<order>")
-def order_products_prior_number(order):
-    query = (
-        app.session.query(Order_products_prior)
-        .filter(Order_products_prior.order_id == order)
-        .all()
-    )
-
-    qqq = [q.to_dict() for q in query]
-
-    return jsonify(qqq)
-
 
 @app.route("/department_data")
 def department_data():
