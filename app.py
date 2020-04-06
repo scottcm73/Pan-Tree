@@ -24,7 +24,6 @@ from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
-from models import DictMixIn, Order_products_prior, RegisterForm, LoginForm, Orders, Products, Departments, Aisles, Order_products
 from models import (
     DictMixIn,
     RegisterForm,
@@ -33,7 +32,7 @@ from models import (
     Products,
     Departments,
     Aisles,
-    Order_products_prior,
+    Order_products,
 )
 import datetime
 from flask_sqlalchemy import SQLAlchemy
@@ -117,7 +116,11 @@ def signup():
 
     return render_template("signup.html", form=form)
 
+@app.route('/inventory_table')
+def table():
+    return render_template('inventory_table.html')
 
+    
 @app.route("/dashboard")
 
 # @login_required
@@ -163,16 +166,16 @@ def data():
     query = (
         app.session.query(
             Orders.user_id,
-            Order_products_prior.order_id,
+            Order_products.order_id,
             Orders.order_date,
-            Order_products_prior.num_of_product,
+            Order_products.num_of_product,
             Products.product_name,
             Products.price,
             Departments.department,
             Aisles.aisle,
         )
-        .join(Order_products_prior, Orders.order_id == Order_products_prior.order_id)
-        .join(Products, Order_products_prior.product_id == Products.product_id)
+        .join(Order_products, Orders.order_id == Order_products.order_id)
+        .join(Products, Order_products.product_id == Products.product_id)
         .join(Departments, Products.department_id == Departments.department_id)
         .join(Aisles, Products.aisle_id == Aisles.aisle_id)
         .all()
@@ -188,19 +191,19 @@ def data_for_order(order_id):
     query = (
         app.session.query(
             Orders.user_id,
-            Order_products_prior.order_id,
-            Orders.order_date,
-            Order_products_prior.num_of_product,
+            Order_products.order_id,
+            Orders.order_dow,
+            Order_products.num_of_product,
             Products.product_name,
             Products.price,
             Departments.department,
             Aisles.aisle,
         )
-        .join(Order_products_prior, Orders.order_id == Order_products_prior.order_id)
-        .join(Products, Order_products_prior.product_id == Products.product_id)
+        .join(Order_products, Orders.order_id == Order_products.order_id)
+        .join(Products, Order_products.product_id == Products.product_id)
         .join(Departments, Products.department_id == Departments.department_id)
         .join(Aisles, Products.aisle_id == Aisles.aisle_id)
-        .filter(Order_products_prior.order_id == order_id)
+        .filter(Order_products.order_id == order_id)
         .all()
     )
 
@@ -236,9 +239,9 @@ def order_user_data(user):
     return jsonify(qqq)
 
 
-@app.route("/order_products_prior")
-def order_products_prior():
-    query = app.session.query(Order_products_prior).all()
+@app.route("/order_products")
+def order_products():
+    query = app.session.query(Order_products).all()
 
     qqq = [q.to_dict() for q in query]
 

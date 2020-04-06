@@ -45,16 +45,8 @@ class Order_products(Base, DictMixIn):
     __tablename__ = "order_products"
     order_id = Column(BigInteger, primary_key=True )
     product_id = Column(BigInteger)
-    num_of_product = Column(Integer)
     add_to_cart_order = Column(Integer)
     reordered = Column(SmallInteger)
-
-class Order_products_prior(Base, DictMixIn):
-    __tablename__ = "order_products_prior"
-    opp_id = Column(BigInteger, primary_key=True )
-    order_id = Column(BigInteger)
-    product_id = Column(BigInteger)
-    num_of_product = Column(Integer)
 
 
 class LoginForm(FlaskForm):

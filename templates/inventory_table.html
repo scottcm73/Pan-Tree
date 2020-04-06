@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 
 
-{{% block body %}}
+{% block body %}
 <div>
  <div id = 'table container' class = container>
-    <table>
-        <thead>
+    <table id='inventory_table'>
+        <thead id='table_header'>
         </thead>
-        
-        <tbody>
 
+        <tbody id='table_body'>
         </tbody>
     </table>
     
 </div>
-{{%endblock%}}
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js'></script>
+<script src='../static/js/make_table.js'></script>
+{% endblock %}
 

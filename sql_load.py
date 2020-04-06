@@ -28,13 +28,14 @@ from sqlalchemy import *
 #### make sure USER and PASSWORD agree with
 #### with your machines local host
 ####-----------------------
-DIALECT = 'pymysql'
-DRIVER = 'mysqlconnect'
+DIALECT = 'mysql'
+DRIVER = 'pymysql'
 PORT = '3306'
 USER = 'root'
-PASWORD = 
+PASSWORD = 'a1b2c3d4e5f6'
+HOST = '127.0.0.1'
 
-SQALCHEMY_DATABASE_URL = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}/local_database"
+SQALCHEMY_DATABASE_URL = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}/local_inventory"
 
 engine = create_engine(
     SQALCHEMY_DATABASE_URL, 
