@@ -138,7 +138,14 @@ class Orders(Base, DictMixIn):
     __tablename__ = "orders"
     order_id = Column(BigInteger, primary_key=True)
     user_id = Column(BigInteger)
-    order_dow = Column(BigInteger)
+    order_date = Column(BigInteger)
+    days_since_prior_order = Column(Integer)
+    
+class T_Orders(Base, DictMixIn):
+    __tablename__ = "t_orders"
+    order_id = Column(BigInteger, primary_key=True)
+    user_id = Column(BigInteger)
+    order_date = Column(BigInteger)
     days_since_prior_order = Column(Integer)
 
 class Order_products(Base, DictMixIn):
@@ -156,6 +163,16 @@ order_products_df.to_sql(name='order_products',
                          index=False,
                          chunksize=200
                         )
+order_df.to_sql(name='orders',
+                con=engine,
+                if_exists='replace',
+                index=False,
+                chunksize=200)
+truncated_orders.to_sql(name='t_orders',
+                con=engine,
+                if_exists='replace',
+                index=False,
+                chunksize=200)
 order_df.to_sql(name='orders',
                 con=engine,
                 if_exists='replace',

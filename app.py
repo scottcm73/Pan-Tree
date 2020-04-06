@@ -53,14 +53,16 @@ login_manager.login_view = "login"
 CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
-# class User(Base, UserMixin, DictMixIn, db.Model,):
-#     extend_existing=True
-#     __tablename__ = "users" 
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     username = Column(String(15), unique=True)
-#     email = Column(String(50), unique=True)
-#     passw = Column(String(80))
-    
+class User(Base, UserMixin, DictMixIn, db.Model,):
+    extend_existing=True
+    __tablename__ = "users" 
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(15), unique=True)
+    email = Column(String(50), unique=True)
+    passw = Column(String(80))
+
+Base.metadata.create_all(engine)
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
@@ -132,7 +134,7 @@ def data():
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
         ).all()
-
+    
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
@@ -168,6 +170,7 @@ def data_for_order(order_id):
 def data_for_user(user_id):
     query = app.session.query(
         Orders.user_id,
+        Orders.order_dow,
         Order_products.order_id,
         Products.product_name,
         Products.price,
@@ -182,7 +185,7 @@ def data_for_user(user_id):
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
         ).filter(
-                Orders.user_id == user_id
+            Orders.user_id == user_id
         ).all()
 
     qqq = [q._asdict() for q in query]
