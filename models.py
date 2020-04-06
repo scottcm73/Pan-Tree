@@ -56,6 +56,7 @@ class Order_products_prior(Base, DictMixIn):
     product_id = Column(BigInteger)
     num_of_product = Column(Integer)
 
+
 class LoginForm(FlaskForm):
     username = StringField(
         "username", validators=[InputRequired(), Length(min=4, max=15)]
