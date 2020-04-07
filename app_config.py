@@ -1,5 +1,4 @@
 
-#Change this to your info...
 
 DIALECT = "mysql"
 DRIVER = "pymysql"

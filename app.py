@@ -34,6 +34,7 @@ from models import (
     Aisles,
     Order_products,
 )
+from models import DictMixIn, RegisterForm, LoginForm, Orders, T_Orders, Products, Departments, Aisles, Order_products
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -63,16 +64,15 @@ CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
 
-class User(
-    Base, UserMixin, DictMixIn, db.Model,
-):
-    extend_existing = True
-    __tablename__ = "users"
+class User(Base, UserMixin, DictMixIn, db.Model,):
+    extend_existing=True
+    __tablename__ = "users" 
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(15), unique=True)
     email = Column(String(50), unique=True)
     passw = Column(String(80))
 
+Base.metadata.create_all(engine)
 
 @login_manager.user_loader
 def load_user(id):
@@ -163,24 +163,25 @@ def dashboard_data():
 ##displays correct data
 @app.route("/data")
 def data():
-    query = (
-        app.session.query(
-            Orders.user_id,
-            Order_products.order_id,
-            Orders.order_date,
-            Order_products.num_of_product,
-            Products.product_name,
-            Products.price,
-            Departments.department,
-            Aisles.aisle,
-        )
-        .join(Order_products, Orders.order_id == Order_products.order_id)
-        .join(Products, Order_products.product_id == Products.product_id)
-        .join(Departments, Products.department_id == Departments.department_id)
-        .join(Aisles, Products.aisle_id == Aisles.aisle_id)
-        .all()
-    )
-
+    query = app.session.query(
+        Orders.user_id,
+        Orders.order_date,
+        Order_products.order_id,
+        Products.product_name,
+        Order_products.quantity,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            Order_products, Orders.order_id == Order_products.order_id
+        ).join(
+            Products, Order_products.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).limit(100).all()
+   
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
@@ -188,24 +189,52 @@ def data():
 
 @app.route("/data/<order_id>")
 def data_for_order(order_id):
-    query = (
-        app.session.query(
-            Orders.user_id,
-            Order_products.order_id,
-            Orders.order_dow,
-            Order_products.num_of_product,
-            Products.product_name,
-            Products.price,
-            Departments.department,
-            Aisles.aisle,
-        )
-        .join(Order_products, Orders.order_id == Order_products.order_id)
-        .join(Products, Order_products.product_id == Products.product_id)
-        .join(Departments, Products.department_id == Departments.department_id)
-        .join(Aisles, Products.aisle_id == Aisles.aisle_id)
-        .filter(Order_products.order_id == order_id)
-        .all()
-    )
+    query = app.session.query(
+        Orders.user_id,
+        Orders.order_date,
+        Order_products.order_id,
+        Products.product_name,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            Order_products, Orders.order_id == Order_products.order_id
+        ).join(
+            Products, Order_products.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).filter(
+                Order_products.order_id == order_id
+        ).all()
+
+    qqq = [q._asdict() for q in query]
+
+    return jsonify(qqq)
+
+
+@app.route('/data_user/<user_id>')
+def data_for_user(user_id):
+    query = app.session.query(
+        Orders.user_id,
+        Orders.order_date,
+        Order_products.order_id,
+        Products.product_name,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            Order_products, Orders.order_id == Order_products.order_id
+        ).join(
+            Products, Order_products.product_id == Products.product_id
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).filter(
+            Orders.user_id == user_id
+        ).limit(1000).all()
 
     qqq = [q._asdict() for q in query]
 
@@ -238,7 +267,6 @@ def order_user_data(user):
 
     return jsonify(qqq)
 
-
 @app.route("/order_products")
 def order_products():
     query = app.session.query(Order_products).all()
@@ -246,20 +274,6 @@ def order_products():
     qqq = [q.to_dict() for q in query]
 
     return jsonify(qqq)
-
-
-@app.route("/order_products_prior/<order>")
-def order_products_prior_number(order):
-    query = (
-        app.session.query(Order_products_prior)
-        .filter(Order_products_prior.order_id == order)
-        .all()
-    )
-
-    qqq = [q.to_dict() for q in query]
-
-    return jsonify(qqq)
-
 
 @app.route("/department_data")
 def department_data():
