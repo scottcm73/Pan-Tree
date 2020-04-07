@@ -1,15 +1,12 @@
 {% extends 'bootstrap/base.html' %}
-
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block title %} Home Inventory {% endblock %}
-
 {% import "bootstrap/fixes.html" as fixes %}
 
 {% block head %}
 {{super()}}
 {{fixes.ie8()}}
 {% endblock %}
+
+{% block title %} Home Inventory {% endblock %}
 
 {% block navbar %}
     <nav class="navbar navbar-inverse navbar-sticky-top">
@@ -35,4 +32,3 @@
       </div>
     </nav>
 {% endblock %}
-

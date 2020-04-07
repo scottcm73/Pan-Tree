@@ -3,39 +3,40 @@ const tableHead = d3.select('#table_header')
 const headRow = tableHead.append('tr')
 const tableBody = d3.select('#table_body')
 
-
-
-
-//Promise.all([])
 function makeTableHeader() {
     headRow.html('')
-    order_data = []
-    //load in data from backend route 
-    d3.json('/order_data/1').then( function(data) {
+    d3.json('/table_data').then( function(data) {
         Object.keys(data[0]).forEach(function(item) {
-            console.log(item)
-            const headItem = headRow.append('th')
-            headItem.text(item)
+            if (item == 'Date' || item == 'Product' || item == 'Amount Bought' || item == 'Amount Left') {
+                const headItem = headRow.append('th')
+                headItem.text(item)
+            // }
+        
         })
-        }
-        )
-    } 
+    const headItem = headRow.append('th')
+    headItem.text('Actions')
+})
+}
+            
+
 function makeTableBody() {
-    headRow.html('')
-    order_data = []
+    tableBody.html('')
     //load in data from backend route 
-    d3.json('/order_data/1').then( function(data) {
+    d3.json('/table_data').then( function(data) {
         data.forEach( dict => {
-        tableRow = tableBody.append('tr')
-        Object.values(dict).forEach(function(item) {
-            console.log(item)
-            const tableValue = tableRow.append('td')
-            tableValue.text(item)
+            tableRow = tableBody.append('tr')
+            Object.entries(dict).forEach(([key, item]) => {
+                if (key == 'Date' || key == 'Product' || key == 'Amount Bought' || key == 'Amount Left') {
+                    const tableValue = tableRow.append('td')
+                    tableValue.text(item)
+}
         })
-    }
-)}
-)} 
-    
+        const appendButton = tableRow.append('td')
+        appendButton.append('button').attr('id', dict['order_id'] + ' ' + dict['Product']).text('Cook')
+        appendButton.append('button').attr('id', dict['order_id'] + ' ' + dict['Product']).text('Trash')
+    })
+})
+}
 
 makeTableHeader()
 makeTableBody()
