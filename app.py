@@ -24,6 +24,7 @@ from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
+
 from models import (
     DictMixIn,
     RegisterForm,
@@ -62,7 +63,6 @@ login_manager.login_view = "login"
 ##addtitions to use simple SQLAlchemy
 CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
-
 
 class User(Base, UserMixin, DictMixIn, db.Model,):
     extend_existing=True
@@ -114,11 +114,7 @@ def signup():
 
     return render_template("signup.html", form=form)
 
-@app.route('/inventory_table')
-def table():
-    return render_template('inventory_table.html')
 
-    
 @app.route("/dashboard")
 
 # @login_required
@@ -199,7 +195,7 @@ def data():
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
         ).limit(100).all()
-   
+    
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
