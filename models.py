@@ -39,7 +39,7 @@ class Orders(Base, DictMixIn):
     order_id = Column(BigInteger, primary_key=True)
     user_id = Column(BigInteger)
     order_date = Column(BigInteger)
-    days_since_prior_order = Column(Integer)s
+    days_since_prior_order = Column(Integer)
     
 class Order_products(Base, DictMixIn):
     __tablename__ = "order_products"
