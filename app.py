@@ -24,7 +24,17 @@ from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
-from models import DictMixIn, RegisterForm, LoginForm, Orders, T_Orders, Products, Departments, Aisles, Order_products
+
+from models import (
+    DictMixIn,
+    RegisterForm,
+    LoginForm,
+    Products,
+    Departments,
+    Aisles,
+    T_Orders,
+    T_Order_products
+)
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -42,6 +52,7 @@ app = create_app()
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = SQALCHEMY_DATABASE_URL
+app.config['JSON_SORT_KEYS'] = False
 
 app.secret_key = secret
 Bootstrap(app)
@@ -60,8 +71,6 @@ class User(Base, UserMixin, DictMixIn, db.Model,):
     username = Column(String(15), unique=True)
     email = Column(String(50), unique=True)
     passw = Column(String(80))
-
-Base.metadata.create_all(engine)
 
 @login_manager.user_loader
 def load_user(id):
@@ -144,6 +153,26 @@ def dashboard_data():
     connection.close()
     return jsonify([dict(r) for r in rs])
 
+#this route will be modified to fit the current user
+@app.route('/table_data')
+def table_data():
+    query = app.session.query(
+        T_Orders.user_id,
+        T_Order_products.order_id,
+        T_Orders.order_date.label('Date'),
+        Products.product_name.label('Product'),
+        T_Order_products.quantity.label('Amount Bought'),
+        T_Order_products.q_left.label('Amount Left'),
+        T_Order_products.trash
+    ).join(
+        T_Order_products, T_Orders.order_id == T_Order_products.order_id
+    ).join(
+        Products, T_Order_products.product_id == Products.product_id
+    ).all()
+
+    query_dict = [qu._asdict() for qu in query]
+
+    return jsonify (query_dict)
 ###routes the data properly joined
 ##displays correct data
 @app.route("/data")

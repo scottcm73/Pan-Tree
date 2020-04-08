@@ -41,6 +41,14 @@ class Orders(Base, DictMixIn):
     order_date = Column(BigInteger)
     days_since_prior_order = Column(Integer)
     
+class Order_products(Base, DictMixIn):
+    __tablename__ = "order_products"
+    order_id = Column(BigInteger, primary_key=True)
+    product_id = Column(BigInteger)
+    quantity = Column(Integer)
+    q_left = Column(Integer)
+    trash = Column(Integer)
+    
 class T_Orders(Base, DictMixIn):
     __tablename__ = "t_orders"
     order_id = Column(BigInteger, primary_key=True)
@@ -55,6 +63,7 @@ class T_Order_products(Base, DictMixIn):
     quantity = Column(Integer)
     q_left = Column(Integer)
     trash = Column(Integer)
+
 
 class LoginForm(FlaskForm):
     username = StringField(
