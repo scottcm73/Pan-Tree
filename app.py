@@ -123,21 +123,29 @@ def dashboard():
 
 @app.route("/dashboard-data",)
 def dashboard_data():
-    engine = create_engine(
-        f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
-    )
-
-    with engine.begin() as connection:
-        rs = connection.execute(
-            "Select * from order_products op\
-            INNER JOIN aisles ON aisles.aisle_id = op.aisle_id and op.user_id = 5\
-            INNER JOIN departments d ON d.department_id = op.department_id;"
+    query = app.session.query(
+        T_Orders.user_id,
+        T_Orders.order_date,
+        T_Order_products.order_id,
+        Products.product_name,
+        T_Order_products.quantity,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            T_Order_products, T_Orders.order_id == T_Order_products.order_id
+        ).join(
+            Products, T_Order_products.product_id == Products.product_id, isouter=True
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).filter(
+            T_Orders.user_id==5
         )
+    qqq = [q._asdict() for q in query]
 
-    # don't need this with the With statement but I still use it.
-
-    connection.close()
-    return jsonify([dict(r) for r in rs])
+    return jsonify(qqq)
 
 #this route will be modified to fit the current user
 @app.route('/table_data',  methods=['GET'])
@@ -285,6 +293,14 @@ def aisles_data():
     qqq = [q.to_dict() for q in query]
 
     return jsonify(qqq)
+
+
+
+@app.route("/plot1")
+@login_required
+def plot1():
+
+    return render_template("plot1.html", name=current_user.username)
 
 
 @app.route("/logout")
