@@ -155,7 +155,14 @@ class Order_products(Base, DictMixIn):
     quantity = Column(Integer)
     q_left = Column(Integer)
     trash = Column(Integer)
-
+    
+class T_Order_products(Base, DictMixIn):
+    __tablename__ = "t_order_products"
+    order_id = Column(BigInteger, primary_key=True)
+    product_id = Column(BigInteger)
+    quantity = Column(Integer)
+    q_left = Column(Integer)
+    trash = Column(Integer)
 Base.metadata.create_all(engine)
 
 order_products_df.to_sql(name='order_products',
