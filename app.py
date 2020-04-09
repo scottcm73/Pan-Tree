@@ -133,16 +133,15 @@ def dashboard_data():
         Departments.department,
         Aisles.aisle
         ).join(
-            T_Orders, T_Order_products.order_id == T_Orders.order_id
+            T_Orders, T_Order_products.order_id == T_Orders.order_id,
         ).join(
-            Products, T_Order_products.product_id == Products.product_id, isouter=True
+            Products, T_Order_products.product_id == Products.product_id,
         ).join(
             Departments, Products.department_id == Departments.department_id
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
-        ).filter(
-            T_Orders.user_id==5
         )
+        
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)

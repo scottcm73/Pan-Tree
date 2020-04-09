@@ -15,33 +15,54 @@ function getDistinct(items, key){
     return result;
 
 };
+// function getTotal(data, key){
+//     var total = 0,  //set a variable that holds our total
+//     thetotal = data,  //reference the element in the "JSON" aka object literal we want
+//     i;
+//     for (i = 0; i < thetotal.length; i++) {  //loop through the array
+//         total += thetotal[i][key];  //Do the math!
+// }
+//     return total
+// };
+function getData(){
+d3.json('/dashboard-data').then((data) => 
+{
+    list1=[]    
+    data.forEach(element => 
+        {let datePrice = [element['order_date'],
+        element['price']]
+        list1.push(datePrice)
 
+    });
+    sumDict={}
+    list1.forEach(element =>
+    {
+    
+        if (!(element[0] in sumDict)) 
+        { 
+            sumDict[element[0] = element[1]]
+          
+        }
+        else if(!(element[0] in sumDict)) 
+        { 
+            sumDict[element[0]]+= element[1]
 
+        }
 
-d3.json('/dashboard-data').then((items) => {
-    let datestrArray=getDistinct(items, 'order_date')
+    });
+    console.log(sumDict)
+    console.log(list1)
+    let datestrArray=getDistinct(data, 'order_date')
 
     datestrArray.sort(function(a,b){
         return new Date(a) - new Date(b)
-      })
-    for (index = 0; index < datestrArray.length; index++) { 
-        
-    
-        var newArray = items.filter(function (el) {
-        return el.order_date === datestrArray[index] 
+    })
+   
+})
+};
 
-      
-        });
-       
-    } 
-    console.log(newArray)
+getData();
 
-    
-
-
-});
-
-    
 
     
     
