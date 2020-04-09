@@ -133,7 +133,7 @@ def dashboard_data():
         Departments.department,
         Aisles.aisle
         ).join(
-            T_Order_products, T_Orders.order_id == T_Order_products.order_id
+            T_Orders, T_Order_products.order_id == T_Orders.order_id
         ).join(
             Products, T_Order_products.product_id == Products.product_id, isouter=True
         ).join(
