@@ -19,11 +19,12 @@ from flask_login import (
 )
 from flask_cors import CORS
 from sqlalchemy import Column, Integer, String
-from sqlalchemy import create_engine, func
+from sqlalchemy import create_engine, func, update
 from sqlalchemy.orm import scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from app_config import secret, USER, PASSWORD, HOST, PORT, DATABASE, DIALECT, DRIVER
 from database import SessionLocal, engine, Base, SQALCHEMY_DATABASE_URL
+
 from models import (
     DictMixIn,
     RegisterForm,
@@ -42,7 +43,7 @@ db = SQLAlchemy()
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path='/static')
     db.init_app(app)
     return app
 
@@ -63,7 +64,6 @@ login_manager.login_view = "login"
 CORS(app)
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
-
 class User(Base, UserMixin, DictMixIn, db.Model,):
     extend_existing=True
     __tablename__ = "users" 
@@ -79,7 +79,7 @@ def load_user(id):
 
 @app.route("/")
 def home_page():
-    return render_template("base.html")
+    return redirect('/login')
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -112,59 +112,50 @@ def signup():
         db.session.commit()
         return "<h2>New user has been created, please <a href='/login'>log in</a>.</h2>"
 
-    return render_template("signup.html", form=form)
+    return render_template("register.html", form=form)
 
-@app.route('/inventory_table')
-def table():
-    return render_template('inventory_table.html')
 
-    
 @app.route("/dashboard")
-
-# @login_required
-# Temporarily taken out because I want to get to page without having to login.
-# I still have to type in /dashboard to ensure I get to the page.
+@login_required
 def dashboard():
 
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", name=current_user.username)
 
-
-# need to pass name=current_user.username
-
-
-# @login_required
-# Temporarily taken out because I want to get to page without having to login.
-# I still have to type in /dashboard to ensure I get to the page.
-@app.route("/dashboard-data")
-
-# @login_required
-# Temporarily taken out because I want to get to page without having to login.
-# I still have to type in /dashboard to ensure I get to the page.
+@app.route("/dashboard-data",)
 def dashboard_data():
-    engine = create_engine(
-        f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
-    )
-
-    with engine.begin() as connection:
-        rs = connection.execute(
-            "Select * from order_products op\
-            INNER JOIN aisles ON aisles.aisle_id = op.aisle_id and op.user_id = 5\
-            INNER JOIN departments d ON d.department_id = op.department_id;"
+    query = app.session.query(
+        T_Orders.user_id,
+        T_Orders.order_date,
+        T_Order_products.order_id,
+        Products.product_name,
+        T_Order_products.quantity,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            T_Order_products, T_Orders.order_id == T_Order_products.order_id
+        ).join(
+            Products, T_Order_products.product_id == Products.product_id, isouter=True
+        ).join(
+            Departments, Products.department_id == Departments.department_id
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).filter(
+            T_Orders.user_id==5
         )
+    qqq = [q._asdict() for q in query]
 
-    # don't need this with the With statement but I still use it.
-
-    connection.close()
-    return jsonify([dict(r) for r in rs])
+    return jsonify(qqq)
 
 #this route will be modified to fit the current user
-@app.route('/table_data')
+@app.route('/table_data',  methods=['GET'])
 def table_data():
     query = app.session.query(
         T_Orders.user_id,
         T_Order_products.order_id,
         T_Orders.order_date.label('Date'),
         Products.product_name.label('Product'),
+        T_Order_products.product_id,
         T_Order_products.quantity.label('Amount Bought'),
         T_Order_products.q_left.label('Amount Left'),
         T_Order_products.trash
@@ -172,11 +163,56 @@ def table_data():
         T_Order_products, T_Orders.order_id == T_Order_products.order_id
     ).join(
         Products, T_Order_products.product_id == Products.product_id
+    ).filter(
+        T_Order_products.trash == 0
+    ).filter(
+        T_Order_products.q_left != 0
     ).all()
 
     query_dict = [qu._asdict() for qu in query]
 
-    return jsonify (query_dict)
+    return jsonify(query_dict)
+
+@app.route('/inventory_table')
+@login_required
+def table():
+    return render_template('tables.html')
+
+@app.route('/budget_plot')
+@login_required
+def budget_plot():
+    return render_template('charts.html')
+
+@app.route('/cook_buttons/<order_id>/<product_id>', methods=['GET', 'POST'])
+def cook_button(order_id, product_id):
+    product = app.session.query(
+        T_Order_products
+    ).filter(
+        T_Order_products.order_id == order_id
+    ).filter(
+        T_Order_products.product_id == product_id
+    ).update({ 'q_left' : (T_Order_products.q_left - 1) })
+
+    app.session.flush()
+    app.session.commit()
+
+    return redirect('/inventory_table')
+
+@app.route('/trash_buttons/<order_id>/<product_id>', methods=['GET', 'POST'])
+def trash_button(order_id, product_id):
+    product = app.session.query(
+        T_Order_products
+    ).filter(
+        T_Order_products.order_id == order_id
+    ).filter(
+        T_Order_products.product_id == product_id
+    ).update({ 'trash' : 1})
+
+    app.session.flush()
+    app.session.commit()
+
+    return redirect('/inventory_table')
+
 ###routes the data properly joined
 ##displays correct data
 @app.route("/data")
@@ -199,7 +235,7 @@ def data():
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
         ).limit(100).all()
-   
+    
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
@@ -231,59 +267,16 @@ def data_for_order(order_id):
 
     return jsonify(qqq)
 
-
-@app.route('/data_user/<user_id>')
-def data_for_user(user_id):
-    query = app.session.query(
-        Orders.user_id,
-        Orders.order_date,
-        Order_products.order_id,
-        Products.product_name,
-        Products.price,
-        Departments.department,
-        Aisles.aisle
-        ).join(
-            Order_products, Orders.order_id == Order_products.order_id
-        ).join(
-            Products, Order_products.product_id == Products.product_id
-        ).join(
-            Departments, Products.department_id == Departments.department_id
-        ).join(
-            Aisles, Products.aisle_id == Aisles.aisle_id
-        ).filter(
-            Orders.user_id == user_id
-        ).limit(1000).all()
-
-    qqq = [q._asdict() for q in query]
-
-    return jsonify(qqq)
-
-
 @app.route("/product_data")
 def product_data():
-    query = app.session.query(Products).all()
+    query = app.session.query(
+        Products.pro
+        ).all()
 
     qqq = [q.to_dict() for q in query]
 
     return jsonify(qqq)
 
-
-@app.route("/order_data")
-def order_data():
-    query = app.session.query(Orders).all()
-
-    qqq = [q.to_dict() for q in query]
-
-    return jsonify(qqq)
-
-
-@app.route("/order_data/<user>")
-def order_user_data(user):
-    query = app.session.query(Orders).filter(Orders.user_id == user).all()
-
-    qqq = [q.to_dict() for q in query]
-
-    return jsonify(qqq)
 
 @app.route("/department_data")
 def department_data():
@@ -300,6 +293,14 @@ def aisles_data():
     qqq = [q.to_dict() for q in query]
 
     return jsonify(qqq)
+
+
+
+@app.route("/plot1")
+@login_required
+def plot1():
+
+    return render_template("plot1.html", name=current_user.username)
 
 
 @app.route("/logout")
