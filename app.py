@@ -137,10 +137,10 @@ def dashboard_data():
         ).join(
             Products, T_Order_products.product_id == Products.product_id,
         ).join(
-            Departments, Products.department_id == Departments.department_id
+            Departments, Products.department_id == Departments.department_id,
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
-        )
+        ).order_by(T_Orders.order_date).limit(250)
         
     qqq = [q._asdict() for q in query]
 

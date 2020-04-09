@@ -15,15 +15,15 @@ function getDistinct(items, key){
     return result;
 
 };
-// function getTotal(data, key){
-//     var total = 0,  //set a variable that holds our total
-//     thetotal = data,  //reference the element in the "JSON" aka object literal we want
-//     i;
-//     for (i = 0; i < thetotal.length; i++) {  //loop through the array
-//         total += thetotal[i][key];  //Do the math!
-// }
-//     return total
-// };
+function getTotal(data, key){
+    var total = 0,  //set a variable that holds our total
+    thetotal = data,  //reference the element in the "JSON" aka object literal we want
+    i;
+    for (i = 0; i < thetotal.length; i++) {  //loop through the array
+        total += thetotal[i][key];  //Do the math!
+}
+    return total
+};
 function getData(){
 d3.json('/dashboard-data').then((data) => 
 {
@@ -38,26 +38,34 @@ d3.json('/dashboard-data').then((data) =>
     list1.forEach(element =>
     {
     
-        if (!(element[0] in sumDict)) 
-        { 
-            sumDict[element[0] = element[1]]
-          
+        if (sumDict.hasOwnProperty( element[0] ) ) {
+            sumDict[ element[0] ] = sumDict[ element[0] ] + element[1];
+        } else {
+            sumDict[ element[0] ] = element[1];
         }
-        else if(!(element[0] in sumDict)) 
-        { 
-            sumDict[element[0]]+= element[1]
 
-        }
+        console.log(element)
 
     });
-    console.log(sumDict)
-    console.log(list1)
-    let datestrArray=getDistinct(data, 'order_date')
+    dateList=[]
+    totalsList=[]
+    Object.entries(sumDict).forEach(([date, total])=>{
 
-    datestrArray.sort(function(a,b){
-        return new Date(a) - new Date(b)
-    })
-   
+        dateList.push(date);
+        totalsList.push(total);
+
+    });
+    let datestrArray=getDistinct(data, 'order_date')
+    
+    var data = [
+        {
+          x: dateList,
+          y: totalsList,
+          type: 'bar'
+        }
+      ];
+      Plotly.newPlot('budget_analysis', data);
+    
 })
 };
 
