@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends "base.html" %}
+{% block scripts %}
+{{ super() }}
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <!-- Latest compiled and minified plotly.js JavaScript -->
         <script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
 
-    </head>
-<body>
-    <div class="myDiv" id="graph"></div>
 
     
     <script type="text/javascript" src="{{ url_for('static', filename='js/test2.js') }}"></script>
+
+    {% endblock %}
   
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
- 
-</body>
-</html>
+  
