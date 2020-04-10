@@ -16,8 +16,8 @@ cryptography = "*"
 flask-wtf = "*"
 flask-cors = "*"
 flask-sqlalchemy = "*"
-
 mysql-connector-python = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
