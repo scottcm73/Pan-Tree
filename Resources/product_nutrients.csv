@@ -31639,3 +31639,242 @@ product_id,product_name,price,aisle_id,department_id,text_API,ENERC_KCAL,FAT,CHO
 31638,"fluoride rinse, children's anticavity, juicy mint",3.99,20,11,spearmint,44.0,0.73,8.41,6.8,3.29
 31639,sea minerals foaming hand wash refill,3.99,127,11,spearmint,44.0,0.73,8.41,6.8,3.29
 31640,original puffins cereal,8.99,121,14,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31641,mango salsa,5.99,67,20,Mangos,60.0,0.38,14.98,1.6,0.82
+31642,all natural raspberries,2.99,116,1,Raspberries,52.0,0.65,11.94,6.5,1.2
+31643,kids toothpaste berry smart,3.99,6,2,Blueberries,57.0,0.33,14.49,2.4,0.74
+31644,temptations cat treats tempting tuna,2.99,41,8,fresh tuna,109.0,0.49,0.0,0.0,24.4
+31645,confetti bean pasta,7.99,13,20,elbow macaroni,371.0,1.51,74.67,3.2,13.04
+31646,variety of victorys,2.99,27,5,elbow macaroni,371.0,1.51,74.67,3.2,13.04
+31647,cut-rite wax paper,4.99,85,17,elbow macaroni,371.0,1.51,74.67,3.2,13.04
+31648,chopped chipotle & cheddar salad kit,2.99,123,4,cheddar cheese,406.0,33.82,1.33,0.0,24.04
+31649,ultimate flora rts extra strength probiotic 30 billion cultures capsules,2.99,70,11,cheddar cheese,406.0,33.82,1.33,0.0,24.04
+31650,blenheim apricot jam,3.99,88,13,apricot jam,242.0,0.2,64.4,0.3,0.7
+31651,extra fancy unsalted mixed nuts,4.99,117,19,mixed nut,594.0,51.45,25.35,9.0,17.3
+31652,cacao dusted dark chocolate goji berries,3.99,117,19,unsweetened cocoa powder,228.0,13.7,57.9,37.0,19.6
+31653,organic unsalted chicken bone stock,2.99,69,15,beef bone,116.0,7.0,0.0,0.0,11.0
+31654,ultra soft mega rolls  bathroom tissue,3.99,54,17,hard roll,293.0,4.3,52.7,2.3,9.9
+31655,traditional fried pork skins,3.99,106,12,pork skins,544.0,31.3,0.0,0.0,61.3
+31656,xtreme defense 5 fresh blast gel anti-perspirant & deodorant,2.99,80,11,pork skins,544.0,31.3,0.0,0.0,61.3
+31657,organic basil babe level 1 baby food,3.99,92,18,fresh basil,23.0,0.64,2.65,1.6,3.15
+31658,sugar-free expec herbal expectorant licorice,2.99,11,11,granulated sugar,387.0,0.0,99.98,0.0,0.0
+31659,chocolate cacao powder,6.99,65,11,semisweet chocolate,480.0,30.0,63.9,5.9,4.2
+31660,classico traditional pizza sauce,3.99,9,9,cheese pizza,268.0,12.28,29.02,2.2,10.36
+31661,original family size saltine crackers,3.99,78,19,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31662,organic white wine vinegar,3.99,19,13,vinegar,18.0,0.0,0.04,0.0,0.0
+31663,vanilla blueberry clusters with flax seeds granola,3.99,57,14,Vanilla extract,288.0,0.06,12.65,0.0,0.06
+31664,green superfood energy lemon-lime,4.99,47,11,lemon lime,41.0,0.0,10.42,0.0,0.09
+31665,iris hydrating day cream for dry to very dry skin,5.99,109,11,heavy whipping cream,345.0,37.0,2.79,0.0,2.05
+31666,natural sierra pumice brush,4.99,44,11,heavy whipping cream,345.0,37.0,2.79,0.0,2.05
+31667,peanut butter biscuits,3.99,3,19,buttermilk biscuit,353.0,16.3,44.6,1.5,7.0
+31668,blueberry hyaluronic acid liquid,2.99,47,11,Blueberries,57.0,0.33,14.49,2.4,0.74
+31669,signature spice cake cake mix,3.99,105,13,cake mix,404.0,5.5,84.1,1.3,4.7
+31670,buttermilk complete pancake mix,3.99,130,14,buttermilk,40.0,0.88,4.79,0.0,3.31
+31671,organic santa cruz dark french roast coffee,3.99,26,7,coffee,1.0,0.02,0.0,0.0,0.12
+31672,milk chocolate with almonds candy bar,5.99,45,19,milk chocolate,535.0,29.66,59.4,3.4,7.65
+31673,chocolate stout,3.99,27,5,beer,43.0,0.0,3.55,0.0,0.46
+31674,flamin' hot snack mix,4.99,125,19,chex mix,424.0,10.0,74.77,3.9,8.83
+31675,organic montebello conchiglie italian pasta,3.99,131,9,elbow macaroni,371.0,1.51,74.67,3.2,13.04
+31676,grilled chicken feast in gravy cat food,3.99,41,8,broiler chicken,215.0,15.06,0.0,0.0,18.6
+31677,pork sausage links originals,5.99,106,12,pork sausage,287.0,24.78,0.93,0.0,15.37
+31678,gluten free cinnamon raisin bread,10.99,112,3,raisin bread,274.0,4.4,52.3,4.3,7.9
+31679,zinfandel wine,2.99,28,5,raisin bread,274.0,4.4,52.3,4.3,7.9
+31680,pick-a-size paper towels,3.99,54,17,raisin bread,274.0,4.4,52.3,4.3,7.9
+31681,extra light tasting olive oil,3.99,19,13,olive oil,884.0,100.0,0.0,0.0,0.0
+31682,million dollar bun,4.99,112,3,hamburger roll,278.0,3.76,50.15,2.1,9.87
+31683,original no pulp 100% florida orange juice,2.99,31,7,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31684,"donuts, classic, pumpkin",2.99,93,3,Pumpkin,26.0,0.1,6.5,0.5,1.0
+31685,"daily shower cleaner scrub free refill, fresh clean scent refill",3.99,114,17,Pumpkin,26.0,0.1,6.5,0.5,1.0
+31686,coated paper plates,5.99,111,17,Pumpkin,26.0,0.1,6.5,0.5,1.0
+31687,brown rice yeast-free loaf,4.99,112,3,brown rice,362.0,2.68,76.17,3.4,7.5
+31688,organic healing balm,3.99,109,11,brown rice,362.0,2.68,76.17,3.4,7.5
+31689,kids apple 3 in 1 shampoo + conditioner + body wash,2.99,22,11,apple,52.0,0.17,13.81,2.4,0.26
+31690,peach mangosteen juice drink,2.99,98,7,"Peaches, raw",39.0,0.25,9.54,1.5,0.91
+31691,gluten free 9 inch pie shells,2.99,58,1,pie crust,445.0,25.46,51.11,1.8,2.97
+31692,homestyle waffles,2.99,52,1,pie crust,445.0,25.46,51.11,1.8,2.97
+31693,veggie stix sea salt,3.99,107,19,coarse salt,0.0,0.0,0.0,0.0,0.0
+31694,sourdough bachelor loaf,3.99,112,3,sourdough bread,272.0,2.42,51.88,2.2,10.75
+31695,ultra plush with 3 soft layers unscented bathroom tissue,0.99,54,17,sourdough bread,272.0,2.42,51.88,2.2,10.75
+31696,"natural antiseptic, tea tree oil",7.99,118,11,canola oil,884.0,100.0,0.0,0.0,0.0
+31697,mild hot tortilla chips,3.99,107,19,yellow tortilla chip,497.0,22.33,67.38,4.7,6.62
+31698,organic almond non dairy beverage vanilla,11.99,91,16,almond nut,579.0,49.93,21.55,12.5,21.15
+31699,fat free half and half,4.99,53,16,half and half,130.0,11.5,4.3,0.0,2.96
+31700,rattle-snakes gummi candy,4.99,45,19,semisweet chocolate,480.0,30.0,63.9,5.9,4.2
+31701,potato puffs with roasted garlic and cracked black pepper,3.99,129,1,black pepper,251.0,3.26,63.95,25.3,10.39
+31702,the original texas toast caesar croutons,3.99,89,13,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31703,"organic lotion, peppermint",3.99,25,11,peppermint,70.0,0.94,14.89,8.0,3.75
+31704,crab & corn chowder,0.99,69,15,sweet corn,86.0,1.35,18.7,2.0,3.27
+31705,sour cream chive mashed potatoes,7.99,4,9,sour cream,193.0,19.73,2.88,0.0,2.07
+31706,sugar free chocolate,2.99,71,16,granulated sugar,387.0,0.0,99.98,0.0,0.0
+31707,miracle whip original squeeze bottle,3.99,72,13,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31708,organic black bean tortilla chips,3.99,107,19,black bean,341.0,1.42,62.36,15.5,21.6
+31709,dry mouth oral rinse,4.99,20,11,black bean,341.0,1.42,62.36,15.5,21.6
+31710,pancakes blueberry - 18 ct,3.99,52,1,Blueberries,57.0,0.33,14.49,2.4,0.74
+31711,nutrient moisturizer,2.99,109,11,Blueberries,57.0,0.33,14.49,2.4,0.74
+31712,breaded chicken breast,4.99,34,1,chicken breast,172.0,9.25,0.0,0.0,20.85
+31713,raw coconut water with fair trade coffee,2.99,115,7,coconut water,19.0,0.2,3.71,1.1,0.72
+31714,feta cheese in brine,4.99,21,16,feta cheese,264.0,21.28,4.09,0.0,14.21
+31715,original yogurt cookies & cream,3.99,120,16,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31716,312 urban wheat,3.99,27,5,soft red winter wheat,331.0,1.56,74.24,12.5,10.35
+31717,organic cilantro,4.99,16,4,cilantro leaves,23.0,0.52,3.67,2.8,2.13
+31718,plain grade a drinkable yogurt 100% natural,2.99,120,16,plain whole milk yogurt,61.0,3.25,4.66,0.0,3.47
+31719,"bread, multi grain pita",2.99,61,19,pita bread,266.0,2.6,55.0,7.4,9.8
+31720,organic  whole milk,17.99,84,16,whole milk,61.0,3.25,4.8,0.0,3.15
+31721,farmer's garden medium salsa,3.99,51,13,salsa,29.0,0.17,6.72,1.8,1.54
+31722,cappuccino chip slow churned yogurt blends,3.99,37,1,plain whole milk yogurt,61.0,3.25,4.66,0.0,3.47
+31723,umcka cold + flu multi-action natural relief sugar-free syrup berry flavor,3.99,11,11,granulated sugar,387.0,0.0,99.98,0.0,0.0
+31724,mini yellow rounds corn tortilla chips,3.99,107,19,yellow tortilla chip,497.0,22.33,67.38,4.7,6.62
+31725,mandarin orange in 100% fruit juice,2.99,99,15,mandarin orange,53.0,0.31,13.34,1.8,0.81
+31726,original redness relief sterile tetrahydrozoline hcl eye drops,3.99,44,11,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31727,"organic tomato paste, no salt added",0.99,81,15,tomato,18.0,0.2,3.89,1.2,0.88
+31728,100% papaya juice blend,3.99,98,7,Papayas,43.0,0.26,10.82,1.7,0.47
+31729,handcrafter french pot ice cream buckeye chocolate chip,2.99,37,1,vanilla ice cream,207.0,11.0,23.6,0.7,3.5
+31730,chewy granola bar chocolate chip granola,3.99,3,19,granola bar,471.0,19.8,64.4,5.3,10.1
+31731,persa-gelâ® 10 maximum strength acne treatments,3.99,73,11,granola bar,471.0,19.8,64.4,5.3,10.1
+31732,skinless & boneless sardines in olive oil,3.99,95,15,fresh anchovies,131.0,4.84,0.0,0.0,20.35
+31733,iced tea bags,3.99,94,7,black tea,1.0,0.0,0.3,0.0,0.0
+31734,"chewing gum, tangerine",3.99,46,19,Chewing gum,360.0,0.3,96.7,2.4,0.0
+31735,spicy maya chocolate bar,2.99,45,19,semisweet chocolate,480.0,30.0,63.9,5.9,4.2
+31736,madagascar bourbon pure vanilla extract,2.99,17,13,bourbon whiskey,250.0,0.0,0.1,0.0,0.0
+31737,organic freeze dried strawberries,19.99,117,19,Strawberries,32.0,0.3,7.68,2.0,0.67
+31738,hearty beef franks,7.99,106,12,beef chuck,130.0,4.81,0.12,0.0,21.64
+31739,original pure almondmilk,2.99,91,16,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31740,breaded mushrooms,10.99,129,1,white mushroom,22.0,0.34,3.26,1.0,3.09
+31741,thai coconut curry hummus,2.99,67,20,raw coconut meat,354.0,33.49,15.23,9.0,3.33
+31742,"fast-max maximum strength cold, flu, & sore throat caplets",3.99,11,11,raw coconut meat,354.0,33.49,15.23,9.0,3.33
+31743,peach greek yogurt,2.99,120,16,"Peaches, raw",39.0,0.25,9.54,1.5,0.91
+31744,super sensitive shampoo & bodywash,2.99,102,18,"Peaches, raw",39.0,0.25,9.54,1.5,0.91
+31745,shaly loam gewã¼rztraminer,4.99,62,5,"Peaches, raw",39.0,0.25,9.54,1.5,0.91
+31746,chocolate chip protein bar,2.99,3,19,semisweet chocolate,480.0,30.0,63.9,5.9,4.2
+31747,classic salmon & shrimp feast cat food,3.99,41,8,salmon,208.0,13.42,0.0,0.0,20.42
+31748,cantaloupe grapefruit sparkling water,3.99,115,7,cantaloupe,34.0,0.19,8.16,0.9,0.84
+31749,gourmet fish stock,4.99,69,15,fish soup,16.0,0.81,0.0,0.0,2.26
+31750,happy trail mix soft-baked cookies,2.99,61,19,fish soup,16.0,0.81,0.0,0.0,2.26
+31751,french style cut green beans,4.99,116,1,green bean,31.0,0.22,6.97,2.7,1.83
+31752,toasted coconut caramel artisan popcorn,3.99,23,19,raw coconut meat,354.0,33.49,15.23,9.0,3.33
+31753,blueberry pancake & waffle mix,3.99,130,14,raw coconut meat,354.0,33.49,15.23,9.0,3.33
+31754,bold sloppy joe sauce,2.99,59,15,raw coconut meat,354.0,33.49,15.23,9.0,3.33
+31755,white cran-strawberry juice drink,3.99,98,7,Strawberries,32.0,0.3,7.68,2.0,0.67
+31756,golden banquet beer,2.99,27,5,beer,43.0,0.0,3.55,0.0,0.46
+31757,organic fair trade orange infused dark chocolate 65% cacao,10.99,45,19,orange,47.0,0.12,11.75,2.4,0.94
+31758,reese's pieces bag,4.99,45,19,reese's pieces,497.0,24.77,59.86,3.0,12.46
+31759,cherrios honey nut,5.99,121,14,Honey,304.0,0.0,82.4,0.2,0.3
+31760,crunchy nut golden honey nut flakes cereal,2.99,121,14,mixed nut,594.0,51.45,25.35,9.0,17.3
+31761,crispy thin crust gluten free bbq chicken pizza,3.99,79,1,cheese pizza,268.0,12.28,29.02,2.2,10.36
+31762,sweet italian style chicken sausage,4.99,106,12,chicken frankfurter,223.0,16.19,2.74,0.4,15.51
+31763,peanut butter chocolate cookie dough,2.99,105,13,pizza dough,271.0,3.5,50.0,2.7,8.8
+31764,original sparkling seltzer water cans,2.99,115,7,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31765,dark satin 100% arabica premium whole bean dark roast coffee coffee,2.99,26,7,green bean,31.0,0.22,6.97,2.7,1.83
+31766,cheese pizza snacks,4.99,129,1,cheese pizza,268.0,12.28,29.02,2.2,10.36
+31767,100% extra virgin olive oil spray,2.99,19,13,olive oil,884.0,100.0,0.0,0.0,0.0
+31768,albarino rias baixas,3.99,62,5,olive oil,884.0,100.0,0.0,0.0,0.0
+31769,marinara italian sauce,3.99,9,9,italian sauce,54.0,1.15,10.0,2.3,1.54
+31770,organic tofu,17.99,14,20,tofu,70.0,4.17,1.69,0.9,8.19
+31771,eggo thick & fluffy minis vanilla bliss waffles,15.99,52,1,tofu,70.0,4.17,1.69,0.9,8.19
+31772,sprouted grain bread cinnamon raisin,3.99,58,1,raisin,299.0,0.46,79.18,3.7,3.07
+31773,ready crust mini graham pie crusts,2.99,97,13,graham cracker pie crust,501.0,24.83,64.3,1.9,5.1
+31774,suiza enchilada,3.99,100,21,graham cracker pie crust,501.0,24.83,64.3,1.9,5.1
+31775,almond dairy-free peach yogurt alternative,0.99,100,21,plain whole milk yogurt,61.0,3.25,4.66,0.0,3.47
+31776,mediterranean mint gelato pops dipped in rich dark chocolate,4.99,37,1,spearmint,44.0,0.73,8.41,6.8,3.29
+31777,sunscreen spf 50+,2.99,6,2,spearmint,44.0,0.73,8.41,6.8,3.29
+31778,oven baked cheddar & sour cream potato crisps,2.99,107,19,cheddar cheese,406.0,33.82,1.33,0.0,24.04
+31779,organic decaf blend coffee,2.99,26,7,coffee,1.0,0.02,0.0,0.0,0.12
+31780,serenity moisturizing body wash,3.99,127,11,coffee,1.0,0.02,0.0,0.0,0.12
+31781,verbena & lemongrass soy wax candle,10.99,101,17,coffee,1.0,0.02,0.0,0.0,0.12
+31782,big delux chocolate chip big cookie dough,3.99,105,13,chocolate chip,502.0,23.36,68.4,2.7,4.78
+31783,toasted coconut vanilla nonfat yogurt,2.99,120,16,raw coconut meat,354.0,33.49,15.23,9.0,3.33
+31784,lactose free cheddar flavor cheese slices,9.99,21,16,lactose,354.0,0.2,51.8,0.0,35.5
+31785,drumstick lil' drums vanilla caramel sauce & vanilla fudge sauce,2.99,37,1,chocolate fudge sauce,350.0,8.9,62.9,2.8,4.6
+31786,organics daily essential facial moisturizer,3.99,25,11,chocolate fudge sauce,350.0,8.9,62.9,2.8,4.6
+31787,100% whey chocolate protein powder,2.99,65,11,semisweet chocolate,480.0,30.0,63.9,5.9,4.2
+31788,2nd foods apricot with mixed fruit,2.99,92,18,Apricots,48.0,0.39,11.12,2.0,1.4
+31789,garden spinach herb 6 ct wraps,4.99,128,3,Spinach,23.0,0.39,3.63,2.2,2.86
+31790,peppermint and tea tree hand soap,8.99,25,11,peppermint,70.0,0.94,14.89,8.0,3.75
+31791,granite cleaner,7.99,114,17,peppermint,70.0,0.94,14.89,8.0,3.75
+31792,organic jammy sammy snack size sandwich bar stawberry jam & peanut butter,3.99,3,19,butter,717.0,81.11,0.06,0.0,0.85
+31793,organic chili powder,2.99,104,13,chili powder,282.0,14.28,49.7,34.8,13.46
+31794,crispy rosemary fries with sea salt,4.99,129,1,fresh rosemary,131.0,5.86,20.7,14.1,3.31
+31795,roasted eggplant spread,4.99,88,13,Eggplant,25.0,0.18,5.88,3.0,0.98
+31796,garlic butter grilled fillets,2.99,34,1,Garlic,149.0,0.5,33.06,2.1,6.36
+31797,cell food,2.99,47,11,Garlic,149.0,0.5,33.06,2.1,6.36
+31798,raw coconut crystals,2.99,17,13,raw coconut meat,354.0,33.49,15.23,9.0,3.33
+31799,best refried black beans,15.99,59,15,black bean,341.0,1.42,62.36,15.5,21.6
+31800,chicken margherita & penne classic meal for two,3.99,38,1,broiler chicken,215.0,15.06,0.0,0.0,18.6
+31801,9 inch plates,2.99,111,17,broiler chicken,215.0,15.06,0.0,0.0,18.6
+31802,simply naked bagel chips,3.99,107,19,bagel chips,451.0,15.14,66.36,4.1,12.34
+31803,baby healing ointment,2.99,6,2,bagel chips,451.0,15.14,66.36,4.1,12.34
+31804,"baking cups, nonstick, mini",10.99,97,13,bagel chips,451.0,15.14,66.36,4.1,12.34
+31805,gourmet tomato medley,15.99,32,4,tomato,18.0,0.2,3.89,1.2,0.88
+31806,"brazilian acai berry biotin bursts 10,000 mcg",3.99,47,11,Açaí pulp,80.0,6.0,4.0,3.0,2.0
+31807,tears lubricant eye drops,2.99,44,11,Açaí pulp,80.0,6.0,4.0,3.0,2.0
+31808,lemon-lime 12 pack soda,2.99,77,7,lemon lime,41.0,0.0,10.42,0.0,0.09
+31809,dried raspberries,7.99,117,19,Raspberries,52.0,0.65,11.94,6.5,1.2
+31810,sugar free lemonade drink mix,3.99,90,7,granulated sugar,387.0,0.0,99.98,0.0,0.0
+31811,chicken paella,4.99,13,20,broiler chicken,215.0,15.06,0.0,0.0,18.6
+31812,craft brewed yerba mate brew solar kombucha,3.99,31,7,GT Kombucha Original,12.680163996787691,0.0,2.9587049325837946,0.0,0.0
+31813,sesame noodle salad,3.99,1,20,sesame seed,573.0,49.67,23.45,11.8,17.73
+31814,smooth psyllium fiber supplement,3.99,70,11,sesame seed,573.0,49.67,23.45,11.8,17.73
+31815,spicy guacamole mix,4.99,51,13,sesame seed,573.0,49.67,23.45,11.8,17.73
+31816,advanced care invisible sheer fresh deodorant,2.99,100,21,sesame seed,573.0,49.67,23.45,11.8,17.73
+31817,chicken fajitas,8.99,38,1,broiler chicken,215.0,15.06,0.0,0.0,18.6
+31818,seeded rye bread,4.99,112,3,rye bread,259.0,3.3,48.3,5.8,8.5
+31819,organic ground sumac,2.99,104,13,cayenne pepper,318.0,17.27,56.63,27.2,12.01
+31820,"pie crust, gluten free",10.99,17,13,pie crust,445.0,25.46,51.11,1.8,2.97
+31821,cubanelle pepper,11.99,83,4,black pepper,251.0,3.26,63.95,25.3,10.39
+31822,four cheese tomato cream pasta sauce,4.99,9,9,marinara sauce,49.0,1.48,7.53,1.8,1.41
+31823,natural preserved lemons,3.99,110,13,lemon,29.0,0.3,9.32,2.8,1.1
+31824,"crackers, classic saltine",2.99,78,19,oyster cracker,418.0,8.64,74.05,2.8,9.46
+31825,solid cool essentials w/cucumber & green tea scent deodorant clinical protection,2.99,80,11,cucumber,15.0,0.11,3.63,0.5,0.65
+31826,lemongrass & chili instant rice noodle soup,7.99,66,6,cucumber,15.0,0.11,3.63,0.5,0.65
+31827,"maple sugar, organic, pure",12.99,17,13,maple sugar,354.0,0.2,90.9,0.0,0.1
+31828,ultra jarro-dophilus 10 strain probiotic capsules,2.99,70,11,maple sugar,354.0,0.2,90.9,0.0,0.1
+31829,creme de menthe thins,2.99,45,19,crème de menthe,371.0,0.3,41.6,0.0,0.0
+31830,pierogies potato & cheese filled,4.99,33,6,cheddar cheese,406.0,33.82,1.33,0.0,24.04
+31831,amazingly grey black tea with bergamot flavor,5.99,94,7,black tea,1.0,0.0,0.3,0.0,0.0
+31832,texas bbq kale chips,4.99,50,19,Kale,49.0,0.93,8.75,3.6,4.28
+31833,boneless turkey breast roast,2.99,24,4,turkey,143.0,5.64,0.13,0.0,21.64
+31834,nantucket blend k cups,3.99,26,7,turkey,143.0,5.64,0.13,0.0,21.64
+31835,old fashioned caramel apple dip,5.99,123,4,"Cereals, QUAKER, hominy grits, white, regular, dry",361.0,1.6,79.2,1.6,8.8
+31836,6.25 oz lifesavers peppomint peg,3.99,46,19,"Cereals, QUAKER, hominy grits, white, regular, dry",361.0,1.6,79.2,1.6,8.8
+31837,unbleached enriched super-fine cake flour,2.99,17,13,cake flour,362.0,0.86,78.03,1.7,8.2
+31838,spikes medium chunky salsa,3.99,51,13,salsa,29.0,0.17,6.72,1.8,1.54
+31839,multi surface cleaner lavender,6.99,114,17,dried rosemary,331.0,15.22,64.06,42.6,4.88
+31840,liquid smoke hickory concentrated seasoning,2.99,5,13,water,0.0,0.0,0.0,0.0,0.0
+31841,all day pain relief naproxen sodium tablets,4.99,133,11,water,0.0,0.0,0.0,0.0,0.0
+31842,one vanilla chai nutritional shake drink mix,3.99,65,11,Vanilla extract,288.0,0.06,12.65,0.0,0.06
+31843,granny smith apple chips,2.99,117,19,granny smith apple,58.0,0.19,13.61,2.8,0.44
+31844,potato-filled flatbread,2.99,76,6,potato,77.0,0.09,17.47,2.2,2.02
+31845,18-in-1 hemp peppermint pure-castile soap,4.99,25,11,peppermint,70.0,0.94,14.89,8.0,3.75
+31846,heavy whip cream,5.99,53,16,heavy whipping cream,345.0,37.0,2.79,0.0,2.05
+31847,pure butter shortbread,3.99,61,19,shortbread cookie,514.0,26.22,63.78,1.3,5.37
+31848,mini pretzels,2.99,107,19,pretzel,384.0,2.94,80.39,3.4,10.04
+31849,banana yogurt & fruit juice blend,4.99,92,18,plain whole milk yogurt,61.0,3.25,4.66,0.0,3.47
+31850,steamfresh selects frozen long grain white rice with mixed vegetables,17.99,38,1,frozen mixed vegetables,72.0,0.52,13.47,4.0,3.33
+31851,wildberry hibiscus herbal infusion pouches,2.99,94,7,frozen mixed vegetables,72.0,0.52,13.47,4.0,3.33
+31852,san ignacio coffee,7.99,26,7,coffee,1.0,0.02,0.0,0.0,0.12
+31853,premium ginger beer,6.99,77,7,ginger ale,34.0,0.0,8.77,0.0,0.0
+31854,original aloe vera drink,2.99,98,7,"Cereals, QUAKER, corn grits, instant, plain, dry",343.0,2.14,78.42,4.2,7.31
+31855,peeled and steamed fava beans,3.99,123,4,fava beans,88.0,0.73,17.63,7.5,7.92
+31856,seville bitter orange marmalade,3.99,88,13,orange,47.0,0.12,11.75,2.4,0.94
+31857,snicker doodle chocolate enrobed cookie dough,3.99,71,16,snickers bar,491.0,23.85,61.51,2.3,7.53
+31858,organic dark chocolate cherry almond trail mix bar,6.99,3,19,dark chocolate,598.0,42.63,45.9,10.9,7.79
+31859,white truffle flavored extra virgin olive oil spray,12.99,19,13,cloud ear,284.0,0.73,73.01,70.1,9.25
+31860,foil sheets,2.99,85,17,cloud ear,284.0,0.73,73.01,70.1,9.25
+31861,hard root beer,3.99,77,7,root beer,41.0,0.0,10.6,0.0,0.0
+31862,coffee caramel ice cream,3.99,37,1,coffee,1.0,0.02,0.0,0.0,0.12
+31863,citrus power liquid cleaner,3.99,114,17,coffee,1.0,0.02,0.0,0.0,0.12
+31864,"laundry liquid, cold-water formula, grapefruit seed & orange peel extract",4.99,75,17,water,0.0,0.0,0.0,0.0,0.0
+31865,four cheese ravioli,3.99,12,9,cheese tortellini,307.0,7.23,47.0,1.9,13.5
+31866,blow pop assorted bubble gum filled pops,2.99,45,19,Chewing gum,360.0,0.3,96.7,2.4,0.0
+31867,tropical lime twist dish detergent,3.99,74,17,Limes,30.0,0.2,10.54,2.8,0.7
+31868,splendido tomatoes,2.99,123,4,tomato,18.0,0.2,3.89,1.2,0.88
+31869,organic edamame,10.99,116,1,frozen edamame,110.0,4.73,8.58,4.8,10.25
+31870,southwest chicken in a seasoned batter taquitos,2.99,129,1,broiler chicken,215.0,15.06,0.0,0.0,18.6
+31871,beef polska kielbasa,2.99,106,12,beef chuck,130.0,4.81,0.12,0.0,21.64
+31872,totopos de maiz mexican style thin & crispy salted tortilla chips,18.99,107,19,yellow tortilla chip,497.0,22.33,67.38,4.7,6.62
+31873,unscented regular pantiliners,2.99,126,11,yellow tortilla chip,497.0,22.33,67.38,4.7,6.62
+31874,tumblers for cats toss roll & treat chicken & turkey,2.99,41,8,turkey,143.0,5.64,0.13,0.0,21.64
+31875,signature german chocolate cake mix,3.99,105,13,german chocolate cake mix,350.0,3.24,81.25,2.1,4.17
+31876,fresh scent speed stick deodorant,3.99,80,11,german chocolate cake mix,350.0,3.24,81.25,2.1,4.17
+31877,thai green curry sauce,2.99,66,6,curry powder,325.0,14.01,55.83,53.2,14.29
+31878,package kiwi,2.99,123,4,kiwifruit,61.0,0.52,14.66,3.0,1.14
+31879,"sunscreen, kids spray, broad spectrum spf 40",2.99,25,11,kiwifruit,61.0,0.52,14.66,3.0,1.14
