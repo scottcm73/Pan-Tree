@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+<div id="budget_analysis"></div>
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <!-- Latest compiled and minified plotly.js JavaScript -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
+        
+        <div id="controler">
+            <input type="text" name="daterange" value="01/01/2000 - 02/01/2000" /></div>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/test3.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    {% endblock %}
+  
+  

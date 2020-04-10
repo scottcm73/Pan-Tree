@@ -121,6 +121,7 @@ def dashboard():
 
     return render_template("dashboard.html", name=current_user.username)
 
+
 @app.route("/dashboard-data",)
 def dashboard_data():
     query = app.session.query(
@@ -300,6 +301,12 @@ def aisles_data():
 def plot1():
 
     return render_template("plot1.html", name=current_user.username)
+
+@app.route("/plot2")
+@login_required
+def plot2():
+
+    return render_template("plot2.html", name=current_user.username)
 
 
 @app.route("/logout")

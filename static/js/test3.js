@@ -71,3 +71,29 @@ d3.json('/dashboard-data').then((data) =>
 
 getData();
 
+totalSpending=totalsList => totalsList.reduce((a,b) => a + b, 0)
+maximumOrderTotal=totalsList =>  Math.max(...totalsList)
+
+$(function() {
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+//controls
+    var button = document.createElement("button");
+    button.innerHTML = "Select Date";
+    
+    // 2. Append somewhere
+    var body = document.getElementsByTagName("body")[0];
+    body.appendChild(button);
+    
+    // 3. Add event handler
+    button.addEventListener ("click", function() {
+        $('input[name="dates"]').daterangepicker();
+    });    
+    
+
+
+   

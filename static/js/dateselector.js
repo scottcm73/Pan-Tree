@@ -1,6 +1,6 @@
-var rawDataURL = 'https://raw.githubusercontent.com/plotly/datasets/master/2016-weather-data-seattle.csv';
+
 var xField = 'Date';
-var yField = 'Mean_TemperatureC';
+var yField = 'Total Expenditure';
 
 var selectorOptions = {
     buttons: [{
@@ -28,10 +28,9 @@ var selectorOptions = {
     }],
 };
 
-Plotly.d3.csv(rawDataURL, function(err, rawData) {
-    if(err) throw err;
 
-    var data = prepData(rawData);
+
+    var data = prepData();
     var layout = {
         title: 'Time series with range slider and selectors',
         xaxis: {
@@ -42,23 +41,18 @@ Plotly.d3.csv(rawDataURL, function(err, rawData) {
             fixedrange: true
         }
     };
+    
 
-    Plotly.newPlot('myDiv', data, layout);
-});
+    Plotly.newPlot("budget_analysis", data, layout);
 
-function prepData(rawData) {
-    var x = [];
-    var y = [];
 
-    rawData.forEach(function(datum, i) {
-
-        x.push(new Date(datum[xField]));
-        y.push(datum[yField]);
-    });
+function prepData() {
+    getData()
+ 
 
     return [{
         mode: 'lines',
-        x: x,
-        y: y
+        x: uniqueDates,
+        y: totalsList
     }];
 }
