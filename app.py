@@ -43,7 +43,7 @@ db = SQLAlchemy()
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path='/static')
     db.init_app(app)
     return app
 
@@ -79,7 +79,7 @@ def load_user(id):
 
 @app.route("/")
 def home_page():
-    return render_template("base.html")
+    return redirect('/login')
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -112,46 +112,46 @@ def signup():
         db.session.commit()
         return "<h2>New user has been created, please <a href='/login'>log in</a>.</h2>"
 
-    return render_template("signup.html", form=form)
+    return render_template("register.html", form=form)
 
 
 @app.route("/dashboard")
-
-# @login_required
-# Temporarily taken out because I want to get to page without having to login.
-# I still have to type in /dashboard to ensure I get to the page.
+@login_required
 def dashboard():
 
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", name=current_user.username)
 
 
-# need to pass name=current_user.username
-
-
-# @login_required
-# Temporarily taken out because I want to get to page without having to login.
-# I still have to type in /dashboard to ensure I get to the page.
-@app.route("/dashboard-data")
-
+<<<<<<< HEAD
+@app.route("/dashboard-data",)
+=======
 @login_required
 # Temporarily taken out because I want to get to page without having to login.
 # I still have to type in /dashboard to ensure I get to the page.
+>>>>>>> inventory_table
 def dashboard_data():
-    engine = create_engine(
-        f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
-    )
+    query = app.session.query(
+        T_Orders.user_id,
+        T_Orders.order_date,
+        T_Order_products.order_id,
+        Products.product_name,
+        T_Order_products.quantity,
+        Products.price,
+        Departments.department,
+        Aisles.aisle
+        ).join(
+            T_Orders, T_Order_products.order_id == T_Orders.order_id,
+        ).join(
+            Products, T_Order_products.product_id == Products.product_id,
+        ).join(
+            Departments, Products.department_id == Departments.department_id,
+        ).join(
+            Aisles, Products.aisle_id == Aisles.aisle_id
+        ).order_by(T_Orders.order_date).limit(250)
+        
+    qqq = [q._asdict() for q in query]
 
-    with engine.begin() as connection:
-        rs = connection.execute(
-            "Select * from order_products op\
-            INNER JOIN aisles ON aisles.aisle_id = op.aisle_id and op.user_id = 5\
-            INNER JOIN departments d ON d.department_id = op.department_id;"
-        )
-
-    # don't need this with the With statement but I still use it.
-
-    connection.close()
-    return jsonify([dict(r) for r in rs])
+    return jsonify(qqq)
 
 #this route will be modified to fit the current user
 @app.route('/table_data',  methods=['GET'])
@@ -177,11 +177,17 @@ def table_data():
 
     query_dict = [qu._asdict() for qu in query]
 
-    return jsonify (query_dict)
+    return jsonify(query_dict)
 
 @app.route('/inventory_table')
+@login_required
 def table():
-    return render_template('inventory_table.html')
+    return render_template('tables.html')
+
+@app.route('/budget_plot')
+@login_required
+def budget_plot():
+    return render_template('charts.html')
 
 @app.route('/cook_buttons/<order_id>/<product_id>', methods=['GET', 'POST'])
 def cook_button(order_id, product_id):
@@ -211,7 +217,7 @@ def trash_button(order_id, product_id):
     app.session.flush()
     app.session.commit()
 
-    return redirect('/inventory_table', code = 301)
+    return redirect('/inventory_table')
 
 ###routes the data properly joined
 ##displays correct data
@@ -293,6 +299,20 @@ def aisles_data():
     qqq = [q.to_dict() for q in query]
 
     return jsonify(qqq)
+
+
+
+@app.route("/plot1")
+@login_required
+def plot1():
+
+    return render_template("plot1.html", name=current_user.username)
+
+@app.route("/plot2")
+@login_required
+def plot2():
+
+    return render_template("plot2.html", name=current_user.username)
 
 
 @app.route("/logout")

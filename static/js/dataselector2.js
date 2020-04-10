@@ -1,7 +1,6 @@
-var rawDataURL = '{{ data|safe }}';
-console.log(rawData)
+
 var xField = 'Date';
-var yField = 'Mean_TemperatureC';
+var yField = 'Total Expenditure';
 
 var selectorOptions = {
     buttons: [{
@@ -29,37 +28,65 @@ var selectorOptions = {
     }],
 };
 
-Plotly.d3.csv(rawDataURL, function(err, rawData) {
-    if(err) throw err;
 
-    var data = prepData(rawData);
-    var layout = {
-        title: 'Time series with range slider and selectors',
-        xaxis: {
+
+var data = getData();
+var layout = {
+    title: 'Time series with range slider and selectors',
+    xaxis: {
             rangeselector: selectorOptions,
             rangeslider: {}
         },
         yaxis: {
             fixedrange: true
         }
-    };
 
-    Plotly.newPlot('myDiv', data, layout);
-});
+        }
 
-function prepData(rawData) {
-    var x = [];
-    var y = [];
+Plotly.newPlot('budget_analysis', data, layout);
 
-    rawData.forEach(function(datum, i) {
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
 
-        x.push(new Date(datum[xField]));
-        y.push(datum[yField]);
-    });
-
+function getData(){
+    d3.json('/dashboard-data').then((data) => 
+    {
+        list1=[]    
+        data.forEach(element => 
+            {let datePrice = [element['order_date'],
+            element['price']]
+            list1.push(datePrice)    
+            });
+            sumDict={}
+            list1.forEach(element =>
+            {            
+                if (sumDict.hasOwnProperty( element[0] ) ) {
+                    sumDict[ element[0] ] = sumDict[ element[0] ] + element[1];
+                } else {
+                    sumDict[ element[0] ] = element[1];
+                }        
+                       
+            });
+            dateList=[]
+            totalsList=[]
+            Object.entries(sumDict).forEach(([date, total])=>
+            {   
+                   
+                dateList.push(new Date(date));
+               
+                
+                // usage example:
+                
+                var unique = dateList.filter(onlyUnique);
+                totalsList.push(total);
+                console.log(unique);
+                console.log(totalsList);
+            })
     return [{
         mode: 'lines',
-        x: x,
-        y: y
-    }];
-}
+        x: unique,
+        y: totalsList
+    }]
+})
+})};
