@@ -26,6 +26,20 @@ class Aisles(Base, DictMixIn):
     aisle_id = Column(BigInteger, primary_key=True)
     aisle = Column(VARCHAR(30))
 
+class Product_nutrients(Base, DictMixIn):
+    __tablename__ = "product_nutrients"
+    product_id = Column(BigInteger, primary_key=True)
+    product_name = Column(VARCHAR (120))
+    price = Column(Integer)
+    aisle_id = Column(Integer)
+    department_id = Column(Integer)
+    text_API = Column(Integer)
+    ENERC_KCAL = Column(Integer)
+    FAT = Column(Integer)
+    CHOCDF = Column(Integer)
+    FIBTG = Column(Integer)
+    PROCNT = Column(Integer)
+    
 class Products(Base, DictMixIn):
     __tablename__ = "products"
     product_id = Column(BigInteger, primary_key=True)

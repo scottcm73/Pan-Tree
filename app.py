@@ -122,13 +122,7 @@ def dashboard():
     return render_template("dashboard.html", name=current_user.username)
 
 
-<<<<<<< HEAD
 @app.route("/dashboard-data",)
-=======
-@login_required
-# Temporarily taken out because I want to get to page without having to login.
-# I still have to type in /dashboard to ensure I get to the page.
->>>>>>> inventory_table
 def dashboard_data():
     query = app.session.query(
         T_Orders.user_id,
