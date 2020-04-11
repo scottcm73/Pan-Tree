@@ -123,7 +123,7 @@ def dashboard():
 
     return render_template("dashboard.html", name=current_user.username)
 
-@app.route("/dashboard-data",)
+@app.route("/budget_data",)
 def dashboard_data():
     query = app.session.query(
         T_Orders.user_id,
@@ -142,8 +142,7 @@ def dashboard_data():
             Departments, Products.department_id == Departments.department_id,
         ).join(
             Aisles, Products.aisle_id == Aisles.aisle_id
-        ).order_by(T_Orders.order_date).limit(250)
-        
+        ).order_by(T_Orders.order_date)
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
@@ -266,14 +265,14 @@ def aisles_data():
 
     return jsonify(qqq)
 
-@app.route("/plot1")
-@login_required
+@app.route("/budget_analysis")
+#@login_required
 def plot1():
 
-    return render_template("charts.html", name=current_user.username)
+    return render_template("budget_analysis.html", name=current_user.username)
 
 @app.route("/plot2")
-@login_required
+# @login_required
 def plot2():
 
     return render_template("plot2.html", name=current_user.username)
