@@ -266,16 +266,10 @@ def aisles_data():
     return jsonify(qqq)
 
 @app.route("/budget_analysis")
-#@login_required
-def plot1():
+@login_required
+def budget_analysis():
 
     return render_template("budget_analysis.html", name=current_user.username)
-
-@app.route("/plot2")
-# @login_required
-def plot2():
-
-    return render_template("plot2.html", name=current_user.username)
 
 
 @app.route("/logout")
