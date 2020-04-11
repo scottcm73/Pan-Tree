@@ -128,9 +128,19 @@
                   </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <div id='budget_analysis'></div>
+                      <canvas id="budget_analysis_canvas"></canvas>
+                    </div>
+                    <hr>
+                    Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
+                  </div>
+                </div>
                   </div>
                 </div>
               </div>
@@ -258,3 +268,18 @@
   </div>
 
   {% endblock %}
+  {% block scripts %}
+  {{ super() }}
+  <!-- Page level plugins -->
+  <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
+
+<!-- Page level custom scripts -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<!-- Latest compiled and minified plotly.js JavaScript -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
+
+
+    
+<script type="text/javascript" src="{{ url_for('static', filename='js/test2.js') }}"></script>
+
+{% endblock %}
