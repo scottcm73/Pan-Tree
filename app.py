@@ -299,7 +299,7 @@ def aisles_data():
 @login_required
 def plot1():
 
-    return render_template("plot1.html", name=current_user.username)
+    return render_template("charts.html", name=current_user.username)
 
 @app.route("/plot2")
 @login_required
