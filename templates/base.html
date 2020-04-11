@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 
+{% import "bootstrap/fixes.html" as fixes %}
+
 <head>
 {% block head %}
+{{fixes.ie8()}}
 <meta charset="utf-8">
 <title>Home Inventory{% block title %}{% endblock %}</title>
 <meta charset="utf-8">
