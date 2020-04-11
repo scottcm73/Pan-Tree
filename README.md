@@ -23,8 +23,13 @@ Another gets data about orders.
 
 This is an early prototype for a real-world application. If given more time, we would make further refinements in the controls, the plots, and the interactivity.
 
+We also got data from the Edamam Nutritional Analysis API. We used the api to search for data about the purchased products.
+
 
 
 Bibliography:
 
 “The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on , 2020.
+
+Edamam Nutrional Analysis API, accessed from https://developer.edamam.com/edamam-nutrition-api on April 1, 2020.
+
