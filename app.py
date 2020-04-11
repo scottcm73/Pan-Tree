@@ -38,6 +38,7 @@ from models import (
 )
 import datetime
 from flask_sqlalchemy import SQLAlchemy
+from queries import department_query, nutrient_query
 
 
 db = SQLAlchemy()
@@ -212,82 +213,12 @@ def trash_button(order_id, product_id):
     app.session.commit()
 
     return redirect('/inventory_table')
-
-###routes the data properly joined
-##displays correct data
-@app.route("/data")
-def data():
-    query = app.session.query(
-        Orders.user_id,
-        Orders.order_date,
-        Order_products.order_id,
-        Products.product_name,
-        Order_products.quantity,
-        Products.price,
-        Departments.department,
-        Aisles.aisle
-        ).join(
-            Order_products, Orders.order_id == Order_products.order_id
-        ).join(
-            Products, Order_products.product_id == Products.product_id
-        ).join(
-            Departments, Products.department_id == Departments.department_id
-        ).join(
-            Aisles, Products.aisle_id == Aisles.aisle_id
-        ).limit(100).all()
-    
-    qqq = [q._asdict() for q in query]
-
-    return jsonify(qqq)
-
-
-@app.route("/data/<order_id>")
-def data_for_order(order_id):
-    query = app.session.query(
-        Orders.user_id,
-        Orders.order_date,
-        Order_products.order_id,
-        Products.product_name,
-        Products.price,
-        Departments.department,
-        Aisles.aisle
-        ).join(
-            Order_products, Orders.order_id == Order_products.order_id
-        ).join(
-            Products, Order_products.product_id == Products.product_id
-        ).join(
-            Departments, Products.department_id == Departments.department_id
-        ).join(
-            Aisles, Products.aisle_id == Aisles.aisle_id
-        ).filter(
-                Order_products.order_id == order_id
-        ).all()
-
-    qqq = [q._asdict() for q in query]
-
-    return jsonify(qqq)
     
 @app.route("/nutrient_per_order")
 def nutrient_per_order():
-    query = app.session.query(
-        T_Orders.order_date,
-        T_Order_products.order_id,
-        Product_nutrients.product_name,
-        Product_nutrients.ENERC_KCAL,
-        Product_nutrients.FAT,
-        Product_nutrients.CHOCDF,
-        Product_nutrients.FIBTG,
-        Product_nutrients.PROCNT,    
-        ).join(
-            Product_nutrients, T_Order_products.product_id == Product_nutrients.product_id
-        ).join(
-            T_Orders, T_Order_products.order_id == T_Orders.order_id
-        ).limit(100).all()
 
-    query_dicts = [q._asdict() for q in query]
-    dates_list = [p['order_date'] for p in query_dicts]
+    query_dicts = [q._asdict() for q in nutrient_query]
     unique_dates = []
-
     for i in query_dicts:
         if i['order_date'] not in unique_dates:
             unique_dates.append(i['order_date'])
@@ -305,15 +236,10 @@ def nutrient_per_order():
         pro_count = 0
         for point in query_dicts:        
             if point['order_date'] == date:
-                ##ENEC
                 enerc_count += point['ENERC_KCAL']
-                ##FAT
                 fat_count += point['FAT']
-                ##CHOC
                 choc_count += point['CHOCDF']
-                ##FIB
                 fib_count += point['FIBTG']
-                #PRO
                 pro_count += point['PROCNT']
         data_dict[date] = {
                 'total_calories' : enerc_count,
@@ -329,10 +255,7 @@ def nutrient_per_order():
 
 @app.route("/department_data")
 def department_data():
-    query = app.session.query(Departments).all()
-
-    qqq = [q.to_dict() for q in query]
-
+    qqq = [q.to_dict() for q in department_query]
     return jsonify(qqq)
 
 

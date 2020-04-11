@@ -15,6 +15,11 @@
     
 </div>
 
+
+{% endblock %}
+
+
+{% block scripts %}
 <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js'></script>
-<script src='../static/js/make_table.js'></script>
+<script src="{{ url_for('static', filename='js/make_table.js')  }}"></script>
 {% endblock %}

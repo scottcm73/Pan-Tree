@@ -23,86 +23,39 @@
         {% endwith %}
 
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+ <!-- Begin Page Content -->
+ <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Pantry</h1>
 
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                    <tr>
-                      <td>Shad Decker</td>
-                      <td>Regional Director</td>
-                      <td>Edinburgh</td>
-                      <td>51</td>
-                      <td>2008/11/13</td>
-                      <td>$183,000</td>
-                    </tr>
-                    <tr>
-                      <td>Michael Bruce</td>
-                      <td>Javascript Developer</td>
-                      <td>Singapore</td>
-                      <td>29</td>
-                      <td>2011/06/27</td>
-                      <td>$183,000</td>
-                    </tr>
-                    <tr>
-                      <td>Donna Snider</td>
-                      <td>Customer Support</td>
-                      <td>New York</td>
-                      <td>27</td>
-                      <td>2011/01/25</td>
-                      <td>$112,000</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Current Inventory</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="inventory_table" width="100%" cellspacing="0">
+          <thead id='table_header'>
+          </thead>
+          <tfoot>
+            <tr id='footer_row'>
 
-        </div>
-        <!-- /.container-fluid -->
-
+            </tr>
+          </tfoot>
+          <tbody id='table_body'>
+          </tbody>
+        </table>
       </div>
-      <!-- End of Main Content -->
+    </div>
+  </div>
 
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -128,9 +81,18 @@
   {% block scripts %}
   {{super () }}
   <!-- Page level plugins -->
-  <script src="{{ url_for('static', filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js'></script>
+  <!-- <script src="{{ url_for('static', filename='js/make_table.js') }}"></script> -->
+  <!-- <script src="{{ url_for('static', filename='vendor/datatables/jquery.dataTables.min.js') }}"></script> -->
+  <!-- <script src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script> -->
+<!-- <script src='https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css'></script>
+<script src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
+   Page level custom scripts
+  <script src='https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css'></script>
+  <script src='https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js'></script> -->
 
-  <!-- Page level custom scripts -->
-  <script src="{{ url_for('static', filename='js/demo/datatables-demo.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/fh-3.1.6/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/fh-3.1.6/datatables.min.js"></script>
+  <script src="{{ url_for('static', filename='js/makeDataTables.js') }}"></script>
   {% endblock %}
