@@ -343,8 +343,6 @@ def aisles_data():
 
     return jsonify(qqq)
 
-
-
 @app.route("/plot1")
 @login_required
 def plot1():
