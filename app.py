@@ -121,7 +121,6 @@ def dashboard():
 
     return render_template("dashboard.html", name=current_user.username)
 
-
 @app.route("/dashboard-data",)
 def dashboard_data():
     query = app.session.query(
@@ -300,7 +299,7 @@ def aisles_data():
 @login_required
 def plot1():
 
-    return render_template("plot1.html", name=current_user.username)
+    return render_template("charts.html", name=current_user.username)
 
 @app.route("/plot2")
 @login_required
@@ -322,4 +321,4 @@ def remove_session(*args, **kwargs):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)

@@ -24,6 +24,7 @@ Another gets data about orders.
 This is an early prototype for a real-world application. If given more time, we would make further refinements in the controls, the plots, and the interactivity.
 
 
-Bibliography
+
+Bibliography:
 
 “The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on , 2020.
