@@ -47,21 +47,16 @@ d3.json('/dashboard-data').then((data) =>
         totalsList.push(total);
 
     });
-    var obj = {
-
-        datelist: dateList,
-
-        totallist: totalsList,
-
-        
-
-    };
-
-    return obj;    
     
 
+ 
+let arrayofArrays=[dateList, totalsList]
+
+
+return arrayofArrays;
     
 })
+
 };
 var xField = 'Date';
 var yField = 'Total Expenditure';
@@ -104,18 +99,20 @@ var selectorOptions = {
         yaxis: {
             fixedrange: true
         }
+        
     };
-    
+Plotly.newPlot("budget_analysis", data, layout);
 
-    Plotly.newPlot("budget_analysis", data, layout);
+   
 
 
 function prepData() {
-    all=getData()
-    totalsList=all.totallist
-    dateList=all.datelist
+    
+    var totalsList=getData()[0];
+    var dateList=getData()[1];
     var uniqueDates = onlyUnique(dateList);
-
+    console.log(totalsList);
+    // console.log(uniqueDates);
     return [{
         mode: 'lines',
 

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "064785a447a5f4d772e1837f7e6fddabcd6ad811420a5c90fa7ebf6d3c79a3f5"
+            "sha256": "33a0e711c642806216a232ddab2db7450b145565d5e27a84baf3c7d4daa44787"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -11,7 +11,7 @@
             {
                 "name": "pypi",
                 "url": "https://pypi.org/simple",
-                "verify_ssl": true
+                "verify_ssl": false
             }
         ]
     },
@@ -21,7 +21,7 @@
                 "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
                 "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
             ],
-            "markers": "sys_platform == 'darwin'",
+            "markers": "platform_system == 'Darwin'",
             "version": "==0.1.0"
         },
         "backcall": {
@@ -164,6 +164,14 @@
             "index": "pypi",
             "version": "==0.14.3"
         },
+        "gunicorn": {
+            "hashes": [
+                "sha256:1904bb2b8a43658807108d59c3f3d56c2b6121a701161de0ddf9ad140073c626",
+                "sha256:cd4a810dd51bf497552cf3f863b575dabd73d6ad6a91075b65936b151cbf4f9c"
+            ],
+            "index": "pypi",
+            "version": "==20.0.4"
+        },
         "ipykernel": {
             "hashes": [
                 "sha256:37c65d2e2da3326e5cf114405df6d47d997b8a3eba99e2cc4b75833bf71a5e18",
@@ -202,10 +210,10 @@
         },
         "jinja2": {
             "hashes": [
-                "sha256:c10142f819c2d22bdcd17548c46fa9b77cf4fda45097854c689666bf425e7484",
-                "sha256:c922560ac46888d47384de1dbdc3daaa2ea993af4b26a436dec31fa2c19ec668"
+                "sha256:93187ffbc7808079673ef52771baa950426fd664d3aad1d0fa3e95644360e250",
+                "sha256:b0eaf100007721b5c16c1fc1eecb87409464edc10469ddc9a22a27a99123be49"
             ],
-            "version": "==3.0.0a1"
+            "version": "==2.11.1"
         },
         "jupyter-client": {
             "hashes": [
@@ -478,10 +486,10 @@
         },
         "sqlalchemy": {
             "hashes": [
-                "sha256:c4cca4aed606297afbe90d4306b49ad3a4cd36feb3f87e4bfd655c57fd9ef445"
+                "sha256:7224e126c00b8178dfd227bc337ba5e754b197a3867d33b9f30dc0208f773d70"
             ],
             "index": "pypi",
-            "version": "==1.3.15"
+            "version": "==1.3.16"
         },
         "tornado": {
             "hashes": [

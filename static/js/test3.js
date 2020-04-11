@@ -1,20 +1,4 @@
 
-function getDistinct(items, key){
-    var lookup = {};
-  
-    var result = [];
-
-    for (var item, i = 0; item = items[i++];) {
-        let name = item[key];
-
-    if (!(name in lookup)) {
-        lookup[name] = 1;
-        result.push(name);
-        }
-    }
-    return result;
-
-};
 function getTotal(data, key){
     var total = 0,  //set a variable that holds our total
     thetotal = data,  //reference the element in the "JSON" aka object literal we want
@@ -53,9 +37,13 @@ d3.json('/dashboard-data').then((data) =>
 
         dateList.push(date);
         totalsList.push(total);
+    
+        
+
+
 
     });
-    let datestrArray=getDistinct(data, 'order_date')
+
     
     var data = [
         {
@@ -64,35 +52,62 @@ d3.json('/dashboard-data').then((data) =>
           type: 'bar'
         }
       ];
+
+      $(function() {
+
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+    
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+    
+        $('#reportrange').daterangepicker({
+            startDate: start,
+            endDate: end
+           
+        }, cb);
+    
+        cb(start, end);
+    
+    });
+   
+
       Plotly.newPlot('budget_analysis', data);
+    
     
 })
 };
+$('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+    console.log(picker.startDate.format('YYYY-MM-DD'));
+    console.log(picker.endDate.format('YYYY-MM-DD'));
+    let myHeader = ["order_date", "total"];
+    let mydata = [myHeader];
+    
+for(i=0; i<dateList.length(); i++)
+{
+    mydata.push([myCol1[i],myCol2[i]]);
+}
+x=0
+
+function startEndFilter(mydata, x){
+let start = new Date(mydata[0].min);
+let end   = new Date(mydata[1].max);
+
+return items.filter(item => {
+   let date = new Date(item.created_at);
+   return date >= start && date <= end;
+                            });  
+                        
+                        }; 
+
 
 getData();
+     
 
-totalSpending=totalsList => totalsList.reduce((a,b) => a + b, 0)
-maximumOrderTotal=totalsList =>  Math.max(...totalsList)
 
-$(function() {
-    $('input[name="daterange"]').daterangepicker({
-        opens: 'left'
-        }, function(start, end, label) {
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-        });
-    });
-//controls
-    var button = document.createElement("button");
-    button.innerHTML = "Select Date";
-    
-    // 2. Append somewhere
-    var body = document.getElementsByTagName("body")[0];
-    body.appendChild(button);
-    
-    // 3. Add event handler
-    button.addEventListener ("click", function() {
-        $('input[name="dates"]').daterangepicker();
-    });    
+
+
     
 
 

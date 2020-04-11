@@ -1,7 +1,7 @@
 [[source]]
 name = "pypi"
 url = "https://pypi.org/simple"
-verify_ssl = true
+verify_ssl = false
 
 [packages]
 pymysql = "*"
@@ -16,11 +16,10 @@ cryptography = "*"
 flask-wtf = "*"
 flask-cors = "*"
 flask-sqlalchemy = "*"
-
 mysql-connector-python = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
 
-[pipenv]
-allow_prereleases = true
+
