@@ -1,23 +1,29 @@
-# inventory
+Home-Inventory App
 
-Home Inventory App Project
+Our group decided to develop an unconventional data application. Cesar Tolentino had the unique idea of making an application that keeps records of groceries that people buy online and stores an inventory of what the user has at home based on prior purchases. 
+
+We got the data for the application from Instacart in the form of enormous CSV files. We eventually decided we didn't need all of the over two million items purchased that are listed in a table linking orders and products. 
+
+Two massive tables that were originally for training and testing were concatenated. We put the data into a mysql database running on a virtual private server at Bluehost.  MySQL Workbench was employed to structure the tables and their relationships based on the CSVs. 
+
+We deployed the application on Heroku instead of on the virtual private server because it makes deploying such applications simple. At the same time, it would not involve changing the setup of a server.
+
+The landing page is a login page for the app. The user either logs in or signs up as a new user with an email address and password. The app sends and stores the password with hash encryption. 
+
+Upon successful login, the user is directed toward a dynamic dashboard with price totals for each order date. 
+
+A plot of the cost totals has a date range selected using javascript.
+The style of the pages in the dashboard app is made from dashboard templates using bootstrap.
+
+We also got data from several relative jsonified routes. 
+
+Other parts of the application include letting users place items in the trash or consume them. The user can also classify an item as wasted goes bad or is thrown out before consumption or use.
+
+Another gets data about orders. 
+
+This is an early prototype for a real-world application. If given more time, we would make further refinements in the controls, the plots, and the interactivity.
 
 
-Our group includes Scott McMahan, Cesar Tolentino, Derrick Butler, and Memet Bulut. The goal of our project is to offer an online app with a MySQL database backend that will allow users to keep an inventory of what they have in their pantry and their refrigerators. 
+Bibliography:
 
-As part of the user experience, the app will provide a dynamic dashboard that utilizes Flask and a graphing package to provide an interactive and visualized glimpse into what the user has in the pantry and what they have purchased previously.
-
-We will seed the database with data from Instacart about the purchases of over 60,000 customers. We will provide numerous graphs of expenditures over time, favorite products, budgeting, perhaps purchase suggestions, etc.
-
-The app will also give users the option to discard or throw-out the item when it is gone. Users will be able to choose which products to keep track of in inventory. Users will likely decide not to track long-life products such as cleaning products.
-
-The data from Instacart already offers numerous product categories that users can keep track of and show their expenditures and budgeting.
-
-While such an app would ultimately let users make purchases, we may or may not get to this point in this project. We may choose to use the data from Instacart and make the dashboard from that data.
-
-Ultimately, such an app would make buying recommendations so users could choose to have an abundance of a product like toilet paper and ensure that they never run out, or to have an almost constant supply that rarely runs out except towards the end of the week. Other products could be one-of or occasional indulgences. Users could also theoretically set product levels to have the product at home at least half of or 75% of the time.
-
-Again, we may choose to concentrate on the dashboard for now.
-
-by Scott McMahan
-2-26-2020
+“The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on , 2020.
