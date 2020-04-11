@@ -79,36 +79,28 @@ d3.json('/dashboard-data').then((data) =>
 })
 };
 $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
-    console.log(picker.startDate.format('YYYY-MM-DD'));
-    console.log(picker.endDate.format('YYYY-MM-DD'));
-    let myHeader = ["order_date", "total"];
-    let mydata = [myHeader];
+    // console.log(picker.startDate.format('YYYY-MM-DD'));
+    // console.log(picker.endDate.format('YYYY-MM-DD'));
+
+//     let myHeader = ["order_date", "total"];
+//     let mydata = [myHeader];
     
-for(i=0; i<dateList.length(); i++)
-{
-    mydata.push([myCol1[i],myCol2[i]]);
-}
-x=0
+// for(i=0; i<dateList.length(); i++)
+// {
+//     mydata.push([myCol1[i],myCol2[i]]);
+// }
+// x=0
 
-function startEndFilter(mydata, x){
-let start = new Date(mydata[0].min);
-let end   = new Date(mydata[1].max);
+// function startEndFilter(mydata, x){
+// let start = new Date(mydata[0].min);
+// let end   = new Date(mydata[1].max);
 
-return items.filter(item => {
-   let date = new Date(item.created_at);
-   return date >= start && date <= end;
-                            });  
+// return items.filter(item => {
+//    let date = new Date(item.created_at);
+//    return date >= start && date <= end;
+//                             });  
                         
-                        }; 
+//                         }; 
 
 
 getData();
-     
-
-
-
-
-    
-
-
-   
