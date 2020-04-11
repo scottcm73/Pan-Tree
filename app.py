@@ -33,7 +33,8 @@ from models import (
     Departments,
     Aisles,
     T_Orders,
-    T_Order_products
+    T_Order_products,
+    Product_nutrients
 )
 import datetime
 from flask_sqlalchemy import SQLAlchemy
@@ -265,16 +266,65 @@ def data_for_order(order_id):
     qqq = [q._asdict() for q in query]
 
     return jsonify(qqq)
-
-@app.route("/product_data")
-def product_data():
+    
+@app.route("/nutrient_per_order")
+def nutrient_per_order():
     query = app.session.query(
-        Products.pro
-        ).all()
+        T_Orders.order_date,
+        T_Order_products.order_id,
+        Product_nutrients.product_name,
+        Product_nutrients.ENERC_KCAL,
+        Product_nutrients.FAT,
+        Product_nutrients.CHOCDF,
+        Product_nutrients.FIBTG,
+        Product_nutrients.PROCNT,    
+        ).join(
+            Product_nutrients, T_Order_products.product_id == Product_nutrients.product_id
+        ).join(
+            T_Orders, T_Order_products.order_id == T_Orders.order_id
+        ).limit(100).all()
 
-    qqq = [q.to_dict() for q in query]
+    query_dicts = [q._asdict() for q in query]
+    dates_list = [p['order_date'] for p in query_dicts]
+    unique_dates = []
 
-    return jsonify(qqq)
+    for i in query_dicts:
+        if i['order_date'] not in unique_dates:
+            unique_dates.append(i['order_date'])
+
+    sort_dates = sorted(unique_dates)
+    data=[]
+
+    for date in sort_dates:
+        
+        data_dict = {}
+        enerc_count = 0
+        fat_count = 0
+        choc_count = 0
+        fib_count = 0
+        pro_count = 0
+        for point in query_dicts:        
+            if point['order_date'] == date:
+                ##ENEC
+                enerc_count += point['ENERC_KCAL']
+                ##FAT
+                fat_count += point['FAT']
+                ##CHOC
+                choc_count += point['CHOCDF']
+                ##FIB
+                fib_count += point['FIBTG']
+                #PRO
+                pro_count += point['PROCNT']
+        data_dict[date] = {
+                'total_calories' : enerc_count,
+                'total_fat' : fat_count,
+                'total_carbs' : choc_count,
+                'total_fiber' : fib_count,
+                'total_protein' : pro_count
+            }
+        data.append(data_dict)
+
+    return  jsonify(data)
 
 
 @app.route("/department_data")
