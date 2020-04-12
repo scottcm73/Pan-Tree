@@ -30,7 +30,7 @@ Login to the app at https://pan-tree.herokuapp.com/login  with the username vegg
 
 Bibliography
 
-“The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on, 2020.
+“The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on, Feb. 15, 2020.
 
 Edamam Nutrional Analysis API, accessed from https://developer.edamam.com/edamam-nutrition-api on April 1, 2020.
 
