@@ -1,1 +1,1 @@
-In order to reproduce the home_inventory_db on your system download and run each of the sql files in the Dump20200226 folder.
+In order to reproduce the home_inventory_db on your system download and run the sql file in the Dumps folder.
