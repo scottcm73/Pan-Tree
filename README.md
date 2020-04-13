@@ -25,11 +25,12 @@ This is an early prototype for a real-world application. If given more time, we 
 
 We also got data from the Edamam Nutritional Analysis API. We used the api to search for data about the purchased products.
 
+Login to the app at https://pan-tree.herokuapp.com/login  with the username veggie_cheez and the password 12341234.
 
 
-Bibliography:
+Bibliography
 
-“The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on , 2020.
+“The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on, Feb. 15, 2020.
 
 Edamam Nutrional Analysis API, accessed from https://developer.edamam.com/edamam-nutrition-api on April 1, 2020.
 
