@@ -130,37 +130,19 @@
                     <div class="col-xl-4 col-lg-5">
                       <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                          <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                          <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                              <div class="dropdown-header">Dropdown Header:</div>
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Something else here</a>
+                        <!-- Card Body -->
+                        <div class="showcase__section" id="bubble">
+                          <div class="spacer --small"></div>
+                          <div id="bubbleplots">
+                            <div class="bubbleplot" data-num="0">
+                              <div class="plot" id="nutrientPlot"></div>
+                              <div class="control-row">
+                                Date: <select class="dateOptions">
+                                </select>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <!-- Card Body -->
-                        <div class="card-body">
-                          <div class="chart-pie pt-4 pb-2">
-                            <canvas id="myPieChart"></canvas>
-                          </div>
-                          <div class="mt-4 text-center small">
-                            <span class="mr-2">
-                              <i class="fas fa-circle text-primary"></i> Direct
-                            </span>
-                            <span class="mr-2">
-                              <i class="fas fa-circle text-success"></i> Social
-                            </span>
-                            <span class="mr-2">
-                              <i class="fas fa-circle text-info"></i> Referral
-                            </span>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -248,16 +230,14 @@
   {% endblock %}
   {% block scripts %}
   {{ super() }}
-  <!-- Page level plugins -->
-  <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
-
 <!-- Page level custom scripts -->
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <!-- Latest compiled and minified plotly.js JavaScript -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
 
 
-    
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/nutrient_plot_analysis.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/budget_analysis.js') }}"></script>
 
 {% endblock %}

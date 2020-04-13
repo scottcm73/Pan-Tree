@@ -181,7 +181,7 @@ def table():
 @app.route('/budget_plot')
 @login_required
 def budget_plot():
-    return render_template('charts.html')
+    return render_template('budget_analysis.html')
 
 @app.route('/cook_buttons/<order_id>/<product_id>', methods=['GET', 'POST'])
 def cook_button(order_id, product_id):
@@ -237,10 +237,10 @@ def nutrient_per_order():
             if point['order_date'] == date:
                 enerc_count += point['ENERC_KCAL']
                 fat_count += point['FAT']
-                choc_count += point['CHOCDF']
+                carb_count += point['CHOCDF']
                 fib_count += point['FIBTG']
                 pro_count += point['PROCNT']
-        data_dict[date] = {
+        data_dict = {'date' : date,
                 'total_calories' : enerc_count,
                 'total_fat' : fat_count,
                 'total_carbs' : choc_count,
@@ -251,6 +251,10 @@ def nutrient_per_order():
 
     return  jsonify(data)
 
+
+@app.route("/nutrient_plot")
+def nutrient_plot():
+    return render_template("nutrient_plot.html")
 
 @app.route("/department_data")
 def department_data():
