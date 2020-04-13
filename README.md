@@ -19,7 +19,7 @@ We also got data from several relative jsonified routes.
 
 Other parts of the application include letting users place items in the trash or consume them. The user can also classify an item as wasted goes bad or is thrown out before consumption or use.
 
-Another gets data about orders. 
+Another portion of the project gets data about particular orders.
 
 This is an early prototype for a real-world application. If given more time, we would make further refinements in the controls, the plots, and the interactivity.
 
