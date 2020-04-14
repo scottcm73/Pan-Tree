@@ -181,7 +181,7 @@ def table():
 @app.route('/budget_plot')
 @login_required
 def budget_plot():
-    return render_template('budget_analysis.html')
+    return render_template('budget_analysis2.html')
 
 @app.route('/cook_buttons/<order_id>/<product_id>', methods=['GET', 'POST'])
 def cook_button(order_id, product_id):
