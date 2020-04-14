@@ -45,12 +45,13 @@ Login to the app at https://pan-tree.herokuapp.com/login with the username veggi
 * Pipenv - Dependency Management
 * “The Instacart Online Grocery Shopping Dataset 2017”, Accessed from https://www.instacart.com/datasets/grocery-shopping-2017 on , 2020.
 * Edamam Nutrional Analysis API, accessed from https://developer.edamam.com/edamam-nutrition-api on April 1, 2020.
+* "Range Slider and Selector in Javascript" Accessed from https://plotly.com/javascript/range-slider/ on March 15, 2020.
 
 ## Contributing
 
-Scott McMahan
-Cesar Tolentino
-Memet Bulut
+Scott McMahan,
+Cesar Tolentino,
+Memet Bulut,
 Derrick Butler
 
 
