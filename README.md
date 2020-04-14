@@ -1,6 +1,6 @@
 Home-Inventory App
 
-Our group decided to develop an unconventional data application. Cesar Tolentino had the unique idea of making an application that keeps records of groceries that people buy online and stores an inventory of what the user has at home based on prior purchases. 
+Our group, which is comprised of Scott McMahan, Memet Bulut, Derrick Butler, and Cesar Tolentino, decided to develop an unconventional data application.  Another contributor, Thomas Gomez did not officially work on the project and was not an actual contributor, but he will  contribute to the next phase of the project. 
 
 We got the data for the application from Instacart in the form of enormous CSV files. We eventually decided we didn't need all of the over two million items purchased that are listed in a table linking orders and products. 
 
@@ -19,7 +19,7 @@ We also got data from several relative jsonified routes.
 
 Other parts of the application include letting users place items in the trash or consume them. The user can also classify an item as wasted goes bad or is thrown out before consumption or use.
 
-Another gets data about orders. 
+Another portion of the project gets data about particular orders.
 
 This is an early prototype for a real-world application. If given more time, we would make further refinements in the controls, the plots, and the interactivity.
 
