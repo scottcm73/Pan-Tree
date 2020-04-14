@@ -230,7 +230,7 @@ def nutrient_per_order():
         data_dict = {}
         enerc_count = 0
         fat_count = 0
-        choc_count = 0
+        carb_count = 0
         fib_count = 0
         pro_count = 0
         for point in query_dicts:        
@@ -243,7 +243,7 @@ def nutrient_per_order():
         data_dict = {'date' : date,
                 'total_calories' : enerc_count,
                 'total_fat' : fat_count,
-                'total_carbs' : choc_count,
+                'total_carbs' : carb_count,
                 'total_fiber' : fib_count,
                 'total_protein' : pro_count
             }
