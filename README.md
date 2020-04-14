@@ -8,7 +8,7 @@ Two massive tables that were originally for training and testing were concatenat
 
 We deployed the application on Heroku instead of on the virtual private server because it makes deploying such applications simple. At the same time, it would not involve changing the setup of a server.
 
-The landing page is a login page for the app. The user either logs in or signs up as a new user with an email address and password. The app sends and stores the password with hash encryption. 
+The landing page is a login page for the app. The app sends and stores the password with hash encryption. 
 
 Upon successful login, the user is directed toward a dynamic dashboard with price totals for each order date. 
 
