@@ -1,4 +1,3 @@
-
 var xField = 'Date';
 var yField = 'Total Expenditure';
 
@@ -75,10 +74,18 @@ function getData(){
                 rangeselector: selectorOptions,
                 rangeslider: {}
             },
+           
             yaxis: {
                 fixedrange: true
-            }
-    
+                title: {
+                  text: 'y Axis',
+                  font: {
+                    family: 'Courier New, monospace',
+                    size: 18,
+                    color: '#7f7f7f'
+                  }
+                }
+              }
             }
 Plotly.plot('budget_analysis', data, layout)
 
