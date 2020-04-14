@@ -120,7 +120,7 @@ Plotly.d3.json('/nutrient_per_order', function(err, rows){
                 bordercolor:'darkgray',
                 borderpad: 2,
                 font :{
-                    family: 'Courier New',
+                    family: 'Arial',
                     size: 22
                 },
                 y : 75,
