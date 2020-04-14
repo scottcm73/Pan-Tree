@@ -13,45 +13,115 @@
 
       <!-- Main Content -->
       <div id="content">
-
         {% with name=name %}
         {% include "topbar.html" %}
         {% endwith %}
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Analysis</h1>
-          <!-- Content Row -->
-          <div class="row">
-
-            <div class="col-xl-12 col-lg-10">
-
-              <!-- Area Chart -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Budget Analysis</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-area">
-                    <div id='budget_analysis'></div>
-                    <canvas id="budget_analysis_canvas"></canvas>
+                  <!-- Page Heading -->
+                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                   </div>
-                
-                </div>
-              </div>
+        
+                  <!-- Content Row -->
+                  <div class="row">
+        
+                    <!-- Total for Period -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total for Period</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800" id='num1'></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        
+                    <!-- Highest Priced Order -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                
+                              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Highest Priced Order</div>
 
-            </div>
-          </div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800" id="num2"></div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        
+                    <!-- Lowest Priced Order -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Lowest Priced Order</div>
+                              <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id = "num3"></div>
+                                </div>
+                                <div class="col">
+                                  
+                                </div>
+                              </div>
+                            </div>
 
-        </div>
-        <!-- /.container-fluid -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        
+                    <!-- Average Order -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Average Order</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800" id="num4"></div>
+                            </div>
 
-      </div>
-      <!-- End of Main Content -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        
+                  <!-- Content Row -->
+        
+                  <div class="row">
+        
+                    <!-- Area Chart -->
+                    <div class="col-xl-12 col-lg-10">
+                      <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                          <h6 class="m-0 font-weight-bold text-primary">Order Totals</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                          <div class="chart-area">
+                            <div id="budget_analysis"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        
+                    
+        
+                  
 
- {% include 'footer.html' %}
+    
 
     </div>
     <!-- End of Content Wrapper -->
@@ -82,22 +152,20 @@
       </div>
     </div>
   </div>
-  {{ super() }}
+
   {% endblock %}
-
-
-  
   {% block scripts %}
   {{ super() }}
-  <!-- Page level plugins -->
-  <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
-
 <!-- Page level custom scripts -->
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <!-- Latest compiled and minified plotly.js JavaScript -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
 
 
-    
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/nutrient_analysis_plot.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/budget_analysis.js') }}"></script>
+    
+<script type="text/javascript" src="{{ url_for('static', filename='js/test2.js') }}"></script>
+
 {% endblock %}
