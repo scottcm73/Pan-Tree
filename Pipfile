@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = false
+
+[packages]
+pymysql = "*"
+sqlalchemy = "*"
+pandas = "*"
+pprint = "*"
+flask = "*"
+ipykernel = "*"
+flask-login = "*"
+flask-bootstrap = "*"
+cryptography = "*"
+flask-wtf = "*"
+flask-cors = "*"
+flask-sqlalchemy = "*"
+mysql-connector-python = "*"
+gunicorn = "*"
+
+[requires]
+python_version = "3.7"
+
+
