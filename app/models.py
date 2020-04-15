@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, BigInteger, VARCHAR, SmallInteger
 from sqlalchemy.types import Date
-from database import Base
+from database import Base, db
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
@@ -15,6 +15,13 @@ class DictMixIn:
             else getattr(self, column.name).isoformat()
             for column in self.__table__.columns
         }
+class User(Base, UserMixin, DictMixIn, db.Model,):
+    extend_existing=True
+    __tablename__ = "users" 
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(15), unique=True)
+    email = Column(String(50), unique=True)
+    passw = Column(String(80))
 
 class Departments(Base, DictMixIn):
     __tablename__ = "departments"
