@@ -58,6 +58,7 @@ def login():
 
     return render_template("login.html", form=form)
 
+# signup not available yet.
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
