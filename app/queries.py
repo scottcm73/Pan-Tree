@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String, BigInteger, VARCHAR, SmallInteger
 import datetime
-from database import SessionLocal, engine, Base
+from config import SessionLocal, engine, Base
 
 from models import (
     Products,

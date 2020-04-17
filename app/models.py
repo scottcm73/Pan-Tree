@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String, BigInteger, VARCHAR, SmallInteger
 from sqlalchemy.types import Date
-from database import Base, db
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from flask_login import UserMixin
+from config import Base, db
 import datetime
 
 class DictMixIn:
