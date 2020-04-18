@@ -17,7 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 DIALECT = "mysql"
 DRIVER = "pymysql"
 USER = 'datascm2_web'
-PASSWORD =  'kTTNMG82ujfQoWJ5M7mb614L0lSMvKmXf7Mim0s3hSoyJxyqLYdzBr6TZ025hzEp'
+PASSWORD =  'Fk45QbHgy8GEMLQX8FAy5SHA2evXYwbMbd43xmzsJm92RE5GNDkRP7mQKPg2YDpA'
 HOST = '162.241.193.35'
 PORT='3306'
 DATABASE = 'datascm2_home_inventory_db'
@@ -50,6 +50,7 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 ##addtitions to use simple SQLAlchemy
 CORS(app)
+
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
 
 
