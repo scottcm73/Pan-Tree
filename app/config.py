@@ -41,11 +41,7 @@ app = Flask(__name__, static_url_path="/static")
 db.init_app(app)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = SQALCHEMY_DATABASE_URL
-<<<<<<< HEAD
 app.config["JSON_SORT_KEYS"] = False
-=======
-app.config['JSON_SORT_KEYS'] = False
->>>>>>> master
 app.secret_key = KEY
 Bootstrap(app)
 login_manager = LoginManager()
