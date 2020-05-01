@@ -15,7 +15,7 @@ def clean_product_data(df):
     products_df = df
   
 
-    
+    #Takes out most punctuation
     products_df['product_name']=products_df['product_name'].map(lambda x: re.sub(r'\W+', ' ', x))
 
     # Replace hyphens with spaces
@@ -24,7 +24,7 @@ def clean_product_data(df):
     # Strip away numbers
     products_df['product_name']=products_df['product_name'].map(lambda x: re.sub(r'\d+', '', x ))
    
-    
+    # Take out stopwords
     products_df['product_name'].apply(lambda x: ' '.join([word for word in x.split() if word not in (stopwords)]))
     print(products_df.head())
     
@@ -41,16 +41,33 @@ tfidf = TfidfVectorizer(ngram_range=(3, 7),
 
 tfidf.fit(X_text)
 X = tfidf.transform(X_text)
+file_name1 = os.path.join("Resources", "tfidf.pkl")
+with open(file_name1, 'wb') as f:
+    pickle.dump(tfidf, f)
 
 file_name2 = os.path.join("Resources", "products_np.pkl")
 with open(file_name2, 'wb') as f:
-    this_np=pickle.dump(npdf2, f)
+    pickle.dump(npdf2, f)
+
+file_name3 = os.path.join("Resources", "transformed_matrix.pkl")
+with open(file_name3, 'wb') as f:
+    pickle.dump(X, f)
+
+
 
 
 def search(term):
     K=5
 
- 
+    file_name1 = os.path.join("Resources", "tfidf.pkl")
+    with open(file_name1, 'rb') as f:
+        tfidf=pickle.load(f)
+
+
+
+    file_name3 = os.path.join("Resources", "transformed_matrix.pkl")
+    with open(file_name3, 'rb') as f:
+        X = pickle.load(f)
 
     
 
