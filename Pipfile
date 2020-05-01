@@ -18,8 +18,10 @@ flask-cors = "*"
 flask-sqlalchemy = "*"
 mysql-connector-python = "*"
 gunicorn = "*"
+nltk = "*"
+scikit-learn = {extras = ["alldeps"],version = "*"}
+pickle-mixin = "*"
+joblib = "*"
 
 [requires]
 python_version = "3.7"
-
-
