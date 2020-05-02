@@ -16,10 +16,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 DIALECT = "mysql"
 DRIVER = "pymysql"
+
 USER = 'datascm2_web'
 PASSWORD =  'Fk45QbHgy8GEMLQX8FAy5SHA2evXYwbMbd43xmzsJm92RE5GNDkRP7mQKPg2YDpA'
 HOST = '35.232.35.9'
-PORT='3306'
+PORT = '3306'
 DATABASE = 'datascm2_home_inventory_db'
 
 SQALCHEMY_DATABASE_URL = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}/{DATABASE}"
