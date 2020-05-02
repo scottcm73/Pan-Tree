@@ -9,6 +9,7 @@ import pandas as pd
 import os
 import pickle
 import re
+import joblib
 
 def clean_product_data(df):
     
@@ -41,9 +42,9 @@ tfidf = TfidfVectorizer(ngram_range=(3, 7),
 
 tfidf.fit(X_text)
 X = tfidf.transform(X_text)
-file_name1 = os.path.join("Resources", "tfidf_pro.pkl")
-with open(file_name1, 'wb') as f:
-    pickle.dump(tfidf, f)
+file_name1 = os.path.join("Resources", "tfidf_pro.joblib")
+joblib.dump(tfidf, file_name1)
+
 
 file_name2 = os.path.join("Resources", "products_np_pro.pkl")
 with open(file_name2, 'wb') as f:
@@ -58,19 +59,12 @@ with open(file_name3, 'wb') as f:
 
 def search(term):
     K=5
-
-    file_name1 = os.path.join("Resources", "tfidf_pro.pkl")
-    with open(file_name1, 'rb') as f:
-        tfidf=pickle.load(f)
-
-
-
+    file_name1 = os.path.join("Resources", "tfidf_pro.joblib")
+    tfidf=joblib.load(file_name1)
     file_name3 = os.path.join("Resources", "transformed_matrix_pro.pkl")
     with open(file_name3, 'rb') as f:
         X = pickle.load(f)
-
     
-
     X_term = tfidf.transform([term])
     simularities = cosine_similarity(X_term, X)
     idxmax = np.argpartition(-simularities, K)  
@@ -78,7 +72,7 @@ def search(term):
 
 if __name__ == "__main__":
     term = "choclate cooies mnt"
-    file_name2 = os.path.join("Resources", "products_np.pkl")
+    file_name2 = os.path.join("Resources", "products_np_pro.pkl")
     with open(file_name2, 'rb') as f:
         this_np=pickle.load(f)
 
