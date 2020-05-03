@@ -27,7 +27,8 @@ SQALCHEMY_DATABASE_URL = (
 
 
 ##database configuration
-engine = create_engine(SQALCHEMY_DATABASE_URL)
+engine = create_engine(SQALCHEMY_DATABASE_URL, pool_recycle=3600, pool_pre_ping=True)
+
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -38,11 +39,12 @@ db = SQLAlchemy()
 
 ##app configuration
 app = Flask(__name__, static_url_path="/static")
-db.init_app(app)
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = SQALCHEMY_DATABASE_URL
 app.config["JSON_SORT_KEYS"] = False
 app.secret_key = KEY
+db.init_app(app)
 Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
