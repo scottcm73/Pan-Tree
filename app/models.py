@@ -15,13 +15,13 @@ class DictMixIn:
             else getattr(self, column.name).isoformat()
             for column in self.__table__.columns
         }
-# class User(Base, UserMixin, DictMixIn, db.Model,):
-#     extend_existing=True
-#     __tablename__ = "users" 
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     username = Column(String(15), unique=True)
-#     email = Column(String(50), unique=True)
-#     passw = Column(String(80))
+class User(Base, UserMixin, DictMixIn, db.Model,):
+    extend_existing=True
+    __tablename__ = "users" 
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(15), unique=True)
+    email = Column(String(50), unique=True)
+    passw = Column(String(80))
 
 class Departments(Base, DictMixIn):
     __tablename__ = "departments"
@@ -86,23 +86,23 @@ class T_Order_products(Base, DictMixIn):
     trash = Column(Integer)
 
 
-# class LoginForm(FlaskForm):
-#     username = StringField(
-#         "username", validators=[InputRequired(), Length(min=4, max=15)]
-#     )
-#     password = PasswordField(
-#         "password", validators=[InputRequired(), Length(min=8, max=80)]
-#     )
-#     remember = BooleanField("remember me")
+class LoginForm(FlaskForm):
+    username = StringField(
+        "username", validators=[InputRequired(), Length(min=4, max=15)]
+    )
+    password = PasswordField(
+        "password", validators=[InputRequired(), Length(min=8, max=80)]
+    )
+    remember = BooleanField("remember me")
 
 
-# class RegisterForm(FlaskForm):
-#     email = StringField(
-#         "email", validators=[InputRequired(), Email(message="Invalid Email")]
-#     )
-#     username = StringField(
-#         "username", validators=[InputRequired(), Length(min=4, max=15)]
-#     )
-#     password = PasswordField(
-#         "password", validators=[InputRequired(), Length(min=8, max=80)]
-#     )
+class RegisterForm(FlaskForm):
+    email = StringField(
+        "email", validators=[InputRequired(), Email(message="Invalid Email")]
+    )
+    username = StringField(
+        "username", validators=[InputRequired(), Length(min=4, max=15)]
+    )
+    password = PasswordField(
+        "password", validators=[InputRequired(), Length(min=8, max=80)]
+    )
