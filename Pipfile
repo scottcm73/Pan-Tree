@@ -18,8 +18,7 @@ flask-cors = "*"
 flask-sqlalchemy = "*"
 mysql-connector-python = "*"
 gunicorn = "*"
+email-validator = "*"
 
 [requires]
 python_version = "3.7"
-
-
