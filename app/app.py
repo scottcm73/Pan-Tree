@@ -106,9 +106,9 @@ def test_james():
 def checkout_page():
     return render_template("checkout.html", name=current_user.username)
 
-@app.route("/card")
-def card_page():
-    return render_template("card.html", name=current_user.username)
+@app.route("/cart")
+def cart_page():
+    return render_template("cart.html", name=current_user.username)
 
 @app.route("/budget_data")
 @login_required
