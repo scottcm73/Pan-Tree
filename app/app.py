@@ -98,13 +98,17 @@ def budget_analysis():
 def nutrient_plot():
     return render_template("nutrient_plot.html", name=current_user.username)
 
+@app.route("/test_james")
+def test_james():
+    return render_template("test_james.html", name=current_user.username)
+
 @app.route("/checkout")
 def checkout_page():
     return render_template("checkout.html", name=current_user.username)
 
-@app.route("/card")
-def card_page():
-    return render_template("card.html", name=current_user.username)
+@app.route("/cart")
+def cart_page():
+    return render_template("cart.html", name=current_user.username)
 
 @app.route("/budget_data")
 @login_required
