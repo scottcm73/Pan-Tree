@@ -1,12 +1,3 @@
-<!-- <!DOCTYPE HTML>
-<html>
-	
-<head>
-<title>checkout</title>
-<link rel="stylesheet" href={{url_for('static', filename='css/cart.css')}} />
-<link rel="stylesheet" href={{url_for('static', filename='css/topStyle.css') }} /> -->
-<!-- </head> --> 
-
 
 {% extends "base.html" %}
 {% block content %}
@@ -26,17 +17,47 @@
 					  {% with name=name %}
 					  {% include "topbar.html" %}
 					  {% endwith %}
+	
+	<form>
+		<input id="searchBox" type="text" name="searchQuery">
+		<input id="searchButton" type="submit" value="Search">
+	</form>
 
-<body>
-	<p>Your order has been successfully placed</p>
-	<div id="cartItems">
-	<h2>The items you have ordered</h2>
+	{% if not loggedIn %}
+		<div id="signInButton">
+			<a class="link" href="/loginForm">Sign In</a>
+		</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hello, <br>{{firstName}}</button>
+		<div class="dropdown-content">
+			<a href="/account/orders">Your orders</a>
+			<a href="/account/profile">Your profile</a>
+			<hr>
+			<a href="/logout">Sign Out</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+		<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+		CART {{noOfItems}}
+		</a>
+	</div>
+</div>
+<div id="cart">
+	<h2>Shopping Cart</h2>
 	<div id="tableItems">
 		{% for row in products %}
 		<div>
 			<hr id="seperator">
+			<div id="itemImage">
+				<img src={{url_for('static', filename='uploads/'+row[3])}} id="image"/>
+			</div>
 			<div id="itemName">
 				<span id="itemNameTag">{{row[1]}}</span><br>
+				In stock<br>
+				<a href="/removeFromCart?productId={{row[0]}}">Remove</a>
 			</div>
 			<div id="itemPrice">
 				${{row[2]}}
@@ -45,13 +66,13 @@
 		{% endfor %}
 		<hr id="seperator">
 		<div id="total">
-			<span id="subtotal">Your total order size is</span> : ${{totalPrice}}
-			<span if="deliverydate"></span>
+			<span id="subtotal">Subtotal</span> : ${{totalPrice}}
 		</div>
-		<div><a href="/">Return to Home Page</div>
 	</div>
 </div>
+<a href="/checkout">Proceed to checkout</a>
 </body>
+
 {% endblock %}
 {% block scripts %}
 {{ super() }}
@@ -69,3 +90,4 @@
 <script src="{{ url_for('static', filename='js/makeDataTables.js') }}"></script>
 
 {% endblock %}
+
