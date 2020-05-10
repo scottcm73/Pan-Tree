@@ -10,6 +10,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_sqlalchemy import SQLAlchemy
+from boto.s3.connection import S3Connection
+s3 = S3Connection(os.environ['PASSWORD'], os.environ['KEY'])
+
 
 DIALECT = "mysql"
 DRIVER = "pymysql"
