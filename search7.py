@@ -13,9 +13,9 @@ import joblib
 
 def search(term):
     K = 5
-    file_name1 = os.path.join("..", "Resources", "tfidf_pro.joblib")
+    file_name1 = os.path.join("Resources", "tfidf_pro.joblib")
     tfidf = joblib.load(file_name1)
-    file_name3 = os.path.join("..", "Resources", "transformed_matrix_pro.pkl")
+    file_name3 = os.path.join("Resources", "transformed_matrix_pro.pkl")
     with open(file_name3, "rb") as f:
         X = pickle.load(f)
 
@@ -27,7 +27,7 @@ def search(term):
 
 if __name__ == "__main__":
     term = "choclate cooies mnt"
-    file_name2 = os.path.join("..", "Resources", "products_np_pro.pkl")
+    file_name2 = os.path.join("Resources", "products_np_pro.pkl")
     with open(file_name2, "rb") as f:
         this_np = pickle.load(f)
 
