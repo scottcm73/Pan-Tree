@@ -10,7 +10,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_sqlalchemy import SQLAlchemy
-from secret import PASSWORD, KEY
+
+PASSWORD = os.environ.get('PASSWORD')
+KEY = os.environ.get('KEY')
 
 
 DIALECT = "mysql"
@@ -21,7 +23,7 @@ HOST = "35.232.35.9"
 PORT = "3306"
 DATABASE = "datascm2_home_inventory_db"
 
-SQALCHEMY_DATABASE_URL = (f'{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}')
+SQALCHEMY_DATABASE_URL = (f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}")
 
 
 ##database configuration
