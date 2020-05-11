@@ -18,12 +18,12 @@ flask-cors = "*"
 flask-sqlalchemy = "*"
 mysql-connector-python = "*"
 gunicorn = "*"
-nltk = "*"
+
 pickle-mixin = "*"
 joblib = "*"
 email-validator = "*"
 scikit-learn = "==0.22.2.post1"
-boto = "*"
+
 
 [requires]
 python_version = "3.7"
