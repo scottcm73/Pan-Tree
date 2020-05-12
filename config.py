@@ -10,15 +10,17 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_sqlalchemy import SQLAlchemy
-from boto.s3.connection import S3Connection
-s3 = S3Connection(os.environ['PASSWORD'], os.environ['KEY'])
+
+from secret import KEY, PASSWORD
+#PASSWORD = os.environ.get('PASSWORD')
+#KEY = os.environ.get('KEY')
 
 
 DIALECT = "mysql"
 DRIVER = "pymysql"
 USER = "datascm2_web"
 
-HOST = "35.232.35.9"
+HOST = "162.241.193.35"
 PORT = "3306"
 DATABASE = "datascm2_home_inventory_db"
 
@@ -29,7 +31,7 @@ SQALCHEMY_DATABASE_URL = (f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}
 engine = create_engine(SQALCHEMY_DATABASE_URL, pool_recycle=3600, pool_pre_ping=True)
 
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=True, bind=engine)
 
 Base = declarative_base()
 ## needed for User methods with flask_login
