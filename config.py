@@ -10,6 +10,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_sqlalchemy import SQLAlchemy
+import os
+
+PASSWORD = os.environ.get('PASSWORD')
+KEY = os.environ.get('KEY')
+
 
 from secret import KEY, PASSWORD
 #PASSWORD = os.environ.get('PASSWORD')

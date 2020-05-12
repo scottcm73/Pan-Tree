@@ -18,7 +18,7 @@ flask-cors = "*"
 flask-sqlalchemy = "*"
 mysql-connector-python = "*"
 gunicorn = "*"
-nltk = "*"
+
 pickle-mixin = "*"
 joblib = "*"
 email-validator = "*"
