@@ -25,14 +25,14 @@ def search(term):
     return idxmax
 
 
-if __name__ == "__main__":
-    term = "choclate cooies mnt"
-    file_name2 = os.path.join("..", "Resources", "products_np_pro.pkl")
-    with open(file_name2, "rb") as f:
-        this_np = pickle.load(f)
 
-    idx = search(term)
+term = "choclate cooies mnt"
+file_name2 = os.path.join("..", "Resources", "products_np_pro.pkl")
+with open(file_name2, "rb") as f:
+    this_np = pickle.load(f)
 
-    idxs = idx[0]
-    for x in range(5):
-        print(this_np[idxs[x]])
+idx = search(term)
+
+idxs = idx[0]
+for x in range(5):
+    print(this_np[idxs[x]])
