@@ -21,26 +21,6 @@ session = SessionLocal()
 department_query = session.query(Departments).all()
 
 
-#query for budget plot maybe only query for price for now?
-budgetplot_query = session.query(
-        T_Orders.user_id,
-        T_Orders.order_date,
-        T_Order_products.order_id,
-        Products.product_name,
-        T_Order_products.quantity,
-        Products.price,
-        Departments.department,
-        Aisles.aisle
-        ).join(
-            T_Orders, T_Order_products.order_id == T_Orders.order_id,
-        ).join(
-            Products, T_Order_products.product_id == Products.product_id,
-        ).join(
-            Departments, Products.department_id == Departments.department_id,
-        ).join(
-            Aisles, Products.aisle_id == Aisles.aisle_id
-        ).order_by(T_Orders.order_date)
-
 
 nutrient_query = session.query(
     T_Orders.order_date,
