@@ -82,7 +82,7 @@ button,
 .subtotal-value:before,
 .total-value:before,
 .promo-value:before {
-  content: '£';
+  content: '$';
 }
 
 .hide {
