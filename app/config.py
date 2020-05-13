@@ -17,21 +17,12 @@ DIALECT = "mysql"
 DRIVER = "pymysql"
 USER = "datascm2_web"
 
-
-HOST = "35.232.35.9"
+HOST = "162.241.193.35"
 PORT = "3306"
 DATABASE = "datascm2_home_inventory_db"
 
-SQALCHEMY_DATABASE_URL = (
-    f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
-)
-
-# HOST = "162.241.193.35"
-# PORT = "3306"
-# DATABASE = "datascm2_home_inventory_db"
-
-# sqstring = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
-# SQALCHEMY_DATABASE_URL = (sqstring)
+sqstring = f"{DIALECT}+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
+SQALCHEMY_DATABASE_URL = (sqstring)
 
 
 ##database configuration
@@ -61,3 +52,4 @@ login_manager.login_view = "login"
 CORS(app)
 
 app.session = scoped_session(SessionLocal, scopefunc=_app_ctx_stack.__ident_func__)
+
