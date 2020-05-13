@@ -17,7 +17,7 @@ DIALECT = "mysql"
 DRIVER = "pymysql"
 USER = "datascm2_web"
 
-HOST = "35.232.35.9"
+HOST = "162.241.193.35"
 PORT = "3306"
 DATABASE = "datascm2_home_inventory_db"
 
