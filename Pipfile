@@ -18,7 +18,19 @@ flask-cors = "*"
 flask-sqlalchemy = "*"
 mysql-connector-python = "*"
 gunicorn = "*"
+<<<<<<< HEAD
 email-validator = "*"
 
 [requires]
 python_version = "3.7"
+=======
+nltk = "*"
+pickle-mixin = "*"
+joblib = "*"
+email-validator = "*"
+scikit-learn = "==0.22.2.post1"
+
+[requires]
+python_version = "3.7"
+
+>>>>>>> 82d2f4e0366fe8952efd38eb017b73b9265639b0
