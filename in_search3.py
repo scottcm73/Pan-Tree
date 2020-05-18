@@ -29,7 +29,7 @@ def clean_product_data(df):
     print(products_df.head())
     
     return products_df
-products_wm_path = os.path.join('Resources', "t_o_pro_join_pro.csv")
+products_wm_path = os.path.join('Resources', "join_t_tables_wad.csv")
 df = pd.read_csv(products_wm_path, index_col=False)
 df2 = clean_product_data(df)
 npdf2=df2.to_numpy()

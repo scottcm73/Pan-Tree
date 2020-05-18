@@ -135,12 +135,11 @@ def cart():
     print('product_array2')
     print(product_array2)
     the_recommender=recommend()
-    # pro_json2=the_recommender.make_json(product_list, product_list2)
-    # print(pro_json2)
+
     no_need=the_recommender.compare(product_array, product_array2, term, K)
     product_list=the_recommender.recommender(the_recommender.product_array, the_recommender.product_array2, term, K)
-    pro_json=the_recommender.make_json(product_list, product_list2)
-    print(pro_json)
+    in_pro_json=the_recommender.make_json(product_list, product_list2)
+    pro_json=the_recommender.pro_json
     if no_need == True:
         print("It appears that you already have that in stock at home and may not need to purchase it.")
     

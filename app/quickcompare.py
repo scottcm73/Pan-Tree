@@ -21,13 +21,16 @@ class recommend():
     def make_json(self, product_list, product_list2):
         self.product_list = product_list
         self.product_list2 = product_list2
-
+        print(product_list)
         print(product_list2)
-       
         
-        pro_json=json.dumps([{"id": b[0], "amount_bought": b[1], "amount_left": b[2], "use_item": b[3], "product_id": b[4], "product_name":b[5]} for b in product_list2])
-        print(pro_json)        
-        return pro_json
+        
+        in_pro_json=json.dumps([{"order_date": b[2], "product_name": b[3], "product_id": b[5], "quantity": b[6], "q_left": b[7], "trash":b[8]} for b in product_list2])
+        print(in_pro_json)  
+        self.in_pro_json=in_pro_json 
+        pro_json=json.dumps([{"product_id": b[0], "product_name": b[1], "price": b[4]} for b in product_list])
+        self.pro_json=pro_json
+        return in_pro_json
 
     def recommender(self, product_array, product_array2, term, K):
         
@@ -49,14 +52,14 @@ class recommend():
         for x in range(K):
             for y in range(K):
 
-                if product_array2[x, 4]==product_array[y, 0]:
+                if product_array2[x, 3]==product_array[y, 1]:
                     no_need=True
                     return no_need
-                if product_array2[x, 5]== product_array[y, 1]:
+                if product_array2[x, 6]== product_array[y, 0]:
                     no_need=True
                     return no_need
 
-                if product_array2[x, 1]==term:
+                if product_array2[x, 3]==term:
                     no_need=True
                     return no_need
     
