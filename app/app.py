@@ -41,7 +41,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 from product_search import pro_search
 from product_search2 import pro_search2
-
+from quickcompare import recommend
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
@@ -99,62 +99,56 @@ def search():
 
     return render_template("search.html", name=current_user.username)
 
-@app.route("/search2")
-@login_required
-def the_in_search():
-
-
-    return render_template("search2.html", name=current_user.username)
 
 @app.route("/shop", methods=['GET', 'POST'])
 @login_required
 def cart():
+#both searches together
     K = 10
     term = request.form.get('search')
     file_name2 = os.path.join("..", "Resources", "products_np_pro.pkl")
     with open(file_name2, "rb") as f:
             full_product_list = pickle.load(f)
 
-    print(term)
+    file_name4 = os.path.join("..", "Resources", "products_np.pkl")
+    with open(file_name4, "rb") as f2:
+            full_product_list2 = pickle.load(f2)
 
     idx = pro_search(term)
+    idx2 = pro_search2(term)
 
     idxs = idx[0]
+    idxs2 = idx2[0]
     product_list=[]
+    product_list2=[]
     for x in range(K):
-        print(full_product_list[idxs[x]])
+
         product_list.append(full_product_list[idxs[x]].tolist())
-        print(product_list)
-        #product_list.append(full_product_list[x][0])
+        product_list2.append(full_product_list2[idxs2[x]].tolist())
+    
+    the_recommender=recommend()
+
+    product_array = np.array(product_list)
+    product_array2 = np.array(product_list2)
+    print('product_array')
+    print(product_array)
+    print('product_array2')
+    print(product_array2)
+    the_recommender=recommend()
+    # pro_json2=the_recommender.make_json(product_list, product_list2)
+    # print(pro_json2)
+    no_need=the_recommender.compare(product_array, product_array2, term, K)
+    product_list=the_recommender.recommender(the_recommender.product_array, the_recommender.product_array2, term, K)
+    pro_json=the_recommender.make_json(product_list, product_list2)
+    print(pro_json)
+    if no_need == True:
+        print("It appears that you already have that in stock at home and may not need to purchase it.")
+    
+
+    return render_template("cart.html", name=current_user.username, 
+        product_list=product_list, product_list2=product_list2, no_need=no_need)
 
 
-
-    return render_template("cart.html", name=current_user.username, product_list=product_list)
-
-@app.route("/shop2", methods=['GET', 'POST'])
-@login_required
-def cart2():
-    K = 10
-    term = request.form.get('search')
-    file_name2 = os.path.join("..", "Resources", "products_np.pkl")
-    with open(file_name2, "rb") as f:
-            full_product_list = pickle.load(f)
-
-    print(term)
-
-    idx = pro_search2(term)
-
-    idxs = idx[0]
-    product_list=[]
-    for x in range(K):
-        print(full_product_list[idxs[x]])
-        product_list.append(full_product_list[idxs[x]].tolist())
-        print(product_list)
-        #product_list.append(full_product_list[x][0])
-
-
-
-    return render_template("cart2.html", name=current_user.username, product_list=product_list)
 
 
 
@@ -184,12 +178,6 @@ def checkout_page():
 @app.route("/cart")
 def cart_page():
     return render_template("cart.html", name=current_user.username)
-
-
-
-
-
-
 
 @app.route("/budget_data")
 @login_required
@@ -323,4 +311,4 @@ def remove_session(*args, **kwargs):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)

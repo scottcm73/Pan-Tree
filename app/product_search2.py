@@ -10,9 +10,10 @@ def pro_search2(term):
     tfidf = joblib.load(file_name1)
     file_name3 = os.path.join("..", "Resources", "transformed_matrix.pkl")
     with open(file_name3, "rb") as f:
-        X = pickle.load(f)
+        X2 = pickle.load(f)
 
     X_term = tfidf.transform([term])
-    simularities = cosine_similarity(X_term, X)
+    simularities = cosine_similarity(X_term, X2)
     idxmax = np.argpartition(-simularities, K)
+    print(idxmax[0])
     return idxmax

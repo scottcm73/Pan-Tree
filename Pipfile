@@ -23,7 +23,7 @@ pickle-mixin = "*"
 joblib = "*"
 email-validator = "*"
 scikit-learn = "==0.22.2.post1"
+csv = "*"
 
 [requires]
 python_version = "3.7"
-
