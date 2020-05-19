@@ -34,6 +34,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from config import app, login_manager, db
 
+import csv
+import json 
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
@@ -101,6 +104,17 @@ def nutrient_plot():
 @app.route("/test_james")
 def test_james():
     return render_template("test_james.html", name=current_user.username)
+
+
+@app.route("/test_james_data")
+def index():
+  with open("order_products_wm_edit_df.csv","r") as csv_file:
+    product_data = []
+    product_data = csv.DictReader(csv_file, delimiter=',')
+    for row in product_data:
+        product_data.append(row)
+    return jsonify(product_data)
+
 
 @app.route("/checkout")
 def checkout_page():
