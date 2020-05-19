@@ -9,16 +9,16 @@ import pandas as pd
 import os
 import pickle
 import re
-
+import joblib
 
 def search(term):
     K = 5
 
-    file_name1 = os.path.join("..", "Resources", "tfidf.pkl")
-    with open(file_name1, "rb") as f:
-        tfidf = pickle.load(f)
+    
+    file_name1 = os.path.join("..", "Resources", "tfidf.joblib")
+    tfidf=joblib.load(file_name1)
 
-    file_name3 = os.path.join("..", "Resources", "transformed_matrix.pkl")
+    file_name3 = os.path.join("..", Resources", "transformed_matrix.pkl")
     with open(file_name3, "rb") as f:
         X = pickle.load(f)
 
