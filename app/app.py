@@ -173,6 +173,10 @@ def budget_analysis():
 def nutrient_plot():
     return render_template("nutrient_plot.html", name=current_user.username)
 
+@app.route("/pantry_analytics")
+def pantry_analytics():
+    return render_template("pantry_analytics.html", name=current_user.username)
+
 @app.route("/test_james")
 def test_james():
     return render_template("test_james.html", name=current_user.username)
