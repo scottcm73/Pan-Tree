@@ -100,21 +100,17 @@
                 <h6 class="m-0 font-weight-bold text-primary">Total Nutrients per Order</h6>
               </div>
               <!-- Card Body -->
-              <div class="bubbleplot" data-num="0">
-                <div class="plot" id="nutrientPlot"></div>
-                <div class="control-row">
-                  Date: <select class="dateOptions"></select>
-                </div>
-              </div>
+              <div class="plot" id="pop_shop_days"></div>
             </div>
           </div>
-          <!-- End Area Chart -->
         </div>
-        <!-- End Content Row -->
+        <!-- End Area Chart -->
       </div>
-      <!-- End container-fluid -->
+      <!-- End Content Row -->
     </div>
-    <!-- End of Page Content -->
+    <!-- End container-fluid -->
+  </div>
+  <!-- End of Page Content -->
   </div>
   <!-- End of Main Content -->
   </div>
@@ -161,4 +157,6 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/test2.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/nutrient_analysis_plot.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/pop_shop_days.js') }}"></script>
+
 {% endblock %}
