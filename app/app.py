@@ -42,6 +42,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from product_search import pro_search
 from product_search2 import pro_search2
 
+import csv
+import json 
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
@@ -180,6 +183,17 @@ def pantry_analytics():
 @app.route("/test_james")
 def test_james():
     return render_template("test_james.html", name=current_user.username)
+
+
+@app.route("/test_james_data")
+def index():
+  with open("order_products_wm_edit_df.csv","r") as csv_file:
+    product_data = []
+    product_data = csv.DictReader(csv_file, delimiter=',')
+    for row in product_data:
+        product_data.append(row)
+    return jsonify(product_data)
+
 
 @app.route("/checkout")
 def checkout_page():
