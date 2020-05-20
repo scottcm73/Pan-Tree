@@ -193,9 +193,9 @@ def cart_page():
 def shoppingcart():
     return render_template("shoppingcart.html", name=current_user.username)
 
-@app.route("/index2")
-def index2():
-    return render_template("index2.html", name=current_user.username)
+@app.route("/cart_thomas")
+def cart_thomas():
+    return render_template("cart_thomas.html", name=current_user.username)
 
 
 
