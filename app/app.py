@@ -188,6 +188,14 @@ def checkout_page():
 @app.route("/cart")
 def cart_page():
     return render_template("cart.html", name=current_user.username)
+    
+@app.route("/shoppingcart")
+def shoppingcart():
+    return render_template("shoppingcart.html", name=current_user.username)
+
+@app.route("/index2")
+def index2():
+    return render_template("index2.html", name=current_user.username)
 
 
 

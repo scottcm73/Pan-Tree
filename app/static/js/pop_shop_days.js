@@ -1,6 +1,5 @@
 function makeplot() {
-    Plotly.d3.csv(".../Resources/pop_shop_days.csv", function (data) { processData(data) });
-
+    Plotly.d3.csv("../Resources/pop_shop_days.csv", function (data) { processData(data) });
 };
 
 function processData(allRows) {
