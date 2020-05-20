@@ -42,6 +42,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from product_search import pro_search
 from product_search2 import pro_search2
 from quickcompare import recommend
+from in_search import get_data, clean_product_data, search, start_search
+import json
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
@@ -108,47 +110,45 @@ def cart():
     term = request.form.get('search')
     file_name2 = os.path.join("..", "Resources", "products_np_pro.pkl")
     with open(file_name2, "rb") as f:
-            full_product_list = pickle.load(f)
-
-    file_name4 = os.path.join("..", "Resources", "products_np.pkl")
-    with open(file_name4, "rb") as f2:
-            full_product_list2 = pickle.load(f2)
-
+        full_product_list = pickle.load(f)
+    full_product_list2=get_data()
     idx = pro_search(term)
-    idx2 = pro_search2(term)
+    idx2 = start_search(term)
 
     idxs = idx[0]
     idxs2 = idx2[0]
     product_list=[]
     product_list2=[]
     for x in range(K):
-
         product_list.append(full_product_list[idxs[x]].tolist())
-        product_list2.append(full_product_list2[idxs2[x]].tolist())
-    
+        product_list2.append(full_product_list2[idxs2[x]])
+    print("product_list")
+    print(product_list)
+    print("product_list2")
+    print(product_list2)
     the_recommender=recommend()
 
     product_array = np.array(product_list)
     product_array2 = np.array(product_list2)
-    print('product_array')
-    print(product_array)
-    print('product_array2')
-    print(product_array2)
+   
     the_recommender=recommend()
 
     no_need=the_recommender.compare(product_array, product_array2, term, K)
-    product_list=the_recommender.recommender(the_recommender.product_array, the_recommender.product_array2, term, K)
-    in_pro_json=the_recommender.make_json(product_list, product_list2)
-    pro_json=the_recommender.pro_json
+
+    product_list=the_recommender.recommender(product_list, product_list2, term)
     if no_need == True:
         print("It appears that you already have that in stock at home and may not need to purchase it.")
     
+  
+    return render_template("cart2.html", name=current_user.username, 
+        product_list=product_list, product_list2=product_list2, no_need=no_need, 
+        product_array=product_array, product_array2=product_array2 )
 
-    return render_template("cart.html", name=current_user.username, 
-        product_list=product_list, product_list2=product_list2, no_need=no_need)
 
-
-
+@app.route('/new_inventory_table')
+@login_required
+def table2():
+    return render_template('tables2.html')
 
 
 @app.route('/inventory_table')

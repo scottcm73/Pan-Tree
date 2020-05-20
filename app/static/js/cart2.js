@@ -1,5 +1,4 @@
 
-
 /* Set values + misc */
 var promoCode;
 var promoPrice;

@@ -14,6 +14,8 @@ def pro_search2(term):
 
     X_term = tfidf.transform([term])
     simularities = cosine_similarity(X_term, X2)
+    print("simularities")
+    print(np.max(simularities))
     idxmax = np.argpartition(-simularities, K)
     print(idxmax[0])
     return idxmax

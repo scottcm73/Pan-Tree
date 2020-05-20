@@ -1,30 +1,116 @@
-{% extends "base.html" %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ url_for('static', filename='css/cart.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+  <title>Basket</title>
+</head>
 
-{% block content %}
-<div>
-    <h2 class=text-center>Hello user, </h2>
-    <h2 class=text-center> what would you like to eat today?</h2>
- <div id = 'table container' class = container>
-    <table class='table table-striped table-bordered' id='inventory_table'>
-        <thead  class='thead-dark' id='table_header'>
-            <tr><td>Product</td><td>Product ID</td><td>Quantity</td><td>Enjoyed</td><td>Trash</td></tr>
-        </thead>
-       
-        <tbody id='table_body'>
-            {% for row in product_list %}
-            <tr><td>{{ row[5] }}</td><td>{{ row[4] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td><td>{{ row[3] }}</td></tr>
-            {% endfor %}
-        </tbody>
-
-    </table>
+<body>
+  <main>
+    {% if no_need %}
+    <h2 class=text-center>While you apparently have that item or a similar item in your inventory at home,  </h2>
+    <h2 class=text-center>you may be interested in other similar items including:</h2>
+    {% endif %}
+    <div class="basket">
     
-</div>
+      <div class="basket-labels">
+        <ul>
+          <li class="item item-heading">Item</li>
+          <li class="price">Price</li>
+          <li class="quantity">Quantity</li>
+          <li class="subtotal">Subtotal</li>
+        </ul>
+      </div>
+      
+      {% for product in product_list %} 
+      <div class="basket-product">
+        <div class="item">
 
+          <div class="product-details">
+            <h1><strong>{{ product[1] }}</strong></h1>
+            <p></p>
+            <p></p>
+           <span class="productid">Product ID: {{ product[0]}}</span>
+          </div>
+        </div>
+        <div class="price">{{ product[2]}}</div>
+        <div class="quantity">
+          <input type="number" value="0" min="0" class="quantity-field">
+        </div>
+        <div class="subtotal"></div>
+        <div class="remove">
+          <button>Remove</button>
+        </div>
+      </div>
+      {% endfor %} 
+      <div>
+          {% if no_need %}
+        <h2 class=text-center>That product or similar products in your inventory at home include:           </h2>
+        {% endif %}
+    </div>
+    <div id = 'table container' class = container></div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Current Inventory</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class='table table-striped table-bordered' id='inventory_table'>
 
-{% endblock %}
+              <thead id='table_header'>
+                  <tr><td>Order Date</td><td>Product</td><td>Product ID</td><td>Quantity</td><td>Q_Left</td><td>Trash</td></tr>
+              </thead>
+              <tfoot>
+                <tr id='footer_row'>
+    
+                </tr>
+              </tfoot>
+              <tbody id='table_body'>
+                {% for row in product_list2 %}
+                <tr><td>{{ row[0]}}</td><td>{{ row[1]}}</td>
+                    <td>{{ row[3]}}</td><td>{{ row[4]}}</td>
+                    <td>{{ row[5]}}</td><td>{{ row[6]}}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+ 
+    <aside>
+      <div class="summary">
+        <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div>
+        <div class="summary-subtotal">
+          <div class="subtotal-title">Subtotal</div>
+          <div class="subtotal-value final-value" id="basket-subtotal"></div>
+          <div class="subtotal-title">Taxes</div>
+          <div class="subtotal-value final-value" id="basket-taxes"></div>
+          <div class="summary-promo hide">
+            <div class="promo-title">Promotion</div>
+            <div class="promo-value final-value" id="basket-promo"></div>
+          </div>
+        </div>
 
+        <div class="summary-total">
+          <div class="total-title">Total</div>
+          <div class="total-value final-value" id="basket-total"></div>
+        </div>
+        <div class="summary-checkout">
+          <button class="checkout-cta">Go to Secure Checkout</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    
+  </script>
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/cart.js') }}"></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js'></script>
+    <script src="{{ url_for('static', filename='js/make_table2.js')  }}"></script> 
+</body>
 
-{% block scripts %}
-<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js'></script>
-
-{% endblock %}
+</html>

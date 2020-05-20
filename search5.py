@@ -14,7 +14,7 @@ import joblib
 def clean_product_data(df):
     
     products_df = df
-    products_df = products_df.drop(['Unnamed: 5'], axis = 1)
+
 
     
     products_df['product_name']=products_df['product_name'].map(lambda x: re.sub(r'\W+', ' ', x))
@@ -30,7 +30,7 @@ def clean_product_data(df):
     print(products_df.head())
     
     return products_df
-products_wm_path = os.path.join('Resources', "products_wm.csv")
+products_wm_path = os.path.join('Resources', "products_wad.csv")
 df = pd.read_csv(products_wm_path, index_col=False)
 df2 = clean_product_data(df)
 npdf2=df2.to_numpy()

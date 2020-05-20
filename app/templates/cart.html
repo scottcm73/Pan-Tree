@@ -19,10 +19,11 @@
           <li class="subtotal">Subtotal</li>
         </ul>
       </div>
+      {{ in_pro_json | safe }}
       {% for row in product_list %}
       <div class="basket-product">
         <div class="item">
-          
+
           <div class="product-details">
             <h1><strong><span class="item-quantity">0 </span>x {{ row[1] }}</strong></h1>
             <p></p>
