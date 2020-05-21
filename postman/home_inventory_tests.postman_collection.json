@@ -243,6 +243,97 @@
 				"description": "This data shows items are in home inventory or trash or wasted. \n"
 			},
 			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:5001/cart_thomas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5001/nutrient_per_order",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"nutrient_per_order"
+					]
+				},
+				"description": "This is the form for search."
+			},
+			"response": []
+		},
+		{
+			"name": " http://127.0.0.1:5001/nutrient_per_order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5001/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:5001/signup",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5001/cart_thomas2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"cart_thomas2"
+					]
+				},
+				"description": "Created signup page. However do not usually use it."
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:5001/cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5001/cart",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5001",
+					"path": [
+						"cart"
+					]
+				},
+				"description": "One of several checkout pages tested."
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
