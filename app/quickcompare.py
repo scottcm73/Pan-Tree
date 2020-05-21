@@ -60,7 +60,7 @@ class recommend():
         if self.no_need:
 
             
-            
+        #     
             for y in product_list2:
                 for x in product_list:
                     #same product_id
@@ -72,10 +72,11 @@ class recommend():
                 if a not in pro_list_copy2:
                     pro_list_copy2.append(a)
                         
-                    
-
-        print('pro_list_copy length')           # if my_pro_json[row2]['product_name'].count(term)>=1:
+            pro_list_copy=pro_list_copy2
+        else:
+            pro_list_copy=product_list
+        print('pro_list_copy')           # if my_pro_json[row2]['product_name'].count(term)>=1:
         print(len(pro_list_copy))           #     pro_json_copy.pop(row2)
-        return pro_list_copy2
+        return pro_list_copy
 
         
