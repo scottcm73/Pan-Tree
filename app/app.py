@@ -132,10 +132,10 @@ def cart():
 
     no_need=the_recommender.compare(product_array, product_array2, term, K)
 
-    product_list=the_recommender.recommender(product_list, product_list2, term)
+    the_product_list=the_recommender.recommender(product_list, product_list2, term)
     if no_need == True:
         print("It appears that you already have that in stock at home and may not need to purchase it.")
-    
+    product_list=the_product_list
     return render_template("cart2.html", name=current_user.username, 
         product_list=product_list, product_list2=product_list2, no_need=no_need, 
         product_array=product_array, product_array2=product_array2 )
