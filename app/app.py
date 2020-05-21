@@ -94,18 +94,15 @@ def dashboard():
 
     return render_template("dashboard.html", name=current_user.username)
 
-@app.route("/search")
-@login_required
+@app.route("/search", methods=['GET', 'POST'])
 def search():
-
 
     return render_template("search.html", name=current_user.username)
 
 
+
 @app.route("/shop", methods=['GET', 'POST'])
-@login_required
 def cart():
-#both searches together
     K = 10
     term = request.form.get('search')
     file_name2 = os.path.join("..", "Resources", "products_np_pro.pkl")
@@ -139,11 +136,9 @@ def cart():
     if no_need == True:
         print("It appears that you already have that in stock at home and may not need to purchase it.")
     
-  
     return render_template("cart2.html", name=current_user.username, 
         product_list=product_list, product_list2=product_list2, no_need=no_need, 
         product_array=product_array, product_array2=product_array2 )
-
 
 @app.route('/new_inventory_table')
 @login_required
