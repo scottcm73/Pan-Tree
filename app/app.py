@@ -56,14 +56,12 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-
         user = User.query.filter_by(username=form.username.data).first()
         if user:
             if check_password_hash(user.passw, form.password.data):
                 login_user(user, remember=form.remember.data)
                 return redirect("/dashboard")
             return "<h1> Invalid username or password. </h1>"
-
     return render_template("login.html", form=form)
 
 # signup not available yet.
@@ -81,29 +79,22 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
         return "<h2>New user has been created, please <a href='/login'>log in</a>.</h2>"
-
     return render_template("register.html", form=form)
 
 
 @app.route("/dashboard")
 @login_required
 def dashboard():
-
-
     return render_template("dashboard.html", name=current_user.username)
 
 @app.route("/search")
 @login_required
 def search():
-
-
     return render_template("search.html", name=current_user.username)
 
 @app.route("/search2")
 @login_required
 def the_in_search():
-
-
     return render_template("search2.html", name=current_user.username)
 
 @app.route("/shop", methods=['GET', 'POST'])
@@ -126,9 +117,6 @@ def cart():
         product_list.append(full_product_list[idxs[x]].tolist())
         print(product_list)
         #product_list.append(full_product_list[x][0])
-
-
-
     return render_template("cart.html", name=current_user.username, product_list=product_list)
 
 @app.route("/shop2", methods=['GET', 'POST'])
@@ -166,7 +154,6 @@ def table():
 @app.route("/budget_analysis")
 @login_required
 def budget_analysis():
-
     return render_template("budget_analysis.html", name=current_user.username)
 
 @app.route("/nutrient_plot")
@@ -181,27 +168,14 @@ def pantry_analytics():
 def test_james():
     return render_template("test_james.html", name=current_user.username)
 
-@app.route("/checkout")
-def checkout_page():
-    return render_template("checkout.html", name=current_user.username)
-
 @app.route("/cart")
 def cart_page():
     return render_template("cart.html", name=current_user.username)
+
+@app.route("/recipes")
+def recipe_page():
+    return render_template("recipes.html", name=current_user.username)
     
-@app.route("/shoppingcart")
-def shoppingcart():
-    return render_template("shoppingcart.html", name=current_user.username)
-
-@app.route("/cart_thomas")
-def cart_thomas():
-    return render_template("cart_thomas.html", name=current_user.username)
-
-
-
-
-
-
 
 @app.route("/budget_data")
 @login_required
